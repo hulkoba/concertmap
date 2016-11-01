@@ -1,5 +1,5 @@
-### Install Dependencies
-#### Android - Linux
+## Install Dependencies
+### For Android - Linux
 
 * install node
 `curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -`  
@@ -20,7 +20,7 @@ add the following lines to your `~./bashrc` file
 
 * make sure you have installed java  
 you can check it with `java -version`  
-    ** if not, install the jdk from `http://www.oracle.com/technetwork/java/javase/downloads/index.html` 
+    * if not, install the jdk from `http://www.oracle.com/technetwork/java/javase/downloads/index.html` 
 to `/usr/local/java/` ...   
 ... and add the PATH variables  
 `JAVA_HOME=/usr/local/java/jdk1.8.[version]`   
@@ -35,7 +35,7 @@ to `/usr/local/java/` ...
 `https://facebook.github.io/watchman/docs/install.html#build-install`
 
 
-### Testing the Installation
+## Testing the Installation
 Use the React Native command line interface to generate a new
 React Native project called "Concertmap",   
 then run `react-native run-android` inside the newly created folder.
