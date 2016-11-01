@@ -16,6 +16,7 @@ die Konzerte in variablen Entfernungen zur Person auf einer Karte oder Liste anz
     * Details zur Veranstaltung allgemein (Adresse, Beschreibung, Link, Preis...)      
     * TicketLink  
     * Dauer bis zur Ankunft in allen Varianten (Maps-API)
+
 * Detailansicht aus der Kartensicht heraus zeigt statt der Beschreibung den gezoomten Kartenausschnitt   
 
 
