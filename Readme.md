@@ -44,5 +44,5 @@ A common issue is that the packager is not started automatically when you run `r
 You can start it manually using `react-native start`.
 
 ### Change npm's default directory to another directory
-
 `https://docs.npmjs.com/getting-started/fixing-npm-permissions`
+
