@@ -1,5 +1,5 @@
-### Install Dependencies
-#### Android - Linux
+## Install Dependencies
+### For Android - Linux
 
 * install node
 `curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -`  
@@ -35,7 +35,7 @@ to `/usr/local/java/` ...
 `https://facebook.github.io/watchman/docs/install.html#build-install`
 
 
-### Testing the Installation
+## Testing the Installation
 Use the React Native command line interface to generate a new
 React Native project called "Concertmap",   
 then run `react-native run-android` inside the newly created folder.
