@@ -36,17 +36,14 @@ to `/usr/local/java/` ...
 
 
 ## Testing the Installation
-Use the React Native command line interface to generate a new
-React Native project called **Concertmap**,   
-then run `react-native run-android` inside the newly created folder.
+Use the React Native command line interface to generate a new React Native project called **Concertmap**, then run `react-native run-android` inside the newly created folder.
 
 A common issue is that the packager is not started automatically when you run `react-native run-android`.  
 You can start it manually using `react-native start`.
 
 ## start   
 Edit `index.android.js`  
-Doubletap **R** to reload   
-press menu button for dev menu  
+Doubletap **R** to reload press menu button for dev menu  
 
 ## Troubleshooting
 `https://github.com/facebook/react-native/issues/9336`   
@@ -70,6 +67,7 @@ strange error while starting `react-native start`
 {"code":"ENOSPC","errno":"ENOSPC","syscall":"watch /home/cobi/dev/concertmap/Concertmap/node_modules/react-native/node_modules/babel-preset-es2015-node/node_modules/babel-plugin-transform-es2015-function-name/node_modules/babel-runtime/core-js/array","filename":"/home/cobi/dev/concertmap/Concertmap/node_modules/react-native/node_modules/babel-preset-es2015-node/node_modules/babel-plugin-transform-es2015-function-name/node_modules/babel-runtime/core-js/array"}
 Error: watch /home/cobi/dev/concertmap/Concertmap/node_modules/react-native/node_modules/babel-preset-es2015-node/node_modules/babel-plugin-transform-es2015-function-name/node_modules/babel-runtime/core-js/array ENOSPC
    at exports._errnoException (util.js:907:11)...`    
+
 
 * watchman is a **dependency!**, so  
 `http://stackoverflow.com/questions/33592197/how-to-install-facebook-watchman-on-ubuntu`   
