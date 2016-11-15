@@ -10,7 +10,7 @@
 * if you have permission errors, follow these instructions below*
 
 * download and install Android Studio
-download from here: `https://developer.android.com/studio/index.html`  
+download from [here](https://developer.android.com/studio/index.html)  
 install instructions: `https://developer.android.com/studio/install.html`
     * Set up android paths  
 add the following lines to your `~./bashrc` file  
@@ -37,7 +37,7 @@ to `/usr/local/java/` ...
 
 ## Testing the Installation
 Use the React Native command line interface to generate a new
-React Native project called *Concertmap*,   
+React Native project called **Concertmap**,   
 then run `react-native run-android` inside the newly created folder.
 
 A common issue is that the packager is not started automatically when you run `react-native run-android`.  
@@ -45,7 +45,7 @@ You can start it manually using `react-native start`.
 
 ## start   
 Edit `index.android.js`  
-Doubletap *R* to reload   
+Doubletap **R** to reload   
 press menu button for dev menu  
 
 ## Troubleshooting
@@ -62,7 +62,7 @@ And then a I ran again `cd android && ./gradlew installDebug` my app started wor
 
 Will debug more and would update what is failing actually.
 
-*also*   
+**also**   
 `http://stackoverflow.com/questions/33965524/error-while-running-react-native-start`   
 
 strange error while starting `react-native start`  
@@ -71,7 +71,7 @@ strange error while starting `react-native start`
 Error: watch /home/cobi/dev/concertmap/Concertmap/node_modules/react-native/node_modules/babel-preset-es2015-node/node_modules/babel-plugin-transform-es2015-function-name/node_modules/babel-runtime/core-js/array ENOSPC
    at exports._errnoException (util.js:907:11)...`    
 
-* watchman is a *dependency!*, so  
+* watchman is a **dependency!**, so  
 `http://stackoverflow.com/questions/33592197/how-to-install-facebook-watchman-on-ubuntu`   
 or run the `install-watchman` script :)
 
