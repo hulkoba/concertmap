@@ -7,48 +7,115 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  StyleSheet,
+  ListView,
   Text,
-  View
+  View,
+  ActivityIndicator
 } from 'react-native';
 
-export default class Concertmap extends Component {
-  render() {
+import { styles } from './styles/styles';
+
+// Row comparison function
+const rowHasChanged = (r1, r2) => r1.id !== r2.id;
+
+// DataSource template object
+const ds = new ListView.DataSource({rowHasChanged});
+
+class Concertmap extends Component {
+
+  constructor (props) {
+    super(props);
+    this.dataSource = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
+  }
+
+  state = {
+    loading: true,
+    error: false,
+    titles: '',
+    movies: [],
+  };
+
+  componentDidMount() {   
+    this.getMoviesFromApiAsync();
+    /*try {
+      const response = await fetch('https://facebook.github.io/react-native/movies.json')
+      
+      const movies = await response.json()
+
+      this.setState({movies: movies})
+
+      const titles = movies.map(function(movie) {
+        return movie.title;
+      });
+
+      this.setState({loading: false, titles})
+    } catch (e) {
+      this.setState({loading: false, error: true})
+    }*/
+  }
+
+
+  getMoviesFromApiAsync = () => {
+    return fetch('https://facebook.github.io/react-native/movies.json')
+    .then((response) => response.json())
+    .then((responseJson) => {
+      
+      const movies = responseJson.movies.map(function(movie) {
+        return movie.title;
+      });
+      this.setState({ isLoading: false, titles: movies, movies: movies });
+      console.log('#### ', movies);
+      
+      return movies;
+    })
+    .catch((error) => {
+      console.error('error Message: ', error);
+      return error;
+    });
+  }
+
+  renderRow = (rowData) => {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
+      <Text style={styles.row}>
+        {rowData.text}
+      </Text>
+    )
+  }
+
+  render() {
+    const {titles, loading, error} = this.state
+    // Use the dataSource
+    const rows = this.dataSource.cloneWithRows(this.state.movies.list || []);
+    
+    if (loading) {
+      return (
+        <View style={styles.center}>
+          <ActivityIndicator animating={true} />
+        </View>
+      )
+    }
+
+    if (error) {
+      return (
+        <View style={styles.center}>
+          <Text>
+            Failed to load movies!
+          </Text>
+        </View>
+      )
+    }
+
+    return (
+      <View style={styles.cotainer}>
+        <ListView
+          dataSource={rows}
+          renderRow={this.renderRow}
+        />
       </View>
-    );
+    )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 22,
-    color: 'blue',
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
 
 AppRegistry.registerComponent('Concertmap', () => Concertmap);

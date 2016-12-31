@@ -34,6 +34,8 @@ to `/usr/local/java/` ...
 * install watchman (optional)  *haha*   
 [https://facebook.github.io/watchman/docs/install.html#build-install](https://facebook.github.io/watchman/docs/install.html#build-install)    
 
+* install react-native extension for VS Code   
+[https://marketplace.visualstudio.com/items?itemName=vsmobile.vscode-react-native](https://marketplace.visualstudio.com/items?itemName=vsmobile.vscode-react-native)
 
 ## Testing the Installation
 Use the React Native command line interface to generate a new React Native project called **Concertmap**,
