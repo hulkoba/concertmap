@@ -25,6 +25,7 @@ class Concertmap extends Component {
 
   constructor (props) {
     super(props);
+   
     this.dataSource = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
@@ -33,27 +34,21 @@ class Concertmap extends Component {
   state = {
     loading: true,
     error: false,
-    titles: '',
     movies: [],
+    position: 'unknown'
   };
+  
 
   componentDidMount() {   
+    /*navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.setState({position});
+      },
+      (error) => alert(error.message),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    );*/
+
     this.getMoviesFromApiAsync();
-    /*try {
-      const response = await fetch('https://facebook.github.io/react-native/movies.json')
-      
-      const movies = await response.json()
-
-      this.setState({movies: movies})
-
-      const titles = movies.map(function(movie) {
-        return movie.title;
-      });
-
-      this.setState({loading: false, titles})
-    } catch (e) {
-      this.setState({loading: false, error: true})
-    }*/
   }
 
 
@@ -62,32 +57,39 @@ class Concertmap extends Component {
     .then((response) => response.json())
     .then((responseJson) => {
       
-      const movies = responseJson.movies.map(function(movie) {
-        return movie.title;
-      });
-      this.setState({ isLoading: false, titles: movies, movies: movies });
-      console.log('#### ', movies);
-      
-      return movies;
+     this.setState({ loading: false, movies: responseJson.movies });      
+    
+     return responseJson;
     })
     .catch((error) => {
-      console.error('error Message: ', error);
+      alert(error.message);
+      this.setState({ error: true }); 
       return error;
     });
   }
 
-  renderRow = (rowData) => {
+  renderRow = (movies) => {
     return (
       <Text style={styles.row}>
-        {rowData.text}
+        {movies.title}
       </Text>
     )
   }
 
+  renderError = () => {
+    return (
+      <View style={styles.center}>
+          <Text>
+            Failed to load movies!
+          </Text>
+        </View>
+    )
+  }
+
   render() {
-    const {titles, loading, error} = this.state
+    const { movies, loading, error } = this.state
     // Use the dataSource
-    const rows = this.dataSource.cloneWithRows(this.state.movies.list || []);
+    const rows = this.dataSource.cloneWithRows(movies || []);
     
     if (loading) {
       return (
@@ -96,15 +98,8 @@ class Concertmap extends Component {
         </View>
       )
     }
-
     if (error) {
-      return (
-        <View style={styles.center}>
-          <Text>
-            Failed to load movies!
-          </Text>
-        </View>
-      )
+     this.renderError();
     }
 
     return (
@@ -112,9 +107,11 @@ class Concertmap extends Component {
         <ListView
           dataSource={rows}
           renderRow={this.renderRow}
+
         />
       </View>
     )
+  //}
   }
 }
 
