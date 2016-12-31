@@ -13,7 +13,7 @@ import {
   ActivityIndicator
 } from 'react-native';
 
-import { styles } from './styles/styles';
+import { styles, listStyles } from './styles/styles';
 
 // Row comparison function
 const rowHasChanged = (r1, r2) => r1.id !== r2.id;
@@ -24,11 +24,8 @@ const ds = new ListView.DataSource({rowHasChanged});
 class Concertmap extends Component {
 
   constructor (props) {
-    super(props);
-   
-    this.dataSource = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    });
+    super(props);   
+    this.dataSource = ds;
   }
 
   state = {
@@ -68,9 +65,10 @@ class Concertmap extends Component {
     });
   }
 
+  // render functions
   renderRow = (movies) => {
     return (
-      <Text style={styles.row}>
+      <Text style={listStyles.row}>
         {movies.title}
       </Text>
     )
@@ -79,10 +77,10 @@ class Concertmap extends Component {
   renderError = () => {
     return (
       <View style={styles.center}>
-          <Text>
-            Failed to load movies!
-          </Text>
-        </View>
+        <Text>
+          Failed to load movies!
+        </Text>
+      </View>
     )
   }
 
@@ -111,7 +109,6 @@ class Concertmap extends Component {
         />
       </View>
     )
-  //}
   }
 }
 

@@ -5,26 +5,34 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#363636',
   },
   center: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
+});
+
+export const listStyles = StyleSheet.create({
   row: {
     padding: 15,
-    marginBottom: 5,
-    backgroundColor: 'skyblue',
+    marginBottom: 1,
+    backgroundColor: '#1a1a1a',
+    fontFamily: 'Roboto',
+    fontSize: 22,
+    color: '#e6e6e6'
   },
-  welcome: {
-    color: 'blue',
-    textAlign: 'center',
-    margin: 10,
+  rowTitle: {
+    fontSize: 22,
+    color: '#e6e6e6'
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  rowSubTitle: {
+    fontSize: 14,
+    color: '#e6e6e6'
   },
+  rowText: {
+    fontSize: 10,
+    color: '#363636'
+  }
 });
