@@ -10,6 +10,16 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  tabBarText: {
+    fontFamily: 'Roboto',
+    fontWeight: 'normal',
+    fontSize: 16,
+    marginTop: 20
+  },
+  tabBarUnderline: {
+    backgroundColor: '#008bae',
+    height: 1,
+  }
 });
 
 export const listStyles = StyleSheet.create({
@@ -50,7 +60,7 @@ export const listStyles = StyleSheet.create({
   },
   distance: {
     fontSize: 14,
-    color: '#363636',
+    color: '#7d7d7d',
   },
   subTitle: {
     fontFamily: 'Roboto',

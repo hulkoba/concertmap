@@ -7,6 +7,8 @@ import {
   Navigaror,
 } from 'react-native';
 
+import ScrollableTabView from 'react-native-scrollable-tab-view';
+
 import { styles } from './styles/styles';
 import ConcertList from './scenes/ConcertList';
 
@@ -76,9 +78,16 @@ class Concertmap extends Component {
     }
 
     return (
-      <View style={styles.container}>
-        <ConcertList concerts={movies} title='List'/>
-      </View>
+      <ScrollableTabView
+        tabBarBackgroundColor='#1a1a1a'
+        tabBarActiveTextColor='#e6e6e6'
+        tabBarInactiveTextColor='#7d7d7d'
+        tabBarTextStyle={styles.tabBarText}
+        tabBarUnderlineStyle={styles.tabBarUnderline}>
+        
+        <ConcertList tabLabel="List" concerts={movies}  />
+        <ConcertList tabLabel="Map" concerts={movies}  />
+      </ScrollableTabView>
     )
   }
 }
