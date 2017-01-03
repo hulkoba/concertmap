@@ -10,7 +10,8 @@ import {
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 
 import { styles } from './styles/styles';
-import ConcertList from './scenes/ConcertList';
+import ConcertList from './components/ConcertList';
+import ConcertMap from './components/ConcertMap';
 
 
 class Concertmap extends Component {
@@ -22,15 +23,15 @@ class Concertmap extends Component {
     position: 'unknown'
   };
   
-
   componentDidMount() {   
-    /*navigator.geolocation.getCurrentPosition(
+    navigator.geolocation.getCurrentPosition(
       (position) => {
         this.setState({position});
+        alert(position.coords.lantitude, '\n', position.coords.longitude);
       },
       (error) => alert(error.message),
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-    );*/
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 3000}
+    );
 
     this.getMoviesFromApiAsync();
   }
@@ -86,7 +87,7 @@ class Concertmap extends Component {
         tabBarUnderlineStyle={styles.tabBarUnderline}>
         
         <ConcertList tabLabel="List" concerts={movies}  />
-        <ConcertList tabLabel="Map" concerts={movies}  />
+        <ConcertMap tabLabel="Map" concerts={movies}  />
       </ScrollableTabView>
     )
   }

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { ListView, View, Text, Image } from 'react-native';
 
-import { listStyles } from '../styles/styles';
+import { listStyles } from '../styles/listStyles';
 
 // Row comparison function
 const rowHasChanged = (r1, r2) => r1.id !== r2.id;
@@ -25,7 +25,7 @@ export default class ConcertList extends Component {
       <View style={listStyles.row}>
         <View style={listStyles.imageView}>
           <Image style={listStyles.image}
-            source={require('../styles/pugtato.png')} />
+            source={require('../img/pugtato.png')} />
         </View>
 
         <View style={listStyles.column}>
