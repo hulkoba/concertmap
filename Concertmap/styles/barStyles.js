@@ -27,6 +27,10 @@ export const barStyles = StyleSheet.create({
   }, 
   icon: {
     fontSize: 24, 
-    color: '#e6e6e6',
+    marginRight: 12,
+    color: '#e6e6e6',    
+  },
+  filterIcon: {
+    transform: [{ rotate: '90deg' }]
   } 
 });
