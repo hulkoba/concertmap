@@ -25,13 +25,29 @@ class Concertmap extends Component {
     loading: true,
     error: false,
     movies: [],
-    position: 'unknown',
-    lastPosition: 'unknown',
+    filter: ['heute', 'abend', '15km'],
+    //position: 'unknown',
+    //lastPosition: 'unknown',
   };
   // watchID: ? number = null; 
   
   componentDidMount() {   
-    /*navigator.geolocation.getCurrentPosition(
+    //this.getPosition();
+    this.getMoviesFromApiAsync();
+  }
+
+  /*componentWillUnmount() {
+    //navigator.geolocation.clearWatch(this.watchID);
+  }*/
+
+  // apply shouldComponentUpdate to prevent unnecessary re-renders.
+  // is ivoked before rendering
+  shouldComponentUpdate(nextProps, nextState) {
+   return true;
+  }
+
+  getPosition = () => {
+    navigator.geolocation.getCurrentPosition(
       (position) => {
         this.setState({position});
         alert(position.coords.lantitude, '\n', position.coords.longitude);
@@ -44,15 +60,7 @@ class Concertmap extends Component {
       var lastPosition = JSON.stringify(position);
       this.setState({lastPosition});
     });
-*/
-    this.getMoviesFromApiAsync();
   }
-
-  /*componentWillUnmount() {
-    //navigator.geolocation.clearWatch(this.watchID);
-  }*/
-
-
   getMoviesFromApiAsync = () => {
     return fetch('https://facebook.github.io/react-native/movies.json')
     .then((response) => response.json())
@@ -72,21 +80,25 @@ class Concertmap extends Component {
     });
   }
 
-
   _handleChangeTab = (index) => {
     this.setState({ index });
   };
 
+
   _renderHeader = (props) => {
-    return <TabBarTop {...props} />;
+    //return <ConcertBar filter={this.state.filter} />
+    return <TabBarTop {...props}
+      indicatorStyle={styles.indicator}
+      labelStyle={styles.tabBarText}
+      style={styles.tabBarTop}/>;
   };
 
   _renderScene = ({ route }) => {
     switch (route.key) {
     case '1':
-      return <ConcertList tabLabel="List" concerts={this.state.movies} />;
+      return <ConcertList concerts={this.state.movies} />;
     case '2':
-      return <ConcertMap tabLabel="Map" concerts={this.state.movies} />;
+      return <ConcertMap concerts={this.state.movies} />;
     default:
       return null;
     }
@@ -105,7 +117,6 @@ class Concertmap extends Component {
    // source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
   render() {
     const { movies, loading, error } = this.state
-    const filter = ['heute', 'abend', '15km'];
        
     if (loading) {
       return (
@@ -115,27 +126,17 @@ class Concertmap extends Component {
       )
     }
     if (error) {
-     //this.renderError();
+      this.renderError();
     }
 
     return ( 
       <TabViewAnimated
-        style={styles.container}
+        style={[ styles.container, this.props.style ]}
         navigationState={this.state}
         renderScene={this._renderScene}
         renderHeader={this._renderHeader}
         onRequestChangeTab={this._handleChangeTab}
       />
-      /*<ScrollableTabView
-        tabBarBackgroundColor='#1a1a1a'
-        tabBarActiveTextColor='#e6e6e6'
-        tabBarInactiveTextColor='#7d7d7d'
-        tabBarTextStyle={styles.tabBarText}
-        tabBarUnderlineStyle={styles.tabBarUnderline}>         
-       
-        <ConcertList tabLabel="List" concerts={movies}  />
-        <ConcertMap tabLabel="Map" concerts={movies}  />
-      </ScrollableTabView>*/
     )
   }
 }

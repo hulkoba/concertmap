@@ -5,7 +5,7 @@ export const mapStyles = StyleSheet.create({
    ...StyleSheet.absoluteFillObject,
    height: 400,
    width: 400,
-   marginTop: 2,
+   marginTop: 1,
    justifyContent: 'center',
    alignItems: 'center',
  },

@@ -10,15 +10,14 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  tabBarTop: {
+    zIndex: 0,
+    backgroundColor: '#1a1a1a',
+  },
   tabBarText: {
     fontFamily: 'Roboto',
-    fontWeight: 'normal',
-    fontSize: 16,
-    marginTop: 20,
   },
-  tabBarUnderline: {
+  indicator: {
     backgroundColor: '#008bae',
-    height: 2,
-  
   }
 });
