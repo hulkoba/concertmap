@@ -7,9 +7,12 @@ export const barStyles = StyleSheet.create({
     backgroundColor: '#1a1a1a',
     height: 30,
     flexDirection:'row',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',    
- 
+    justifyContent: 'space-between',
+   // justifyContent: 'flex-start',
+    alignItems: 'flex-start',     
+  },
+  filterRow: {
+    flexDirection:'row',
   },
   filter: {
     backgroundColor: '#008bae',
@@ -20,9 +23,10 @@ export const barStyles = StyleSheet.create({
     marginRight: 6,
     padding: 4,
     textAlign: 'center',
+    fontSize: 12,
   }, 
-  filterIcon: {
-
-  }
- 
+  icon: {
+    fontSize: 24, 
+    color: '#e6e6e6',
+  } 
 });

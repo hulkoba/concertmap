@@ -10,14 +10,7 @@ export default class ConcertFilter extends Component {
 
 		return (	
       <View style={barStyles.container}>
-        <View style={barStyles.bar}>
-          {filter.map((f) => {
-            return(
-              <Text style={barStyles.filter} key={f}>{f}</Text>
-              )
-          })}
-        </View>	
-
+        
         <View style={barStyles.settings}>
           {filter.map((f) => {
             return(

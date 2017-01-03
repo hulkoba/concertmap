@@ -20,8 +20,7 @@ class Concertmap extends Component {
     index: 0,
     routes: [
       { key: '1', title: 'List' },
-      { key: '2', title: 'Map' },
-      { key: '3', title: 'Filter' },
+      { key: '2', title: 'Map' },     
     ],
     loading: true,
     error: false,
@@ -100,8 +99,6 @@ class Concertmap extends Component {
     case '2':
       return <ConcertMap concerts={this.state.movies}
               filter={this.state.filter} />;
-    case '3':
-      return <ConcertFilter filter={this.state.filter} />;
     default:
       return null;
     }
