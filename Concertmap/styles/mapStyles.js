@@ -7,9 +7,11 @@ export const mapStyles = StyleSheet.create({
    width: 400,
    marginTop: 1,
    justifyContent: 'center',
-   alignItems: 'center',
+   alignItems: 'flex-start',
  },
  map: {
+   flex: 1,
+   marginTop: 55,
    ...StyleSheet.absoluteFillObject,
  },
 });

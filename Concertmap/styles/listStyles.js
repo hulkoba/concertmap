@@ -1,6 +1,13 @@
 import { StyleSheet } from 'react-native';
 
 export const listStyles = StyleSheet.create({
+  container: {
+    flex: 1,   
+  },
+  list: {
+    marginTop: 44,
+   ...StyleSheet.absoluteFillObject,
+  },
   row: {    
     padding: 14,
     paddingTop: 0,

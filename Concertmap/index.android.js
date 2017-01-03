@@ -12,7 +12,7 @@ import { TabViewAnimated, TabBarTop } from 'react-native-tab-view';
 import { styles } from './styles/styles';
 import ConcertList from './components/ConcertList';
 import ConcertMap from './components/ConcertMap';
-import ConcertBar from './components/ConcertBar';
+import ConcertFilter from './components/ConcertFilter';
 
 class Concertmap extends Component {
 
@@ -21,11 +21,12 @@ class Concertmap extends Component {
     routes: [
       { key: '1', title: 'List' },
       { key: '2', title: 'Map' },
+      { key: '3', title: 'Filter' },
     ],
     loading: true,
     error: false,
     movies: [],
-    filter: ['heute', 'abend', '15km'],
+    filter: ['Heute', 'Abend', '15 km'],
     //position: 'unknown',
     //lastPosition: 'unknown',
   };
@@ -84,9 +85,7 @@ class Concertmap extends Component {
     this.setState({ index });
   };
 
-
   _renderHeader = (props) => {
-    //return <ConcertBar filter={this.state.filter} />
     return <TabBarTop {...props}
       indicatorStyle={styles.indicator}
       labelStyle={styles.tabBarText}
@@ -96,9 +95,13 @@ class Concertmap extends Component {
   _renderScene = ({ route }) => {
     switch (route.key) {
     case '1':
-      return <ConcertList concerts={this.state.movies} />;
+      return <ConcertList concerts={this.state.movies}
+                filter={this.state.filter} />;
     case '2':
-      return <ConcertMap concerts={this.state.movies} />;
+      return <ConcertMap concerts={this.state.movies}
+              filter={this.state.filter} />;
+    case '3':
+      return <ConcertFilter filter={this.state.filter} />;
     default:
       return null;
     }
@@ -134,7 +137,7 @@ class Concertmap extends Component {
         style={[ styles.container, this.props.style ]}
         navigationState={this.state}
         renderScene={this._renderScene}
-        renderHeader={this._renderHeader}
+        renderHeader={this._renderHeader} 
         onRequestChangeTab={this._handleChangeTab}
       />
     )

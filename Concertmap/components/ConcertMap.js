@@ -3,18 +3,17 @@ import { View, Text, Image } from 'react-native';
 import MapView from 'react-native-maps';
 
 import { mapStyles } from '../styles/mapStyles';
+import ActiveFilter from './ActiveFilter';
 
 export default class ConcertMap extends Component {
-	static get defaultProps() {
-		return {
-			title: 'Map'
-		};
-	}
+
 
 	render() {
-		const { concerts, region } = this.props;
+		const { concerts, filter, region } = this.props;
 		return (
 			<View style={mapStyles.container}>
+				<ActiveFilter filter={filter} />
+
 				<MapView
          style={mapStyles.map}
          region={{

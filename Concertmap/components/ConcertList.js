@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { ListView, View, Text, Image } from 'react-native';
 
-import ConcertBar from './ConcertBar';
+import ActiveFilter from './ActiveFilter';
 import { listStyles } from '../styles/listStyles';
 
 // Row comparison function
@@ -16,10 +16,6 @@ export default class ConcertList extends Component {
     super(props);   
     this.dataSource = ds;
   }
-
-	static get defaultProps() {
-		return { title: 'List' };
-	}
 
 	renderRow = (concerts) => {
     return (
@@ -54,15 +50,19 @@ export default class ConcertList extends Component {
   }
 
 	render() {
-		const { concerts } = this.props;
-    const filter = ['wer', 'ist', 'hier'];
+		const { concerts, filter } = this.props;
+
 		// Use the dataSource
     const rows = this.dataSource.cloneWithRows(concerts || []);
-		return (      
-			<ListView
-				dataSource={rows}
-				renderRow={this.renderRow}
-			/> 
+		return (
+      <View style={listStyles.container}> 
+        <ActiveFilter filter={filter} />
+        <ListView
+          style={listStyles.list}
+          dataSource={rows}
+          renderRow={this.renderRow}
+        /> 
+      </View>
 		)
 	}
 }
