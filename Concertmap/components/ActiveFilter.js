@@ -20,7 +20,11 @@ export default class ActiveFilter extends Component {
           })}
         </View> 
 
-        <SimpleLineIcons name="equalizer" style={barStyles.icon} />
+        <View style={barStyles.filterRow}>
+          <SimpleLineIcons name="magnifier" style={barStyles.icon} />
+          <SimpleLineIcons name="equalizer"
+            style={[barStyles.icon, barStyles.filterIcon]} />
+        </View>
       </View>	
 		)
 	}
