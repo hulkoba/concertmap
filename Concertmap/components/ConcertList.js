@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { ListView, View, Text, Image } from 'react-native';
 
+import ConcertBar from './ConcertBar';
 import { listStyles } from '../styles/listStyles';
 
 // Row comparison function
@@ -54,13 +55,14 @@ export default class ConcertList extends Component {
 
 	render() {
 		const { concerts } = this.props;
+    const filter = ['wer', 'ist', 'hier'];
 		// Use the dataSource
     const rows = this.dataSource.cloneWithRows(concerts || []);
-		return (		
+		return (      
 			<ListView
 				dataSource={rows}
 				renderRow={this.renderRow}
-			/>	
+			/> 
 		)
 	}
 }

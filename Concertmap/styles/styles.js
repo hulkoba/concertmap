@@ -14,11 +14,11 @@ export const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     fontWeight: 'normal',
     fontSize: 16,
-    marginTop: 20
+    marginTop: 20,
   },
   tabBarUnderline: {
     backgroundColor: '#008bae',
-    height: 1,
-    zIndex: 1,
+    height: 2,
+  
   }
 });
