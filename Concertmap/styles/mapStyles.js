@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native';
 
 export const mapStyles = StyleSheet.create({
-   container: {   
+   container: {
    flex: 1,
  },
- map: {  
+ map: {
    marginTop: 44,
    ...StyleSheet.absoluteFillObject,
  },

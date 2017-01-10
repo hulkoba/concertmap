@@ -9,7 +9,7 @@ export const barStyles = StyleSheet.create({
     flexDirection:'row',
     justifyContent: 'space-between',
    // justifyContent: 'flex-start',
-    alignItems: 'flex-start',     
+    alignItems: 'flex-start',
   },
   filterRow: {
     flexDirection:'row',
@@ -24,13 +24,13 @@ export const barStyles = StyleSheet.create({
     padding: 4,
     textAlign: 'center',
     fontSize: 12,
-  }, 
+  },
   icon: {
-    fontSize: 24, 
+    fontSize: 24,
     marginRight: 12,
-    color: '#e6e6e6',    
+    color: '#e6e6e6',
   },
   filterIcon: {
     transform: [{ rotate: '90deg' }]
-  } 
+  }
 });

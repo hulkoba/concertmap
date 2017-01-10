@@ -7,22 +7,43 @@ import ActiveFilter from './ActiveFilter';
 
 export default class ConcertMap extends Component {
 
-
 	render() {
 		const { concerts, filter, region } = this.props;
+
+     /* const movies = responseJson.movies;
+      movies.map(movie => (
+        {...movie},
+        latLng: {
+          latitude: 52.5451157,
+          longitude: 13.355231799,
+        }));
+      alert(JSON.stringify(movies[0]));*/
 		return (
 			<View style={mapStyles.container}>
 				<ActiveFilter filter={filter} />
 
 				<MapView
          style={mapStyles.map}
-         region={{
-           latitude: 47.78825,
-           longitude: 52.4324,
-           latitudeDelta: 0.015,
-           longitudeDelta: 0.0121,
-         }}
+         region={region}
+         showsIndoors={false}
+         cacheEnabled={true}
+         //loadingEnabled={true}
+         showsUserLocation={true}
+         followUserLocation={true}
+         showsScale={true}
+         loadingIndicatorColor='#008bae'
        >
+       {concerts.map(concert => (
+         <MapView.Marker
+            key={concert.title}
+            coordinate={{
+                latitude: 52.5451157,
+                longitude: 13.355231799
+            }}
+            title={concert.title}
+            image={require('../img/marker.png')}
+            />
+       ))}
        </MapView>
 			</View>
 		)

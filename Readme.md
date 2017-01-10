@@ -79,3 +79,9 @@ or run the `install-watchman` script :)
 
 ### Change npm's default directory to another directory
 [https://docs.npmjs.com/getting-started/fixing-npm-permissions](https://docs.npmjs.com/getting-started/fixing-npm-permissions)
+
+### Präentation
+* idee und Anforderungen: 1 Folie
+* Architektur (client, services)
+* Technologien für Umsetzung (react-native)
+

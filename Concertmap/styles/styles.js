@@ -10,7 +10,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  tabBarTop: {  
+  tabBarTop: {
+    zIndex: 0,
     backgroundColor: '#1a1a1a',
   },
   tabBarText: {
@@ -19,5 +20,4 @@ export const styles = StyleSheet.create({
   indicator: {
     backgroundColor: '#008bae',
   },
-  
 });
