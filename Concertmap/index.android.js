@@ -4,7 +4,7 @@ import {
   Text,
   View,
   ActivityIndicator,
-  Navigaror,
+  Navigator,
 } from 'react-native';
 
 import { TabViewAnimated, TabBarTop } from 'react-native-tab-view';
@@ -12,7 +12,6 @@ import { TabViewAnimated, TabBarTop } from 'react-native-tab-view';
 import { styles } from './styles/styles';
 import ConcertList from './components/ConcertList';
 import ConcertMap from './components/ConcertMap';
-import ConcertFilter from './components/ConcertFilter';
 
 class Concertmap extends Component {
 
@@ -36,11 +35,11 @@ class Concertmap extends Component {
     this.getMoviesFromApiAsync();
     this.setState({
       position: {
-      latitude: 52.5451157,
-      longitude: 13.355231799,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421
-    },
+        latitude: 52.5451157,
+        longitude: 13.355231799,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421
+      },
     })
   }
 
@@ -73,12 +72,12 @@ class Concertmap extends Component {
     return fetch('https://facebook.github.io/react-native/movies.json')
     .then((response) => response.json())
     .then((responseJson) => {
-      
+
      this.setState({
        loading: false,
        movies: responseJson.movies
       });
-    
+
      return responseJson;
     })
     .catch((error) => {

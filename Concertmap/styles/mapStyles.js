@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export const mapStyles = StyleSheet.create({
+export const map = StyleSheet.create({
    container: {
    flex: 1,
  },

@@ -1,27 +1,29 @@
 import { StyleSheet } from 'react-native';
 
-export const listStyles = StyleSheet.create({
+export const list = StyleSheet.create({
   container: {
-    flex: 1,   
+    flex: 1,
   },
   list: {
     marginTop: 44,
    ...StyleSheet.absoluteFillObject,
   },
-  row: {    
+  row: {
     padding: 14,
     paddingTop: 0,
     backgroundColor: '#1a1a1a',
     flexDirection: 'row',
   },
-  column: {    
+  column: {
     flex: 1,
     flexDirection: 'column',
     marginLeft: 40,
-    borderBottomWidth: 1,
-    borderBottomColor: '#363636',
-    paddingVertical: 15,
-    paddingRight: 15,
+    paddingVertical: 10,
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#363636',
+    marginHorizontal: 25,
   },
   image: {
     width: 75,
@@ -35,13 +37,13 @@ export const listStyles = StyleSheet.create({
   titleRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',    
+    alignItems: 'flex-start',
     flex: 1
   },
-  title: {    
+  title: {
     fontFamily: 'Roboto',
     fontSize: 22,
-    color: '#e6e6e6',    
+    color: '#e6e6e6',
   },
   distance: {
     fontSize: 14,
