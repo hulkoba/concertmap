@@ -10,14 +10,31 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  tabBarTop: {
-    zIndex: 0,
+  tabBar: {
     backgroundColor: '#1a1a1a',
   },
-  tabBarText: {
+  tabText: {
     fontFamily: 'Roboto',
+		fontSize: 22,
+		color: '#7d7d7d',
+		paddingHorizontal: 66,
+		marginTop: 12,
+		borderBottomColor: '#7d7d7d',
+		borderBottomWidth: 4,
+		paddingBottom: 12,
   },
-  indicator: {
-    backgroundColor: '#008bae',
-  },
+	tabTextActive: {
+		color: '#e6e6e6',
+		borderBottomColor: '#008bae',
+		borderBottomWidth: 4,
+		fontFamily: 'Roboto',
+		fontSize: 22,
+		paddingHorizontal: 66,
+		marginTop: 12,
+		paddingBottom: 12,
+	},
+	dsplNone: {
+		width: 0,
+	},
+
 });

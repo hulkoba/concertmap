@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, ActivityIndicator, Navigator } from 'react-native';
+import { TouchableHighlight, Text, View, ActivityIndicator, Navigator } from 'react-native';
 import { TabViewAnimated, TabBarTop } from 'react-native-tab-view';
 
 import ConcertMap from './ConcertMap';
@@ -9,11 +9,6 @@ import { styles } from '../styles/styles.js';
 export default class Concerts extends Component {
 
   state = {
-    index: 0,
-    routes: [
-      { key: '1', title: 'List' },
-      { key: '2', title: 'Map' },
-    ],
     loading: true,
     error: false,
     movies: [],
@@ -24,7 +19,7 @@ export default class Concerts extends Component {
   // watchID: ? number = null;
 
   componentDidMount() {
-    this.getPosition();
+   // this.getPosition();
     this.getMoviesFromApiAsync();
     this.setState({
       position: {
@@ -36,15 +31,10 @@ export default class Concerts extends Component {
     })
   }
 
+
   /*componentWillUnmount() {
     //navigator.geolocation.clearWatch(this.watchID);
   }*/
-
-  // apply shouldComponentUpdate to prevent unnecessary re-renders.
-  // is ivoked before rendering
-  shouldComponentUpdate(nextProps, nextState) {
-   return true;
-  }
 
   getPosition = () => {
     navigator.geolocation.getCurrentPosition(
@@ -70,54 +60,43 @@ export default class Concerts extends Component {
        loading: false,
        movies: responseJson.movies
       });
-
      return responseJson;
     })
     .catch((error) => {
-      alert('load movies failed \n',JSON.stringify(error));
       this.setState({ error: true });
       return error;
     });
   }
 
-  _handleChangeTab = (index) => {
-    this.setState({ index });
-  };
-
-  _renderHeader = (props) => {
-    return <TabBarTop {...props}
-      indicatorStyle={styles.indicator}
-      labelStyle={styles.tabBarText}
-      style={styles.tabBarTop}/>;
-  };
-
-  _renderScene = ({ route }) => {
-    switch (route.key) {
-    case '1':
-      return <ConcertList concerts={this.state.movies}
-                filter={this.state.filter} />;
-    case '2':
-      return <ConcertMap concerts={this.state.movies}
-              filter={this.state.filter}
-              region={this.state.position}/>;
-    default:
+  renderScene = (route, navigator, index) => {
+    switch (route.index) {
+    case 0:
+      return <ConcertList
+							 concerts={this.state.movies}
+               filter={this.state.filter}
+							 navigator={navigator}
+							/>;
+    case 1:
+      return <ConcertMap
+							concerts={this.state.movies}
+             	filter={this.state.filter}
+              region={this.state.position}
+							navigator={navigator}
+						/>;
+		default:
       return null;
     }
   };
 
-  renderError = () => {
-    return (
-      <View style={styles.center}>
-        <Text>
-          Failed to load Gigs!
-        </Text>
-      </View>
-    )
-  }
-
    // source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
   render() {
     const { movies, loading, error } = this.state
+		const routes = [
+			{title: 'List', index: 0},
+			{title: 'Map', index: 1},
+		/*	{title: 'ListDetail', index: 2},
+			{title: 'MapDetail', index: 3},*/
+		];
 
     if (loading) {
       return (
@@ -127,16 +106,54 @@ export default class Concerts extends Component {
       )
     }
     if (error) {
-      this.renderError();
+      return (
+				<View style={styles.center}>
+					<Text>Failed to load Gigs!</Text>
+				</View>
+			)
     }
 
     return (
-     <TabViewAnimated
-        style={[ styles.container, this.props.style ]}
-        navigationState={this.state}
-        renderScene={this._renderScene}
-        renderHeader={this._renderHeader}
-        onRequestChangeTab={this._handleChangeTab}
+			 <Navigator
+					initialRoute={routes[0]}
+				 	initialRouteStack={routes}
+					renderScene={this.renderScene}
+				 navigationBar={
+					<Navigator.NavigationBar
+						routeMapper={{
+							LeftButton: (route, navigator, index, navState) => {
+								if (route.index === 0) {
+									return <Text style={styles.tabTextActive}>Liste</Text>;
+								} else {
+									return (
+										<TouchableHighlight onPress={() => navigator.pop()}>
+											<Text style={styles.tabText}>Liste</Text>
+										</TouchableHighlight>
+									);
+								}
+							},
+							RightButton: (route, navigator, index, navState) => {
+								if (route.index === 1) {
+									return <Text style={styles.tabTextActive}>Karte</Text>;
+								} else {
+									return (
+										<TouchableHighlight onPress={() => {
+												if (route.index === 0) {
+													navigator.push(routes[1]);
+												} else {
+													navigator.pop();
+												}
+											}}>
+											<Text style={styles.tabText}>Karte</Text>
+										</TouchableHighlight>);
+								}
+							},
+							Title: (route, navigator, index, navState) => {
+								return (<Text style={styles.dsplNone}>.</Text>);
+							},
+						}}
+						style={styles.tabBar}
+					/> }
       />
     )
   }
