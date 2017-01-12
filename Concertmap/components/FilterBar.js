@@ -5,7 +5,7 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
 import { barStyles } from '../styles/barStyles';
 
-export default class ActiveFilter extends Component {
+export default class FilterBar extends Component {
 
 	render() {
 		const { filter } = this.props;
@@ -30,6 +30,6 @@ export default class ActiveFilter extends Component {
 	}
 }
 
-ActiveFilter.propTypes = {
+FilterBar.propTypes = {
   filter: PropTypes.array.isRequired,
 };

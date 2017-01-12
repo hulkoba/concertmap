@@ -3,7 +3,7 @@ import { View, Text, Image } from 'react-native';
 import MapView from 'react-native-maps';
 
 import { map } from '../styles/mapStyles';
-import ActiveFilter from './ActiveFilter';
+import FilterBar from './FilterBar';
 
 export default class ConcertMap extends Component {
 
@@ -16,17 +16,17 @@ export default class ConcertMap extends Component {
 
 		return (
 			<View style={map.container}>
-				<ActiveFilter filter={filter} />
+				<FilterBar filter={filter} />
 
 				<MapView
-         style={map.map}
-         region={region}
-         showsIndoors={false}
-         showsUserLocation={true}
-         followUserLocation={true}
-         showsScale={true}
-         loadingIndicatorColor='#008bae'
-       >
+					style={map.map}
+					region={region}
+					showsIndoors={false}
+					showsUserLocation={true}
+					followUserLocation={true}
+					showsScale={true}
+					loadingIndicatorColor='#008bae'
+       	>
        {concerts.map(concert => (
          <MapView.Marker
             identifier={concert.title}

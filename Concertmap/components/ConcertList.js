@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { TouchableHighlight, ListView, View, Text, Image } from 'react-native';
 
-import ActiveFilter from './ActiveFilter';
+import FilterBar from './FilterBar';
 import { list } from '../styles/listStyles';
 
 // Row comparison function
@@ -68,7 +68,7 @@ export default class ConcertList extends Component {
     const rows = this.dataSource.cloneWithRows(concerts || []);
 		return (
       <View style={list.container}>
-        <ActiveFilter filter={filter} />
+        <FilterBar filter={filter} />
         <ListView
           style={list.list}
           dataSource={rows}
