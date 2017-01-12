@@ -9,9 +9,11 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#1a1a1a',
   },
   tabBar: {
     backgroundColor: '#1a1a1a',
+		zIndex: 0.
   },
   tabText: {
     fontFamily: 'Roboto',

@@ -115,6 +115,8 @@ export default class Concerts extends Component {
 
     return (
 			 <Navigator
+				 sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.TotalNavHeight}}
+				 	style={styles.tabBar}
 					initialRoute={routes[0]}
 				 	initialRouteStack={routes}
 					renderScene={this.renderScene}
@@ -126,7 +128,7 @@ export default class Concerts extends Component {
 									return <Text style={styles.tabTextActive}>Liste</Text>;
 								} else {
 									return (
-										<TouchableHighlight onPress={() => navigator.pop()}>
+										<TouchableHighlight onPress={() => navigator.jumpBack()}>
 											<Text style={styles.tabText}>Liste</Text>
 										</TouchableHighlight>
 									);
@@ -153,7 +155,8 @@ export default class Concerts extends Component {
 							},
 						}}
 						style={styles.tabBar}
-					/> }
+					/>
+				}
       />
     )
   }
