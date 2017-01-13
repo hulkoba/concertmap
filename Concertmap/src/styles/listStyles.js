@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { colors } from './colors';
 
 export const list = StyleSheet.create({
   container: {
@@ -11,7 +12,7 @@ export const list = StyleSheet.create({
   row: {
     padding: 14,
     paddingTop: 0,
-    backgroundColor: '#1a1a1a',
+    backgroundColor: colors.black,
     flexDirection: 'row',
   },
   column: {
@@ -22,7 +23,7 @@ export const list = StyleSheet.create({
   },
   separator: {
     height: 1,
-    backgroundColor: '#363636',
+    backgroundColor: colors.grey,
     marginHorizontal: 25,
   },
   image: {
@@ -43,20 +44,20 @@ export const list = StyleSheet.create({
   title: {
     fontFamily: 'Roboto',
     fontSize: 22,
-    color: '#e6e6e6',
+    color: colors.white,
   },
   distance: {
     fontSize: 14,
-    color: '#7d7d7d',
+    color: colors.lightGrey,
   },
   subTitle: {
     fontFamily: 'Roboto',
     fontSize: 14,
-    color: '#e6e6e6'
+    color: colors.white
   },
   description: {
     fontFamily: 'Roboto',
     fontSize: 10,
-    color: '#363636',
+    color: colors.grey,
   },
 });

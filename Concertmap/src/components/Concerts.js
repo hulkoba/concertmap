@@ -4,6 +4,7 @@ import { TabViewAnimated, TabBarTop } from 'react-native-tab-view';
 
 import ConcertMap from './ConcertMap';
 import ConcertList from './ConcertList';
+import ListDetail from './ListDetail';
 import { styles } from '../styles/styles.js';
 
 export default class Concerts extends Component {
@@ -81,6 +82,11 @@ export default class Concerts extends Component {
 							concerts={this.state.movies}
              	filter={this.state.filter}
               region={this.state.position}
+							navigator={navigator}
+						/>;
+		case 2:
+      return <ListDetail
+							{...route.data}
 							navigator={navigator}
 						/>;
 		default:

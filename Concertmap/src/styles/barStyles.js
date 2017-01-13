@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native';
+import { colors } from './colors';
 
-export const barStyles = StyleSheet.create({
+export const filterBar = StyleSheet.create({
   bar: {
     flex: 1,
     paddingTop: 10,
-    backgroundColor: '#1a1a1a',
+    backgroundColor: colors.black,
     height: 30,
     flexDirection:'row',
     justifyContent: 'space-between',
@@ -15,8 +16,8 @@ export const barStyles = StyleSheet.create({
     flexDirection:'row',
   },
   filter: {
-    backgroundColor: '#008bae',
-    color: '#e6e6e6',
+    backgroundColor: colors.blue,
+    color: colors.white,
     borderRadius: 5,
     width: 55,
     height: 26,
@@ -28,7 +29,7 @@ export const barStyles = StyleSheet.create({
   icon: {
     fontSize: 24,
     marginRight: 12,
-    color: '#e6e6e6',
+    color: colors.white,
   },
   filterIcon: {
     transform: [{ rotate: '90deg' }]

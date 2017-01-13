@@ -1,33 +1,34 @@
 import { StyleSheet } from 'react-native';
+import { colors } from './colors';
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1a1a1a',
+    backgroundColor: colors.black,
   },
   center: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#1a1a1a',
+    backgroundColor: colors.black,
   },
   tabBar: {
-    backgroundColor: '#1a1a1a',
+    backgroundColor: colors.black,
 		zIndex: 0.
   },
   tabText: {
     fontFamily: 'Roboto',
 		fontSize: 22,
-		color: '#7d7d7d',
+		color: colors.lightGrey,
 		paddingHorizontal: 66,
 		marginTop: 12,
-		borderBottomColor: '#7d7d7d',
+		borderBottomColor: colors.lightGrey,
 		borderBottomWidth: 4,
 		paddingBottom: 12,
   },
 	tabTextActive: {
-		color: '#e6e6e6',
-		borderBottomColor: '#008bae',
+		color: colors.white,
+		borderBottomColor: colors.blue,
 		borderBottomWidth: 4,
 		fontFamily: 'Roboto',
 		fontSize: 22,

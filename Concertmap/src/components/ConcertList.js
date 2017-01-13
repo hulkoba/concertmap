@@ -54,7 +54,7 @@ export default class ConcertList extends Component {
     this.props.navigator.push({
         title: 'ListDetail',
         component: ListDetail,
-        passProps: {concert: gig}
+        data: {concert: gig}
       });
   }
 
