@@ -50,14 +50,13 @@ export default class ConcertList extends Component {
     </TouchableHighlight>
   )
 
-  rowPressed(gig) {
-    if(gig) {
-      this.props.navigator.push({
-        title: 'ListDetail',
-        index: 2,
-        data: {concert: gig}
-      });
-    }
+  rowPressed(concert) {
+
+    this.props.navigator.push({
+      title: 'ListDetail',
+      index: 2,
+      data: concert
+    });
   }
 
 	render() {

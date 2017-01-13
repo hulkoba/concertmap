@@ -6,7 +6,6 @@ import { list } from '../styles/listStyles';
 export default class ListDetail extends Component {
 	render() {
 		const { concert } = this.props;
-		alert('render Detail!');
 
 		return (
       <View style={list.container}>
@@ -16,7 +15,7 @@ export default class ListDetail extends Component {
             source={require('../img/pugtato.png')} />
         </View>
         <Text style={list.title}>
-          {concert ? concert.title : 'Hallo'}
+          {concert.title}
         </Text>
 
       </View>

@@ -85,8 +85,7 @@ export default class Concerts extends Component {
           region={this.state.position}
         />;
 		  case 2:
-        alert(JSON.stringify(route));
-        return <ListDetail />;
+        return <ListDetail concert={route.data}/>;
 		  default:
         return null;
     }
@@ -98,7 +97,7 @@ export default class Concerts extends Component {
 		const routes = [
 			{title: 'List', index: 0},
 			{title: 'Map', index: 1},
-			{title: 'ListDetail', index: 2},
+			{title: 'ListDetail', index: 2, data: {}},
 		/*	{title: 'MapDetail', index: 3},*/
 		];
 
@@ -112,7 +111,7 @@ export default class Concerts extends Component {
     if (error) {
       return (
 				<View style={styles.center}>
-					<Text>Failed to load Gigs!</Text>
+					<Text>Konnte keine Konzerte laden!</Text>
 				</View>
 			)
     }
