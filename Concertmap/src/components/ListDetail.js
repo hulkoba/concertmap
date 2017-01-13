@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
-import { TouchableHighlight, ListView, View, Text, Image } from 'react-native';
+import { TouchableHighlight, View, Text, Image } from 'react-native';
 
 import { list } from '../styles/listStyles';
 
 export default class ListDetail extends Component {
 	render() {
 		const { concert } = this.props;
-		alert(JSON.stringify(concert));
+		alert('render Detail!');
 
 		return (
       <View style={list.container}>
@@ -15,19 +15,15 @@ export default class ListDetail extends Component {
           <Image style={list.image}
             source={require('../img/pugtato.png')} />
         </View>
+        <Text style={list.title}>
+          {concert ? concert.title : 'Hallo'}
+        </Text>
 
-				<Text style={list.title}>
-					{gig.title}
-				</Text>
-
-				<Text style={list.subTitle}>
-					{gig.releaseYear}
-				</Text>
       </View>
 		)
 	}
 }
 
 ListDetail.propTypes = {
-  concert: PropTypes.object.isRequired
+  concert: PropTypes.object
 };

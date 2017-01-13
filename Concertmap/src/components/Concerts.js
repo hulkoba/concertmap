@@ -70,27 +70,25 @@ export default class Concerts extends Component {
   }
 
   renderScene = (route, navigator, index) => {
+
     switch (route.index) {
-    case 0:
-      return <ConcertList
-							 concerts={this.state.movies}
-               filter={this.state.filter}
-							 navigator={navigator}
-							/>;
-    case 1:
-      return <ConcertMap
-							concerts={this.state.movies}
-             	filter={this.state.filter}
-              region={this.state.position}
-							navigator={navigator}
-						/>;
-		case 2:
-      return <ListDetail
-							{...route.data}
-							navigator={navigator}
-						/>;
-		default:
-      return null;
+      case 0:
+        return <ConcertList
+           concerts={this.state.movies}
+           filter={this.state.filter}
+           navigator={navigator}
+          />;
+      case 1:
+        return <ConcertMap
+          concerts={this.state.movies}
+          filter={this.state.filter}
+          region={this.state.position}
+        />;
+		  case 2:
+        alert(JSON.stringify(route));
+        return <ListDetail />;
+		  default:
+        return null;
     }
   };
 
@@ -100,8 +98,8 @@ export default class Concerts extends Component {
 		const routes = [
 			{title: 'List', index: 0},
 			{title: 'Map', index: 1},
-		/*	{title: 'ListDetail', index: 2},
-			{title: 'MapDetail', index: 3},*/
+			{title: 'ListDetail', index: 2},
+		/*	{title: 'MapDetail', index: 3},*/
 		];
 
     if (loading) {
@@ -121,13 +119,13 @@ export default class Concerts extends Component {
 
     return (
 			 <Navigator
-				 sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.TotalNavHeight}}
+				  sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.TotalNavHeight}}
 				 	style={styles.tabBar}
 					initialRoute={routes[0]}
 				 	initialRouteStack={routes}
 					renderScene={this.renderScene}
-				 navigationBar={
-					<Navigator.NavigationBar
+				  navigationBar={
+					 <Navigator.NavigationBar
 						routeMapper={{
 							LeftButton: (route, navigator, index, navState) => {
 								if (route.index === 0) {
@@ -160,7 +158,6 @@ export default class Concerts extends Component {
 								return (<Text style={styles.dsplNone}>.</Text>);
 							},
 						}}
-						style={styles.tabBar}
 					/>
 				}
       />

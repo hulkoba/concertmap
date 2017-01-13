@@ -51,11 +51,13 @@ export default class ConcertList extends Component {
   )
 
   rowPressed(gig) {
-    this.props.navigator.push({
+    if(gig) {
+      this.props.navigator.push({
         title: 'ListDetail',
-        component: ListDetail,
+        index: 2,
         data: {concert: gig}
       });
+    }
   }
 
 	render() {
