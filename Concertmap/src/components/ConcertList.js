@@ -34,7 +34,7 @@ export default class ConcertList extends Component {
             <Text style={fonts.title}>
               {gig.title}
             </Text>
-            <Text style={list.info}>
+            <Text style={fonts.info}>
               {'900'}{'m'}
             </Text>
           </View>

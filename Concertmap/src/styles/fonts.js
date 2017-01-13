@@ -3,7 +3,7 @@ import { colors } from './colors';
 
 export const fonts = StyleSheet.create({
   title: {
-    fontSize: 22,
+    fontSize: 20,
     fontFamily: 'Roboto',
     color: colors.white,
   },
@@ -12,8 +12,13 @@ export const fonts = StyleSheet.create({
     fontSize: 14,
     color: colors.white
   },
+  importantInfo: {
+    fontFamily: 'Roboto',
+    fontSize: 12,
+    color: colors.white
+  },
   info: {
-    fontSize: 14,
+    fontSize: 12,
     color: colors.lightGrey,
   },
   description: {
@@ -21,4 +26,10 @@ export const fonts = StyleSheet.create({
     fontSize: 10,
     color: colors.grey,
   },
+  link: {
+    fontFamily: 'Roboto',
+    fontSize: 12,
+    color: colors.blue,
+    paddingVertical: 12,
+  }
 });
