@@ -36,6 +36,26 @@ export const styles = StyleSheet.create({
 		marginTop: 12,
 		paddingBottom: 12,
 	},
+  tabTextShare: {
+    marginTop: 12,
+    marginRight: 12,
+		paddingBottom: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  tabTextBack: {
+    marginTop: 6,
+    color: colors.white,
+    fontSize: 14,
+    fontFamily: 'Roboto',
+    marginLeft: 6,
+  },
+  icon: {
+    color: colors.blue,
+    fontSize: 18,
+    fontFamily: 'Roboto',
+    marginRight: 6,
+  },
 	dsplNone: {
 		width: 0,
 	},

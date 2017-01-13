@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { TouchableHighlight, Text, View, ActivityIndicator, Navigator } from 'react-native';
-import { TabViewAnimated, TabBarTop } from 'react-native-tab-view';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
 import ConcertMap from './ConcertMap';
 import ConcertList from './ConcertList';
@@ -70,7 +70,6 @@ export default class Concerts extends Component {
   }
 
   renderScene = (route, navigator, index) => {
-
     switch (route.index) {
       case 0:
         return <ConcertList
@@ -89,6 +88,10 @@ export default class Concerts extends Component {
 		  default:
         return null;
     }
+  };
+
+  shareConcert = (data) => {
+    alert(JSON.stringify(data));
   };
 
    // source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
@@ -127,31 +130,54 @@ export default class Concerts extends Component {
 					 <Navigator.NavigationBar
 						routeMapper={{
 							LeftButton: (route, navigator, index, navState) => {
-								if (route.index === 0) {
-									return <Text style={styles.tabTextActive}>Liste</Text>;
-								} else {
-									return (
-										<TouchableHighlight onPress={() => navigator.jumpBack()}>
-											<Text style={styles.tabText}>Liste</Text>
-										</TouchableHighlight>
-									);
-								}
+                switch(route.index) {
+                  case 0:
+									 return <Text style={styles.tabTextActive}>Liste</Text>;
+                  case 1:
+                    return (
+                      <TouchableHighlight onPress={() => navigator.jumpBack()}>
+                        <Text style={styles.tabText}>Liste</Text>
+                      </TouchableHighlight>
+                    );
+                  case 2:
+                    return (
+                      <TouchableHighlight onPress={() => navigator.pop()}>
+                        <View style={styles.tabTextShare}>
+                          <SimpleLineIcons name="arrow-left" style={styles.tabTextBack} />
+                          <Text style={styles.tabTextBack}>ZURÜCK</Text>
+                        </View>
+                      </TouchableHighlight>);
+
+                  default:
+                    break;
+                }
 							},
 							RightButton: (route, navigator, index, navState) => {
-								if (route.index === 1) {
-									return <Text style={styles.tabTextActive}>Karte</Text>;
-								} else {
-									return (
-										<TouchableHighlight onPress={() => {
-												if (route.index === 0) {
-													navigator.push(routes[1]);
-												} else {
-													navigator.pop();
-												}
-											}}>
-											<Text style={styles.tabText}>Karte</Text>
-										</TouchableHighlight>);
-								}
+                switch(route.index) {
+                  case 0:
+                    return (
+                      <TouchableHighlight onPress={() => {
+                          if (route.index === 0) {
+                            navigator.push(routes[1]);
+                          } else {
+                            navigator.pop();
+                          }
+                        }}>
+                        <Text style={styles.tabText}>Karte</Text>
+                      </TouchableHighlight>);
+                  case 1:
+                    return <Text style={styles.tabTextActive}>Karte</Text>;
+                  case 2:
+                     return (
+                      <TouchableHighlight onPress={() => this.shareConcert(route.data)}>
+                        <View style={styles.tabTextShare} >
+                          <SimpleLineIcons name="share" style={styles.icon} />
+                          <Text style={styles.icon}>Teilen</Text>
+                        </View>
+                      </TouchableHighlight>);
+                  default:
+                    break;
+                }
 							},
 							Title: (route, navigator, index, navState) => {
 								return (<Text style={styles.dsplNone}>.</Text>);
