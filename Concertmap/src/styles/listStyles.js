@@ -41,23 +41,4 @@ export const list = StyleSheet.create({
     alignItems: 'flex-start',
     flex: 1
   },
-  title: {
-    fontFamily: 'Roboto',
-    fontSize: 22,
-    color: colors.white,
-  },
-  distance: {
-    fontSize: 14,
-    color: colors.lightGrey,
-  },
-  subTitle: {
-    fontFamily: 'Roboto',
-    fontSize: 14,
-    color: colors.white
-  },
-  description: {
-    fontFamily: 'Roboto',
-    fontSize: 10,
-    color: colors.grey,
-  },
 });

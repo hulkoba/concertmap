@@ -4,6 +4,7 @@ import { Navigator, TouchableHighlight, ListView, View, Text, Image } from 'reac
 import FilterBar from './FilterBar';
 import ListDetail from './ListDetail';
 import { list } from '../styles/listStyles';
+import { fonts } from '../styles/fonts';
 
 // Row comparison function
 const rowHasChanged = (r1, r2) => r1.id !== r2.id;
@@ -30,19 +31,19 @@ export default class ConcertList extends Component {
 
         <View style={list.column}>
           <View style={list.titleRow}>
-            <Text style={list.title}>
+            <Text style={fonts.title}>
               {gig.title}
             </Text>
-            <Text style={list.distance}>
+            <Text style={list.info}>
               {'900'}{'m'}
             </Text>
           </View>
 
-          <Text style={list.subTitle}>
+          <Text style={fonts.subTitle}>
             {gig.releaseYear}
           </Text>
 
-          <Text style={list.description} numberOfLines={3}>
+          <Text style={fonts.description} numberOfLines={3}>
             {'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus.'}
           </Text>
         </View>
