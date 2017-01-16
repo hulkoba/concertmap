@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Navigator, TouchableHighlight, ListView, View, Text, Image } from 'react-native';
 
 import FilterBar from './FilterBar';
-import ListDetail from './ListDetail';
+import Detail from './Detail';
 import { list } from '../styles/listStyles';
 import { fonts } from '../styles/fonts';
 
@@ -26,7 +26,7 @@ export default class ConcertList extends Component {
       <View style={list.row}>
         <View style={list.imageView}>
           <Image style={list.image}
-            source={require('../img/pugtato.png')} />
+            source={require('../../img/pugtato.png')} />
         </View>
 
         <View style={list.column}>
@@ -44,7 +44,7 @@ export default class ConcertList extends Component {
           </Text>
 
           <Text style={fonts.description} numberOfLines={3}>
-            {'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus.'}
+            {'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim juto, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus.'}
           </Text>
         </View>
       </View>
@@ -54,7 +54,7 @@ export default class ConcertList extends Component {
   rowPressed(concert) {
 
     this.props.navigator.push({
-      title: 'ListDetail',
+      title: 'Detail',
       index: 2,
       data: concert
     });

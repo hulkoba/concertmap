@@ -36,7 +36,7 @@ export default class ConcertMap extends Component {
                 longitude: 13.355231799
             }}
             title={concert.title}
-            image={require('../img/marker.png')}
+            image={require('../../img/marker.png')}
             onPress={() => this.onMarkerPress(concert)}
             />
        ))}

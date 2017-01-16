@@ -3,6 +3,7 @@ import { ScrollView, View, Text, Image, Linking } from 'react-native';
 
 import { detail } from '../styles/detail';
 import { fonts } from '../styles/fonts';
+import RoutenPlaner from './RoutenPlaner';
 
 export default class ListDetail extends Component {
 	render() {
@@ -19,7 +20,9 @@ export default class ListDetail extends Component {
 
          <View style={detail.imageView}>
           <Image style={detail.image}
-            source={require('../img/pugtato.png')} />
+            source={require('../../img/pugtato.png')}>
+            <RoutenPlaner />
+          </Image>
         </View>
 
         <Text style={fonts.title}>

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { TouchableHighlight, Text, View, ActivityIndicator, Navigator } from 'react-native';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import ConcertMap from './ConcertMap';
 import ConcertList from './ConcertList';
-import ListDetail from './ListDetail';
+import Detail from './Detail';
 import { styles } from '../styles/styles.js';
 
 export default class Concerts extends Component {
@@ -84,7 +85,7 @@ export default class Concerts extends Component {
           region={this.state.position}
         />;
 		  case 2:
-        return <ListDetail concert={route.data}/>;
+        return <Detail concert={route.data}/>;
 		  default:
         return null;
     }
@@ -98,10 +99,10 @@ export default class Concerts extends Component {
   render() {
     const { movies, loading, error } = this.state
 		const routes = [
-			{title: 'List', index: 0},
-			{title: 'Map', index: 1},
-			{title: 'ListDetail', index: 2, data: {}},
-		/*	{title: 'MapDetail', index: 3},*/
+			{title: 'List', index: 0, key:0},
+			{title: 'Map', index: 1, key:1},
+			{title: 'Detail', index: 2, key:2, data: {}},
+		/*	{title: 'Filter', index: 3},*/
 		];
 
     if (loading) {
@@ -132,11 +133,11 @@ export default class Concerts extends Component {
 							LeftButton: (route, navigator, index, navState) => {
                 switch(route.index) {
                   case 0:
-									 return <Text style={styles.tabTextActive}>Liste</Text>;
+									 return <Text style={styles.tabTextActive}>LISTE</Text>;
                   case 1:
                     return (
                       <TouchableHighlight onPress={() => navigator.jumpBack()}>
-                        <Text style={styles.tabText}>Liste</Text>
+                        <Text style={styles.tabText}>LISTE</Text>
                       </TouchableHighlight>
                     );
                   case 2:
@@ -163,15 +164,15 @@ export default class Concerts extends Component {
                             navigator.pop();
                           }
                         }}>
-                        <Text style={styles.tabText}>Karte</Text>
+                        <Text style={styles.tabText}>KARTE</Text>
                       </TouchableHighlight>);
                   case 1:
-                    return <Text style={styles.tabTextActive}>Karte</Text>;
+                    return <Text style={styles.tabTextActive}>KARTE</Text>;
                   case 2:
                      return (
                       <TouchableHighlight onPress={() => this.shareConcert(route.data)}>
                         <View style={styles.tabTextShare} >
-                          <SimpleLineIcons name="share" style={styles.icon} />
+                          <MaterialIcons name="share" style={styles.icon} />
                           <Text style={styles.icon}>Teilen</Text>
                         </View>
                       </TouchableHighlight>);
