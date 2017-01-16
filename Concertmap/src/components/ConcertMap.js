@@ -7,13 +7,16 @@ import FilterBar from './FilterBar';
 
 export default class ConcertMap extends Component {
 
-  onMarkerPress(marker) {
-    alert(JSON.stringify(marker));
+  onMarkerPress(concert) {
+    this.props.navigator.push({
+      title: 'Detail',
+      index: 2,
+      data: concert
+    });
   }
 
 	render() {
 		const { concerts, filter, region } = this.props;
-
 		return (
 			<View style={map.container}>
 				<FilterBar filter={filter} />
@@ -49,4 +52,5 @@ export default class ConcertMap extends Component {
 ConcertMap.propTypes = {
   concerts: PropTypes.array.isRequired,
   region: PropTypes.object.isRequired,
+  navigator: PropTypes.object.isRequired,
 };

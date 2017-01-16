@@ -27,8 +27,8 @@ export default class Concerts extends Component {
       position: {
         latitude: 52.5451157,
         longitude: 13.355231799,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421
+        latitudeDelta: 0.001,
+        longitudeDelta: 0.01
       },
     })
   }
@@ -83,9 +83,12 @@ export default class Concerts extends Component {
           concerts={this.state.movies}
           filter={this.state.filter}
           region={this.state.position}
+          navigator={navigator}
         />;
 		  case 2:
-        return <Detail concert={route.data}/>;
+        return <Detail
+                  navigator={navigator}
+                  concert={route.data} />;
 		  default:
         return null;
     }
@@ -99,9 +102,9 @@ export default class Concerts extends Component {
   render() {
     const { movies, loading, error } = this.state
 		const routes = [
-			{title: 'List', index: 0, key:0},
-			{title: 'Map', index: 1, key:1},
-			{title: 'Detail', index: 2, key:2, data: {}},
+			{ title: 'List', index: 0, key: 0 },
+			{ title: 'Map', index: 1, key: 1 },
+			{ title: 'Detail', index: 2, key: 2, data: {} },
 		/*	{title: 'Filter', index: 3},*/
 		];
 

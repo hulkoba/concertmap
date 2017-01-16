@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { ScrollView, View, Text, Image, Linking } from 'react-native';
+import MapView from 'react-native-maps';
 
 import { detail } from '../styles/detail';
 import { fonts } from '../styles/fonts';
@@ -7,9 +8,12 @@ import RoutenPlaner from './RoutenPlaner';
 
 export default class ListDetail extends Component {
 	render() {
-		const { concert } = this.props;
+		const { concert, navigator } = this.props;
 
-		return (
+    const routes = navigator.getCurrentRoutes(0);
+    const prevRoute = routes[routes.length -2].title; // vorletzte
+
+    return (
       <ScrollView style={detail.container}>
         <Text style={fonts.title}>
           {concert.title}
@@ -44,10 +48,34 @@ export default class ListDetail extends Component {
           http://www.berliner-nachtgesang.de
         </Text>
 
+        { prevRoute === 'List' ?
         <Text style={fonts.info}>
             {'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus.'}
           </Text>
+          :
+          <MapView
+            style={detail.map}
+            region={{
+              latitude: 52.5451157,
+              longitude: 13.355231799,
+              latitudeDelta: 0.0055,
+              longitudeDelta: 0.0055
+            }}
+            showsIndoors={false}
+            loadingIndicatorColor='#008bae'>
 
+          <MapView.Marker
+            identifier={concert.title}
+            key={concert.title}
+            coordinate={{
+                latitude: 52.5451157,
+                longitude: 13.355231799
+            }}
+            title={concert.title}
+            image={require('../../img/marker.png')} />
+
+         </MapView>
+        }
       </ScrollView>
 		)
 	}

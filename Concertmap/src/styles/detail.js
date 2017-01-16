@@ -20,4 +20,8 @@ export const detail = StyleSheet.create({
     flexDirection:'row',
     alignItems: 'stretch',
   },
+  map: {
+		height: 111,
+
+	 },
 });
