@@ -21,7 +21,7 @@ export default class ListDetail extends Component {
          <View style={detail.imageView}>
           <Image style={detail.image}
             source={require('../../img/pugtato.png')}>
-            <RoutenPlaner />
+            <RoutenPlaner interpret={concert.title} city='Berlin'/>
           </Image>
         </View>
 
@@ -54,5 +54,5 @@ export default class ListDetail extends Component {
 }
 
 ListDetail.propTypes = {
-  concert: PropTypes.object
+  concert: PropTypes.object.isRequired
 };

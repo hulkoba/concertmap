@@ -7,8 +7,8 @@ import { routenplaner } from '../styles/routenplaner';
 export default class RoutenPlaner extends Component {
 
 	render() {
-  const band = 'Antilopengang';
-  const city = 'Berlin';
+    const { interpret, city } = this.props;
+
 		return (
       <View style={routenplaner.container}>
         <View >
@@ -32,7 +32,7 @@ export default class RoutenPlaner extends Component {
         </View>
 
         <Text style={routenplaner.ticketButton}
-          onPress={() => Linking.openURL(`http://www.ticketmaster.de/search/?keyword=${band}+${city}`)}>
+          onPress={() => Linking.openURL(`http://www.ticketmaster.de/search/?keyword=${interpret}+${city}`)}>
           Ticket kaufen
         </Text>
 
@@ -42,5 +42,6 @@ export default class RoutenPlaner extends Component {
 }
 
 routenplaner.propTypes = {
-
+  city: PropTypes.string.isRequired,
+  interpret: PropTypes.string.isRequired,
 };
