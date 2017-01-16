@@ -7,6 +7,8 @@ import { routenplaner } from '../styles/routenplaner';
 export default class RoutenPlaner extends Component {
 
 	render() {
+  const band = 'Antilopengang';
+  const city = 'Berlin';
 		return (
       <View style={routenplaner.container}>
         <View >
@@ -30,7 +32,7 @@ export default class RoutenPlaner extends Component {
         </View>
 
         <Text style={routenplaner.ticketButton}
-          onPress={() => Linking.openURL('http://www.berliner-nachtgesang.de')}>
+          onPress={() => Linking.openURL(`http://www.ticketmaster.de/search/?keyword=${band}+${city}`)}>
           Ticket kaufen
         </Text>
 
