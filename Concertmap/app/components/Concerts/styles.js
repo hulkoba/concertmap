@@ -17,8 +17,8 @@ export const styles = StyleSheet.create({
 		zIndex: 0.
   },
   tabText: {
-    fontFamily: 'Roboto',
-		fontSize: 22,
+    fontFamily: 'Track',
+		fontSize: 16,
 		color: colors.lightGrey,
 		paddingHorizontal: 66,
 		marginTop: 12,
@@ -30,8 +30,8 @@ export const styles = StyleSheet.create({
 		color: colors.white,
 		borderBottomColor: colors.blue,
 		borderBottomWidth: 4,
-		fontFamily: 'Roboto',
-		fontSize: 22,
+		fontFamily: 'Track',
+		fontSize: 16,
 		paddingHorizontal: 66,
 		marginTop: 12,
 		paddingBottom: 12,
@@ -47,13 +47,13 @@ export const styles = StyleSheet.create({
     marginTop: 6,
     color: colors.white,
     fontSize: 14,
-    fontFamily: 'Roboto',
+    fontFamily: 'Track',
     marginLeft: 6,
   },
   icon: {
     color: colors.blue,
     fontSize: 18,
-    fontFamily: 'Roboto',
+    fontFamily: 'Lato-Regular',
     marginRight: 6,
   },
 	dsplNone: {

@@ -10,17 +10,17 @@ export const colors = {
 
 export const fonts = StyleSheet.create({
   title: {
-    fontSize: 20,
-    fontFamily: 'Roboto',
+    fontSize: 18,
+    fontFamily: 'Track',
     color: colors.white,
   },
   subTitle: {
-    fontFamily: 'Roboto',
+    fontFamily: 'Lato-Bold',
     fontSize: 14,
     color: colors.white
   },
   importantInfo: {
-    fontFamily: 'Roboto',
+    fontFamily: 'Lato-Bold',
     fontSize: 12,
     color: colors.white
   },
@@ -29,12 +29,12 @@ export const fonts = StyleSheet.create({
     color: colors.lightGrey,
   },
   description: {
-    fontFamily: 'Roboto',
+    fontFamily: 'Lato-Regular',
     fontSize: 10,
     color: colors.grey,
   },
   link: {
-    fontFamily: 'Roboto',
+    fontFamily: 'Lato-Regular',
     fontSize: 12,
     color: colors.blue,
     paddingVertical: 12,
