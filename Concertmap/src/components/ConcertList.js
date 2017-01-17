@@ -4,7 +4,8 @@ import { Navigator, TouchableHighlight, ListView, View, Text, Image } from 'reac
 import FilterBar from './FilterBar';
 import Detail from './Detail';
 import { list } from '../styles/listStyles';
-import { fonts } from '../styles/fonts';
+import { fonts } from '../config/styles';
+import images from '../config/images';
 
 // Row comparison function
 const rowHasChanged = (r1, r2) => r1.id !== r2.id;
@@ -26,7 +27,7 @@ export default class ConcertList extends Component {
       <View style={list.row}>
         <View style={list.imageView}>
           <Image style={list.image}
-            source={require('../../img/pugtato.png')} />
+            source={images.pugtato} />
         </View>
 
         <View style={list.column}>

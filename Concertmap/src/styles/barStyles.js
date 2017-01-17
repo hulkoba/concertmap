@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors } from './colors';
+import { colors } from '../config/styles';
 
 export const filterBar = StyleSheet.create({
   bar: {

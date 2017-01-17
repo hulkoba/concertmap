@@ -4,6 +4,7 @@ import MapView from 'react-native-maps';
 
 import { map } from '../styles/mapStyles';
 import FilterBar from './FilterBar';
+import images from '../config/images';
 
 export default class ConcertMap extends Component {
 
@@ -28,22 +29,22 @@ export default class ConcertMap extends Component {
 					showsUserLocation={true}
 					followUserLocation={true}
 					showsScale={true}
-					loadingIndicatorColor='#008bae'
-       	>
-       {concerts.map(concert => (
-         <MapView.Marker
-            identifier={concert.title}
-            key={concert.title}
-            coordinate={{
-                latitude: 52.5451157,
-                longitude: 13.355231799
-            }}
-            title={concert.title}
-            image={require('../../img/marker.png')}
-            onPress={() => this.onMarkerPress(concert)}
-            />
-       ))}
-       </MapView>
+					loadingIndicatorColor='#008bae'	>
+
+            {concerts.map(concert => (
+             <MapView.Marker
+                identifier={concert.title}
+                key={concert.title}
+                coordinate={{
+                    latitude: 52.5451157,
+                    longitude: 13.355231799
+                }}
+                title={concert.title}
+                image={images.marker}
+                onPress={() => this.onMarkerPress(concert)}
+                />
+           ))}
+         </MapView>
 			</View>
 		)
 	}

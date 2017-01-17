@@ -3,7 +3,8 @@ import { ScrollView, View, Text, Image, Linking } from 'react-native';
 import MapView from 'react-native-maps';
 
 import { detail } from '../styles/detail';
-import { fonts } from '../styles/fonts';
+import { fonts } from '../config/styles';
+import images from '../config/images';
 import RoutenPlaner from './RoutenPlaner';
 
 export default class ListDetail extends Component {
@@ -14,7 +15,7 @@ export default class ListDetail extends Component {
     const prevRoute = routes[routes.length -2].title; // vorletzte
 
     return (
-      <ScrollView style={detail.container}>
+      <View style={detail.container}>
         <Text style={fonts.title}>
           {concert.title}
         </Text>
@@ -24,7 +25,7 @@ export default class ListDetail extends Component {
 
          <View style={detail.imageView}>
           <Image style={detail.image}
-            source={require('../../img/pugtato.png')}>
+            source={images.pugtato}>
             <RoutenPlaner interpret={concert.title} city='Berlin'/>
           </Image>
         </View>
@@ -50,7 +51,7 @@ export default class ListDetail extends Component {
 
         { prevRoute === 'List' ?
         <Text style={fonts.info}>
-            {'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus.'}
+            {'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.'}
           </Text>
           :
           <MapView
@@ -72,11 +73,11 @@ export default class ListDetail extends Component {
                 longitude: 13.355231799
             }}
             title={concert.title}
-            image={require('../../img/marker.png')} />
+            image={images.marker} />
 
          </MapView>
         }
-      </ScrollView>
+      </View>
 		)
 	}
 }

@@ -1,6 +1,7 @@
-import { StyleSheet } from 'react-native';
-import { colors } from './colors';
+import { StyleSheet, Dimensions } from 'react-native';
+import { colors } from '../config/styles';
 
+const window = Dimensions.get('window');
 export const detail = StyleSheet.create({
   container: {
     backgroundColor: colors.black,
@@ -9,12 +10,12 @@ export const detail = StyleSheet.create({
   },
   image: {
     height: 200,
+    width: window.width,
     alignSelf: 'stretch',
     justifyContent: 'flex-end',
   },
   imageView: {
     flex: 1,
-    marginHorizontal: -12,
     marginTop: 6,
     marginBottom: 12,
     flexDirection:'row',
@@ -22,6 +23,5 @@ export const detail = StyleSheet.create({
   },
   map: {
 		height: 111,
-
 	 },
 });
