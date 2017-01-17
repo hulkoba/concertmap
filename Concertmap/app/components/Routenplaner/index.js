@@ -2,9 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { View, Text, Linking } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import { routenplaner } from '../styles/routenplaner';
+import { routenplaner } from './routenplaner';
 
-export default class RoutenPlaner extends Component {
+export default class Routenplaner extends Component {
 
 	render() {
     const { interpret, city } = this.props;
@@ -41,7 +41,7 @@ export default class RoutenPlaner extends Component {
 	}
 }
 
-routenplaner.propTypes = {
+Routenplaner.propTypes = {
   city: PropTypes.string.isRequired,
   interpret: PropTypes.string.isRequired,
 };

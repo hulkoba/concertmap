@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { View, Text } from 'react-native';
-
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
-import { filterBar } from '../styles/barStyles';
+import { filterBar } from './barStyles';
 
 export default class FilterBar extends Component {
 

@@ -2,9 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { View, Text, Image } from 'react-native';
 import MapView from 'react-native-maps';
 
-import { map } from '../styles/mapStyles';
-import FilterBar from './FilterBar';
-import images from '../config/images';
+import { map } from './mapStyles';
+import FilterBar from '../FilterBar';
+import images from '../../config/images';
 
 export default class ConcertMap extends Component {
 

@@ -2,10 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import { ScrollView, View, Text, Image, Linking } from 'react-native';
 import MapView from 'react-native-maps';
 
-import { detail } from '../styles/detail';
-import { fonts } from '../config/styles';
-import images from '../config/images';
-import RoutenPlaner from './RoutenPlaner';
+import { detail } from './detail';
+import { fonts } from '../../config/styles';
+import images from '../../config/images';
+import Routenplaner from '../Routenplaner';
 
 export default class ListDetail extends Component {
 	render() {
@@ -26,7 +26,7 @@ export default class ListDetail extends Component {
          <View style={detail.imageView}>
           <Image style={detail.image}
             source={images.pugtato}>
-            <RoutenPlaner interpret={concert.title} city='Berlin'/>
+            <Routenplaner interpret={concert.title} city='Berlin'/>
           </Image>
         </View>
 

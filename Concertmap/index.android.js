@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
 
-import Concerts from './src/components/Concerts';
+import Concerts from './app/components/Concerts';
 
 class Concertmap extends Component {
 	render() {

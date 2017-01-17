@@ -1,11 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { Navigator, TouchableHighlight, ListView, View, Text, Image } from 'react-native';
 
-import FilterBar from './FilterBar';
-import Detail from './Detail';
-import { list } from '../styles/listStyles';
-import { fonts } from '../config/styles';
-import images from '../config/images';
+import images from '../../config/images';
+import { fonts } from '../../config/styles';
+
+import FilterBar from '../FilterBar';
+import Detail from '../Detail';
+import { list } from './listStyles';
+
 
 // Row comparison function
 const rowHasChanged = (r1, r2) => r1.id !== r2.id;

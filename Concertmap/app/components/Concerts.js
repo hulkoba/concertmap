@@ -6,7 +6,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import ConcertMap from './ConcertMap';
 import ConcertList from './ConcertList';
 import Detail from './Detail';
-import { styles } from '../styles/styles.js';
+import { styles } from './styles';
 
 export default class Concerts extends Component {
 
@@ -30,9 +30,8 @@ export default class Concerts extends Component {
         latitudeDelta: 0.001,
         longitudeDelta: 0.01
       },
-    })
+    });
   }
-
 
   /*componentWillUnmount() {
     //navigator.geolocation.clearWatch(this.watchID);
