@@ -3,6 +3,7 @@ import { View, Text, Linking } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import { routenplaner } from './routenplaner';
+import settings from '../../config/settings';
 
 export default class Routenplaner extends Component {
 
@@ -32,7 +33,7 @@ export default class Routenplaner extends Component {
         </View>
 
         <Text style={routenplaner.ticketButton}
-          onPress={() => Linking.openURL(`http://www.ticketmaster.de/search/?keyword=${interpret}+${city}`)}>
+          onPress={() => Linking.openURL(`${settings.TICKETMASTER_URL}${interpret}+${city}`)}>
           Ticket kaufen
         </Text>
 
