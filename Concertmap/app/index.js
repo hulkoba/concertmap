@@ -3,10 +3,10 @@ import { TouchableHighlight, Text, View, ActivityIndicator, Navigator } from 're
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import ConcertMap from './ConcertMap';
-import ConcertList from './ConcertList';
-import Detail from './Detail';
-import { styles } from './styles';
+import ConcertMap from './components/ConcertMap';
+import ConcertList from './components/ConcertList';
+import Detail from './components/Detail';
+import { styles } from './components/Concerts/styles';
 
 export default class Concerts extends Component {
 
