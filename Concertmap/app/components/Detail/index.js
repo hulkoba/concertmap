@@ -6,6 +6,7 @@ import { detail } from './detail';
 import { fonts } from '../../config/styles';
 import images from '../../config/images';
 import Routenplaner from '../Routenplaner';
+import Player from '../Player';
 
 export default class ListDetail extends Component {
 
@@ -45,15 +46,21 @@ export default class ListDetail extends Component {
           8€ - Morgen 20:00 Uhr
         </Text>
 
-        <Text style={fonts.importantInfo}>
-          BrotFabrik
-        </Text>
-        <Text style={fonts.importantInfo}>
-          HalliGalliplatz 1
-        </Text>
-        <Text style={fonts.importantInfo}>
-          13087 Berlin
-        </Text>
+        <View style={detail.row}>
+          <View>
+            <Text style={fonts.importantInfo}>
+              BrotFabrik
+            </Text>
+            <Text style={fonts.importantInfo}>
+              HalliGalliplatz 1
+            </Text>
+            <Text style={fonts.importantInfo}>
+              13087 Berlin
+            </Text>
+          </View>
+          <Player />
+        </View>
+
 
         <Text style={fonts.link}
           onPress={() => Linking.openURL('http://www.berliner-nachtgesang.de')}>

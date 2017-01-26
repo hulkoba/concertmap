@@ -8,6 +8,12 @@ export const detail = StyleSheet.create({
     flex: 1,
     padding: 12,
   },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingRight: 12,
+    paddingTop: 12,
+  },
   image: {
     height: 200,
     marginHorizontal: -12,
@@ -16,7 +22,6 @@ export const detail = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   imageView: {
-    flex: 1,
     marginTop: 6,
     marginBottom: 12,
     flexDirection:'row',
