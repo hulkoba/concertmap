@@ -21,6 +21,14 @@ export const list = StyleSheet.create({
     marginLeft: 40,
     paddingVertical: 10,
   },
+  sklogo: {
+    height: 22,
+    width: 77,
+  },
+  skImageView: {
+    height: 30,
+    alignItems: 'center',
+  },
   separator: {
     height: 1,
     backgroundColor: colors.grey,
@@ -31,7 +39,7 @@ export const list = StyleSheet.create({
     height: 75,
   },
   imageView: {
-    width: 40,
+    width: 33,
     justifyContent: 'center',
     alignItems: 'center',
   },

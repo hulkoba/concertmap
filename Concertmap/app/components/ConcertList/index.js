@@ -22,6 +22,12 @@ export default class ConcertList extends Component {
     this.dataSource = ds;
   }
 
+  renderHeader = () => (
+    <View style={list.skImageView}>
+      <Image style={list.sklogo} source={images.songkickLogo} />
+    </View>
+  )
+
 	renderRow = (gig) => (
     <TouchableHighlight
 			onPress={() => this.rowPressed(gig)}
@@ -73,6 +79,7 @@ export default class ConcertList extends Component {
           style={list.list}
           dataSource={rows}
           renderRow={this.renderRow}
+          renderHeader={this.renderHeader}
           renderSeparator={(sectionId, rowId) => <View key={rowId} style={list.separator} />}
         />
       </View>
