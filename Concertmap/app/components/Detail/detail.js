@@ -10,6 +10,7 @@ export const detail = StyleSheet.create({
   },
   image: {
     height: 200,
+    marginHorizontal: -12,
     width: window.width,
     alignSelf: 'stretch',
     justifyContent: 'flex-end',

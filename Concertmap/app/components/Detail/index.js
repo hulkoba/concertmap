@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { ScrollView, View, Text, Image, Linking } from 'react-native';
+import { BackAndroid, ScrollView, View, Text, Image, Linking } from 'react-native';
 import MapView from 'react-native-maps';
 
 import { detail } from './detail';
@@ -8,6 +8,17 @@ import images from '../../config/images';
 import Routenplaner from '../Routenplaner';
 
 export default class ListDetail extends Component {
+
+  componentWillMount() {
+    BackAndroid.addEventListener('hardwareBackPress', () => {
+      if (this.props.navigator && this.props.navigator.getCurrentRoutes().length > 1) {
+        this.props.navigator.pop();
+        return true;
+      }
+      return false;
+    });
+  }
+
 	render() {
 		const { concert, navigator } = this.props;
 

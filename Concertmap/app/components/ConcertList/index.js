@@ -55,7 +55,6 @@ export default class ConcertList extends Component {
   )
 
   rowPressed(concert) {
-
     this.props.navigator.push({
       title: 'Detail',
       index: 2,

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { View, Text, Image } from 'react-native';
+import { BackAndroid, View, Text, Image } from 'react-native';
 import MapView from 'react-native-maps';
 
 import { map } from './mapStyles';
@@ -7,6 +7,16 @@ import FilterBar from '../FilterBar';
 import images from '../../config/images';
 
 export default class ConcertMap extends Component {
+
+  componentWillMount() {
+    BackAndroid.addEventListener('hardwareBackPress', () => {
+      if (this.props.navigator && this.props.navigator.getCurrentRoutes().length > 1) {
+        this.props.navigator.pop();
+        return true;
+      }
+      return false;
+    });
+  }
 
   onMarkerPress(concert) {
     this.props.navigator.push({

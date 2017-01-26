@@ -44,5 +44,5 @@ export default class Routenplaner extends Component {
 
 Routenplaner.propTypes = {
   city: PropTypes.string.isRequired,
-  interpret: PropTypes.string.isRequired,
+  interpret: PropTypes.string,
 };
