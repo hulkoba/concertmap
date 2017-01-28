@@ -10,47 +10,49 @@ import { styles } from './components/Concerts/styles';
 
 export default class Concerts extends Component {
 
-  state = {
-    loading: true,
-    error: false,
-    movies: [],
-    filter: ['Heute', 'Abend', '15 km'],
-    position: {},
-    //lastPosition: 'unknown',
-  };
-  // watchID: ? number = null;
-
-  componentDidMount() {
-   // this.getPosition();
-    this.getMoviesFromApiAsync();
-    this.setState({
-      position: {
-        latitude: 52.5451157,
-        longitude: 13.355231799,
-        latitudeDelta: 0.001,
-        longitudeDelta: 0.01
-      },
-    });
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true,
+      error: false,
+      concerts: [],
+      filter: ['Heute', 'Abend'],
+      position: 'unknown',
+    };
   }
 
-  /*componentWillUnmount() {
-    //navigator.geolocation.clearWatch(this.watchID);
-  }*/
+  componentDidMount() {
+    this.getPosition();
+    this.getMoviesFromApiAsync();
+    if(this.state.position === 'unknown') {
+      this.setState({
+        position: {
+          latitude: 52.5555,
+          longitude: 13.3333,
+          latitudeDelta: 0.3,
+          longitudeDelta: 0.3,
+        }
+      });
+    }
+  }
 
   getPosition = () => {
     navigator.geolocation.getCurrentPosition(
-      (position) => {
-        this.setState({position});
-        alert(position.coords.lantitude, '\n', position.coords.longitude);
-      },
-      (error) => alert(JSON.stringify(error)),
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-    );
-
-   /* this.watchID = navigator.geolocation.watchPosition((position) => {
-      var lastPosition = JSON.stringify(position);
-      this.setState({lastPosition});
-    });*/
+         (position) => {
+            alert(JSON.stringify(position));
+            this.setState({
+              position: {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+                latitudeDelta: 0.001,
+                longitudeDelta: 0.01,
+              }
+            });
+            alert(JSON.stringify(this.state.position));
+         },
+         (error) => alert(JSON.stringify(error)),
+         {enableHighAccuracy: false, timeout: 10000, maximumAge: 0}
+      );
   }
   getMoviesFromApiAsync = () => {
     return fetch('https://facebook.github.io/react-native/movies.json')
@@ -59,7 +61,7 @@ export default class Concerts extends Component {
 
      this.setState({
        loading: false,
-       movies: responseJson.movies
+       concerts: responseJson.movies
       });
      return responseJson;
     })
@@ -73,13 +75,13 @@ export default class Concerts extends Component {
     switch (route.index) {
       case 0:
         return <ConcertList
-           concerts={this.state.movies}
+           concerts={this.state.concerts}
            filter={this.state.filter}
            navigator={navigator}
           />;
       case 1:
         return <ConcertMap
-          concerts={this.state.movies}
+          concerts={this.state.concerts}
           filter={this.state.filter}
           region={this.state.position}
           navigator={navigator}
@@ -99,12 +101,11 @@ export default class Concerts extends Component {
 
    // source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
   render() {
-    const { movies, loading, error } = this.state
+    const { loading, error } = this.state
 		const routes = [
-			{ title: 'List', index: 0, key: 0 },
-			{ title: 'Map', index: 1, key: 1 },
-			{ title: 'Detail', index: 2, key: 2, data: {} },
-		/*	{title: 'Filter', index: 3},*/
+			{ title: 'List', index: 0, key: 'list' },
+			{ title: 'Map', index: 1, key: 'map' },
+			{ title: 'Detail', index: 2, key: 'detail', data: {} },
 		];
 
     if (loading) {
@@ -127,7 +128,7 @@ export default class Concerts extends Component {
 				  sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.TotalNavHeight}}
 				 	style={styles.tabBar}
 					initialRoute={routes[0]}
-				 	initialRouteStack={routes}
+				// 	initialRouteStack={routes}
 					renderScene={this.renderScene}
 				  navigationBar={
 					 <Navigator.NavigationBar

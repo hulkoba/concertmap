@@ -30,7 +30,7 @@ export const fonts = StyleSheet.create({
   },
   description: {
     fontFamily: 'Lato-Regular',
-    fontSize: 10,
+    fontSize: 12,
     color: colors.grey,
   },
   link: {

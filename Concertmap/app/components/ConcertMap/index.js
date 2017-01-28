@@ -28,6 +28,7 @@ export default class ConcertMap extends Component {
 
 	render() {
 		const { concerts, filter, region } = this.props;
+
 		return (
 			<View style={map.container}>
 				<FilterBar filter={filter} />
