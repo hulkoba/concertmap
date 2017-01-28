@@ -14,7 +14,6 @@ export const styles = StyleSheet.create({
   },
   tabBar: {
     backgroundColor: colors.black,
-		zIndex: 0.
   },
   tabText: {
     fontFamily: 'Track',
@@ -36,6 +35,7 @@ export const styles = StyleSheet.create({
 		marginTop: 12,
 		paddingBottom: 12,
 	},
+  // detail view
   tabTextShare: {
     marginTop: 12,
     marginRight: 12,
@@ -56,8 +56,4 @@ export const styles = StyleSheet.create({
     fontFamily: 'Lato-Regular',
     marginRight: 6,
   },
-	dsplNone: {
-		width: 0,
-	},
-
 });

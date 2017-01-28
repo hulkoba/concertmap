@@ -1,14 +1,32 @@
 import React, { Component } from 'react';
 import { TouchableHighlight, Text, View, ActivityIndicator, Navigator } from 'react-native';
+import moment from 'moment';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
+// overwrite native styles for showing the filter.
+// see https://github.com/facebook/react-native/issues/10600
+import * as navStyles from './config/LocalNavigationBarStylesAndroid';
+import { styles } from './components/Concerts/styles';
 
 import ConcertMap from './components/ConcertMap';
 import ConcertList from './components/ConcertList';
 import Detail from './components/Detail';
-import { styles } from './components/Concerts/styles';
+import FilterBar from './components/FilterBar';
+
 
 export default class Concerts extends Component {
+
+  static getWeekDays() {
+    moment.locale('de', {
+      weekdaysMin : "So_Mo_Di_Mo_Do_Fr_Sa".split("_"),
+    });
+    const filters = [];
+    for(let i = 0; i <=6; i++) {
+      filters.push(moment().add(i, 'days').format('dd DD'));
+    }
+    return filters;
+  }
 
   constructor(props) {
     super(props);
@@ -16,7 +34,7 @@ export default class Concerts extends Component {
       loading: true,
       error: false,
       concerts: [],
-      filter: ['Heute', 'Abend'],
+      filter: Concerts.getWeekDays(),
       position: 'unknown',
     };
   }
@@ -101,7 +119,7 @@ export default class Concerts extends Component {
 
    // source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
   render() {
-    const { loading, error } = this.state
+    const { loading, error, filter } = this.state
 		const routes = [
 			{ title: 'List', index: 0, key: 'list' },
 			{ title: 'Map', index: 1, key: 'map' },
@@ -125,24 +143,23 @@ export default class Concerts extends Component {
 
     return (
 			 <Navigator
-				  sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.TotalNavHeight}}
 				 	style={styles.tabBar}
+          sceneStyle={{paddingTop: navStyles.General.TotalNavHeight}}
 					initialRoute={routes[0]}
 				// 	initialRouteStack={routes}
 					renderScene={this.renderScene}
 				  navigationBar={
 					 <Navigator.NavigationBar
+            navigationStyles={navStyles}
 						routeMapper={{
 							LeftButton: (route, navigator, index, navState) => {
                 switch(route.index) {
                   case 0:
-									 return <Text style={styles.tabTextActive}>LISTE</Text>;
+									 return (<Text style={styles.tabTextActive}>LISTE</Text>);
                   case 1:
-                    return (
-                      <TouchableHighlight onPress={() => navigator.jumpBack()}>
-                        <Text style={styles.tabText}>LISTE</Text>
-                      </TouchableHighlight>
-                    );
+                    return (<TouchableHighlight onPress={() => navigator.jumpBack()}>
+                          <Text style={styles.tabText}>LISTE</Text>
+                        </TouchableHighlight>);
                   case 2:
                     return (
                       <TouchableHighlight onPress={() => navigator.pop()}>
@@ -151,7 +168,6 @@ export default class Concerts extends Component {
                           <Text style={styles.tabTextBack}>ZURÜCK</Text>
                         </View>
                       </TouchableHighlight>);
-
                   default:
                     break;
                 }
@@ -184,7 +200,7 @@ export default class Concerts extends Component {
                 }
 							},
 							Title: (route, navigator, index, navState) => {
-								return (<Text style={styles.dsplNone}>.</Text>);
+								return (<FilterBar filter={this.state.filter} />);
 							},
 						}}
 					/>

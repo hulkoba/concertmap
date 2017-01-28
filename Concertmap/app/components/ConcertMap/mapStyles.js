@@ -5,7 +5,6 @@ export const map = StyleSheet.create({
 		 flex: 1,
 	 },
 	 map: {
-		 marginTop: 45,
 		 ...StyleSheet.absoluteFillObject,
 	 },
 });

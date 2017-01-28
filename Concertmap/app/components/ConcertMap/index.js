@@ -3,7 +3,6 @@ import { BackAndroid, View, Text, Image } from 'react-native';
 import MapView from 'react-native-maps';
 
 import { map } from './mapStyles';
-import FilterBar from '../FilterBar';
 import images from '../../config/images';
 
 export default class ConcertMap extends Component {
@@ -31,7 +30,6 @@ export default class ConcertMap extends Component {
 
 		return (
 			<View style={map.container}>
-				<FilterBar filter={filter} />
 
 				<MapView
 					style={map.map}

@@ -6,7 +6,6 @@ export const list = StyleSheet.create({
     flex: 1,
   },
   list: {
-    marginTop: 45,
    ...StyleSheet.absoluteFillObject,
   },
   row: {

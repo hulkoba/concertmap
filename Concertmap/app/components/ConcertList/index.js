@@ -4,7 +4,6 @@ import { Navigator, TouchableHighlight, ListView, View, Text, Image } from 'reac
 import images from '../../config/images';
 import { fonts } from '../../config/styles';
 
-import FilterBar from '../FilterBar';
 import Detail from '../Detail';
 import { list } from './listStyles';
 
@@ -17,7 +16,7 @@ const ds = new ListView.DataSource({rowHasChanged});
 
 export default class ConcertList extends Component {
 
-	 constructor (props) {
+  constructor (props) {
     super(props);
     this.dataSource = ds;
   }
@@ -74,7 +73,6 @@ export default class ConcertList extends Component {
     const rows = this.dataSource.cloneWithRows(concerts || []);
 		return (
       <View style={list.container}>
-        <FilterBar filter={filter} />
         <ListView
           style={list.list}
           dataSource={rows}
