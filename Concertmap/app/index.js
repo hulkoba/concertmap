@@ -4,6 +4,9 @@ import moment from 'moment';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
+import FBSDK from 'react-native-fbsdk';
+const { ShareDialog } = FBSDK;
+
 // overwrite native styles for showing the filter.
 // see https://github.com/facebook/react-native/issues/10600
 import * as navStyles from './config/LocalNavigationBarStylesAndroid';
@@ -97,6 +100,36 @@ export default class Concerts extends Component {
     });
   }
 
+  shareConcert = (data) => {
+
+    const shareLinkContent = {
+      contentType: 'link',
+      contentUrl: "https://facebook.com",
+      contentDescription: 'Facebook sharing is easy!',
+    };
+   // alert(JSON.stringify(data));
+  //  var tmp = this;
+    ShareDialog.canShow(shareLinkContent).then(
+      function(canShow) {
+        if (canShow) {
+          return ShareDialog.show(shareLinkContent);
+        }
+      }
+    ).then(
+      function(result) {
+        if (result.isCancelled) {
+          alert('Share operation was cancelled');
+        } else {
+          alert('Share was successful with postId: '
+            + result.postId);
+        }
+      },
+      function(error) {
+        alert('Share failed with error: ' + error);
+      }
+    );
+  };
+
   renderScene = (route, navigator, index) => {
     switch (route.index) {
       case 0:
@@ -119,10 +152,6 @@ export default class Concerts extends Component {
 		  default:
         return null;
     }
-  };
-
-  shareConcert = (data) => {
-    alert(JSON.stringify(data));
   };
 
    // source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}

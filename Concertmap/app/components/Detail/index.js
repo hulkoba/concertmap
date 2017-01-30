@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { BackAndroid, ScrollView, View, Text, Image, Linking } from 'react-native';
 import MapView from 'react-native-maps';
 
+
 import { detail } from './detail';
 import { fonts } from '../../config/styles';
 import images from '../../config/images';
