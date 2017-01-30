@@ -18,9 +18,6 @@ import FilterBar from './components/FilterBar';
 export default class Concerts extends Component {
 
   static getWeekDays() {
-    moment.locale('de', {
-      weekdaysMin : "So_Mo_Di_Mo_Do_Fr_Sa".split("_"),
-    });
     const filters = [];
     for(let i = 0; i <=6; i++) {
       filters.push(moment().add(i, 'days').format('dd DD'));
@@ -30,11 +27,15 @@ export default class Concerts extends Component {
 
   constructor(props) {
     super(props);
+     moment.locale('de', {
+      weekdaysMin : "So_Mo_Di_Mo_Do_Fr_Sa".split("_"),
+    });
+
     this.state = {
       loading: true,
       error: false,
       concerts: [],
-      filter: Concerts.getWeekDays(),
+      activeFilter: moment().format('dd DD'),
       position: 'unknown',
     };
   }
@@ -52,6 +53,13 @@ export default class Concerts extends Component {
         }
       });
     }
+  }
+
+  setFilter = (filter) => {
+    alert(filter);
+    this.setState({activeFilter: filter});
+    // , loading: true
+   // this.getMoviesFromApiAsync();
   }
 
   getPosition = () => {
@@ -119,7 +127,7 @@ export default class Concerts extends Component {
 
    // source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
   render() {
-    const { loading, error, filter } = this.state
+    const { loading, error } = this.state
 		const routes = [
 			{ title: 'List', index: 0, key: 'list' },
 			{ title: 'Map', index: 1, key: 'map' },
@@ -200,7 +208,9 @@ export default class Concerts extends Component {
                 }
 							},
 							Title: (route, navigator, index, navState) => {
-								return (<FilterBar filter={this.state.filter} />);
+								return (<FilterBar
+                          filter={Concerts.getWeekDays()}
+                          setFilter={this.setFilter.bind(this)}/>);
 							},
 						}}
 					/>

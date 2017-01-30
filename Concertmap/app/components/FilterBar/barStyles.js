@@ -6,18 +6,17 @@ export const filterBar = StyleSheet.create({
     flex: 1,
     flexDirection:'row',
     justifyContent: 'space-between',
-    alignItems: 'stretch',
-    marginLeft: 5,
+    alignItems: 'center',
+    marginHorizontal: 4,
   },
   filter: {
     fontFamily: 'Lato',
     backgroundColor: colors.blue,
     color: colors.white,
-    borderRadius: 0,
-    height: 40,
-    marginRight: 5,
-    padding: 4,
-    textAlign: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 4,
+    margin: 0,
     fontSize: 14,
+    alignSelf: 'center'
   }
 });

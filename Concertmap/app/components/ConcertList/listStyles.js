@@ -4,6 +4,7 @@ import { colors } from '../../config/styles';
 export const list = StyleSheet.create({
   container: {
     flex: 1,
+     marginTop: 6,
   },
   list: {
    ...StyleSheet.absoluteFillObject,
@@ -25,7 +26,8 @@ export const list = StyleSheet.create({
     width: 77,
   },
   skImageView: {
-    height: 30,
+    marginTop: 6,
+    height: 33,
     alignItems: 'center',
   },
   separator: {

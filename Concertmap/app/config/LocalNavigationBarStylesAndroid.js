@@ -26,8 +26,7 @@ var BASE_STYLES = {
     left: 0,
     right: 0,
     alignItems: 'stretch',
-    justifyContent: 'space-between',
-    height: 30,
+    height: 40,
     backgroundColor: colors.black,
   },
   LeftButton: {
