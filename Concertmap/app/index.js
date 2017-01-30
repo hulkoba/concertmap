@@ -23,7 +23,7 @@ export default class Concerts extends Component {
   static getWeekDays() {
     const filters = [];
     for(let i = 0; i <=6; i++) {
-      filters.push(moment().add(i, 'days').format('dd DD'));
+      filters.push(moment().add(i, 'days').format('dd'));
     }
     return filters;
   }
@@ -31,14 +31,14 @@ export default class Concerts extends Component {
   constructor(props) {
     super(props);
      moment.locale('de', {
-      weekdaysMin : "So_Mo_Di_Mo_Do_Fr_Sa".split("_"),
+      weekdaysMin : "So_Mo_Di_Mi_Do_Fr_Sa".split("_"),
     });
 
     this.state = {
       loading: true,
       error: false,
       concerts: [],
-      activeFilter: moment().format('dd DD'),
+      activeFilter: moment().format('dd'),
       position: 'unknown',
     };
   }
@@ -156,7 +156,7 @@ export default class Concerts extends Component {
 
    // source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
   render() {
-    const { loading, error } = this.state
+    const { loading, error, activeFilter } = this.state
 		const routes = [
 			{ title: 'List', index: 0, key: 'list' },
 			{ title: 'Map', index: 1, key: 'map' },
@@ -239,6 +239,7 @@ export default class Concerts extends Component {
 							Title: (route, navigator, index, navState) => {
 								return (<FilterBar
                           filter={Concerts.getWeekDays()}
+                          activeFilter={activeFilter}
                           setFilter={this.setFilter.bind(this)}/>);
 							},
 						}}

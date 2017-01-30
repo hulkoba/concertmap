@@ -5,7 +5,7 @@ import { filterBar } from './barStyles';
 
 export default class FilterBar extends Component {
 	render() {
-		const { filter, setFilter } = this.props;
+		const { filter, activeFilter, setFilter } = this.props;
 		return (
       <View style={filterBar.bar}>
         {filter.map((f) => {
@@ -14,8 +14,11 @@ export default class FilterBar extends Component {
               onPress={() => setFilter(f)}
               key={f}
               activeOpacity={0.5}
-              underlayColor='#fff'>
-              <Text style={filterBar.filter}>{f}</Text>
+              underlayColor='#006279'>
+              <Text
+                style={ f === activeFilter ? filterBar.activeFilter : filterBar.filter}>
+                {f}
+              </Text>
             </TouchableHighlight>
             )
         })}
