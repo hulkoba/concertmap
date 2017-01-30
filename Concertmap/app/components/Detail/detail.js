@@ -15,10 +15,12 @@ export const detail = StyleSheet.create({
     paddingTop: 12,
   },
   image: {
+    flex: 1,
     height: 200,
-    marginHorizontal: -12,
-    width: window.width,
-    alignSelf: 'stretch',
+    backgroundColor: colors.grey,
+    resizeMode: 'contain',
+   // marginHorizontal: -12,
+  //  width: window.width,
     justifyContent: 'flex-end',
   },
   imageView: {
