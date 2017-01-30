@@ -101,14 +101,15 @@ export default class Concerts extends Component {
   }
 
   shareConcert = (data) => {
-
+    /*contentURL: der zu teilende Link
+      contentTitle: gibt den Inhaltstitel im Link an
+      imageURL: die URL eines Miniaturbildes, das im Beitrag angezeigt wird
+      contentDesscription: Beschreibung des Inhalts, für gewöhnlich zwei bis vier Sätze*/
     const shareLinkContent = {
       contentType: 'link',
-      contentUrl: "https://facebook.com",
-      contentDescription: 'Facebook sharing is easy!',
+      contentUrl: "https://berliner-nachtgesang.de",
+      contentDescription: 'Kommt alle mit!',
     };
-   // alert(JSON.stringify(data));
-  //  var tmp = this;
     ShareDialog.canShow(shareLinkContent).then(
       function(canShow) {
         if (canShow) {
@@ -120,8 +121,7 @@ export default class Concerts extends Component {
         if (result.isCancelled) {
           alert('Share operation was cancelled');
         } else {
-          alert('Share was successful with postId: '
-            + result.postId);
+          alert('Share was successful with postId: ' + result.postId);
         }
       },
       function(error) {
