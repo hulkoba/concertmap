@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { BackAndroid, ScrollView, View, Text, Image, Linking } from 'react-native';
 import MapView from 'react-native-maps';
-import moment from 'moment';
-
 
 import { detail } from './detail';
 import { fonts } from '../../config/styles';
@@ -31,32 +29,32 @@ export default class ListDetail extends Component {
     return (
       <View style={detail.container}>
         <Text style={fonts.title}>
-          {concert.performance[0].artist.displayName}
+          {concert.title}
         </Text>
         <Text style={fonts.info}>
-          {concert.venue.displayName}
+          {concert.venue}
         </Text>
 
          <View style={detail.imageView}>
           <Image style={detail.image}
-            source={images.pugtato}>
+            source={{uri: concert.image}}>
             <Routenplaner
-              interpret={concert.performance[0].artist.displayName}
-              city={concert.location.city}/>
+              interpret={concert.title}
+              city={concert.city}/>
           </Image>
         </View>
 
         <Text style={fonts.title}>
-          {concert.start.date} {concert.start.time}
+          {concert.datetime}
         </Text>
 
         <View style={detail.row}>
           <View>
             <Text style={fonts.importantInfo}>
-              {concert.venue.displayName}
+              {concert.venue}
             </Text>
             <Text style={fonts.importantInfo}>
-               {concert.location.city}
+               {concert.city}
             </Text>
           </View>
           <Player />
@@ -77,8 +75,8 @@ export default class ListDetail extends Component {
           <MapView
             style={detail.map}
             region={{
-              latitude: concert.location.lat,
-              longitude: concert.location.lng,
+              latitude: concert.position.lat,
+              longitude: concert.position.lng,
               latitudeDelta: 0.0055,
               longitudeDelta: 0.0055
             }}
@@ -89,8 +87,8 @@ export default class ListDetail extends Component {
             identifier={concert.displayName}
             key={concert.displayName}
             coordinate={{
-                latitude: concert.venue.lat ? concert.venue.lat : concert.location.lat,
-                longitude: concert.venue.lng ? concert.venue.lng : concert.location.lng,
+                latitude: concert.position.lat,
+                longitude: concert.position.lng,
             }}
             title={concert.displayName}
             image={images.marker} />

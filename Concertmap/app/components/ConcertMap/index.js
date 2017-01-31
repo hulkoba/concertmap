@@ -26,7 +26,7 @@ export default class ConcertMap extends Component {
   }
 
 	render() {
-		const { concerts, filter, region } = this.props;
+		const { concerts, region } = this.props;
 
 		return (
 			<View style={map.container}>
@@ -42,13 +42,13 @@ export default class ConcertMap extends Component {
 
             {concerts.map(concert => (
              <MapView.Marker
-                identifier={concert.displayName}
-                key={concert.displayName}
+                identifier={concert.title}
+                key={concert.title}
                 coordinate={{
-                    latitude: concert.venue.lat ? concert.venue.lat : concert.location.lat,
-                    longitude: concert.venue.lng ? concert.venue.lng : concert.location.lng
+                    latitude: concert.position.lat,
+                    longitude: concert.position.lng
                 }}
-                title={concert.displayName}
+                title={concert.title}
                 image={images.marker}
                 onPress={() => this.onMarkerPress(concert)}
                 />

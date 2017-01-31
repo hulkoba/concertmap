@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { TouchableHighlight, View, Text } from 'react-native';
+import moment from 'moment';
 
 import { filterBar } from './barStyles';
 
@@ -16,8 +17,8 @@ export default class FilterBar extends Component {
               activeOpacity={0.5}
               underlayColor='#006279'>
               <Text
-                style={ f === activeFilter ? filterBar.activeFilter : filterBar.filter}>
-                {f}
+                style={ f.date() === activeFilter.date() ? filterBar.activeFilter : filterBar.filter}>
+                {moment(f).format('dd')}
               </Text>
             </TouchableHighlight>
             )
@@ -28,6 +29,7 @@ export default class FilterBar extends Component {
 }
 
 FilterBar.propTypes = {
+  activeFilter: PropTypes.object.isRequired,
   filter: PropTypes.array.isRequired,
   setFilter: PropTypes.func.isRequired,
 };

@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Navigator, TouchableHighlight, ListView, View, Text, Image } from 'react-native';
+import moment from 'moment';
 
 import images from '../../config/images';
 import { fonts } from '../../config/styles';
@@ -34,13 +35,13 @@ export default class ConcertList extends Component {
       <View style={list.row}>
         <View style={list.imageView}>
           <Image style={list.image}
-            source={images.pugtato} />
+            source={{uri: gig.image}} />
         </View>
 
         <View style={list.column}>
           <View style={list.titleRow}>
-            <Text style={fonts.title}>
-              {gig.performance[0].artist.displayName}
+            <Text style={fonts.title} numberOfLines={2}>
+              {gig.title}
             </Text>
             <Text style={fonts.info}>
               {'900'}{'m'}
@@ -48,11 +49,11 @@ export default class ConcertList extends Component {
           </View>
 
           <Text style={fonts.subTitle}>
-            {gig.venue.displayName}
+            {gig.venue}
           </Text>
 
-          <Text style={fonts.description} numberOfLines={2}>
-            {gig.start.time}
+          <Text style={fonts.description}>
+            {gig.time}
           </Text>
         </View>
       </View>

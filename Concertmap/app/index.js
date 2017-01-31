@@ -5,8 +5,6 @@ import moment from 'moment';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import EVBD from './config/evbd';
-
 import FBSDK from 'react-native-fbsdk';
 const { ShareDialog } = FBSDK;
 
@@ -26,7 +24,7 @@ export default class Concerts extends Component {
   static getWeekDays() {
     const filters = [];
     for(let i = 0; i <=6; i++) {
-      filters.push(moment().add(i, 'days').format('dd'));
+      filters.push(moment().add(i, 'days'));
     }
     return filters;
   }
@@ -41,64 +39,83 @@ export default class Concerts extends Component {
       loading: true,
       error: false,
       concerts: [],
-      activeFilter: moment().format('dd'),
-      position: 'unknown',
+      activeFilter: moment(),
+      position: {
+          latitude: 52.5555,
+          longitude: 13.3333,
+          latitudeDelta: 0.3,
+          longitudeDelta: 0.3,
+        },
     };
   }
 
   componentDidMount() {
     this.getPosition();
     this.getConcertsFromAPI();
-    if(this.state.position === 'unknown') {
-      this.setState({
-        position: {
-          latitude: 52.5555,
-          longitude: 13.3333,
-          latitudeDelta: 0.3,
-          longitudeDelta: 0.3,
-        }
-      });
-    }
   }
 
   setFilter = (filter) => {
-    alert(filter);
-    this.setState({activeFilter: filter});
-    // , loading: true
-   // this.getConcertsFromAPI();
+    this.setState({activeFilter: filter, loading: true});
+    this.getConcertsFromAPI(filter);
   }
 
   getPosition = () => {
     navigator.geolocation.getCurrentPosition(
          (position) => {
-            alert(JSON.stringify(position));
-            this.setState({
-              position: {
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude,
-                latitudeDelta: 0.001,
-                longitudeDelta: 0.01,
-              }
-            });
-            alert(JSON.stringify(this.state.position));
+            const currentPosition = {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+              latitudeDelta: 0.001,
+              longitudeDelta: 0.01,
+            }
+
+            this.setState({ position: currentPosition });
+            getConcertsFromAPI();
          },
-         (error) => alert(JSON.stringify(error)),
+         (error) => console.log(error),
          {enableHighAccuracy: false, timeout: 10000, maximumAge: 0}
       );
   }
-  getConcertsFromAPI = () => {
-    const minDate = moment().format('YYYY-MM-DD');
-    const maxDate = moment().add(1, 'days').format('YYYY-MM-DD');
-    return fetch(`${settings.SONGKICK_URL}${settings.SONGKICK_API_KEY}&location=geo:52.5,13.3&min_date=${minDate}&max_date=${minDate}`)
+
+  getArtistImage(id) {
+    if(id) {
+      return `http://images.sk-static.com/images/media/profile_images/artists/${id}/huge_avatar`
+    }
+  }
+  buildConcerts(gigs) {
+    return gigs.map((gig) => {
+      const position = {
+        lat: gig.venue.lat ? gig.venue.lat : gig.location.lat,
+        lng: gig.venue.lng ? gig.venue.lng : gig.location.lng,
+      };
+
+      return {
+        title: gig.performance[0].displayName,
+        venue: gig.venue.displayName,
+        city: gig.location.city.split(',')[0],
+        position,
+        time: gig.start.time ? gig.start.time.slice(0, -3) : '',
+        datetime: gig.start.datetime ? moment(gig.start.datetime).format('DD.MMM.YY HH:mm') : moment(gig.start.date).format('DD.MMM.YY'),
+        image: this.getArtistImage(gig.performance[0].artist.id),
+        url: gig.uri,
+      }
+    });
+  }
+
+  getConcertsFromAPI = (filter) => {
+    const searchDate = moment(filter).format('YYYY-MM-DD');
+
+    return fetch(`${settings.SONGKICK_URL}&location=geo:${this.state.position.latitude},${this.state.position.longitude}&min_date=${searchDate}&max_date=${searchDate}`)
     .then((response) => response.json())
     .then((responseJson) => {
-      alert(JSON.stringify(responseJson.resultsPage.results.event));
-      console.log(responseJson.resultsPage.results.event[0]);
-     this.setState({
+      const concerts = this.buildConcerts(responseJson.resultsPage.results.event);
+      alert(JSON.stringify(concerts));
+
+      this.setState({
        loading: false,
-       concerts: responseJson.resultsPage.results.event
+       concerts
       });
-     return responseJson;
+      return responseJson;
     })
     .catch((error) => {
       this.setState({ error: true });
@@ -141,13 +158,11 @@ export default class Concerts extends Component {
       case 0:
         return <ConcertList
            concerts={this.state.concerts}
-           filter={this.state.filter}
            navigator={navigator}
           />;
       case 1:
         return <ConcertMap
           concerts={this.state.concerts}
-          filter={this.state.filter}
           region={this.state.position}
           navigator={navigator}
         />;
@@ -160,7 +175,6 @@ export default class Concerts extends Component {
     }
   };
 
-   // source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
   render() {
     const { loading, error, activeFilter } = this.state
 		const routes = [
@@ -189,9 +203,9 @@ export default class Concerts extends Component {
 				 	style={styles.tabBar}
           sceneStyle={{paddingTop: navStyles.General.TotalNavHeight}}
 					initialRoute={routes[0]}
-				// 	initialRouteStack={routes}
 					renderScene={this.renderScene}
 				  navigationBar={
+
 					 <Navigator.NavigationBar
             navigationStyles={navStyles}
 						routeMapper={{
