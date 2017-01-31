@@ -237,7 +237,10 @@ export default class Concerts extends Component {
                 }
 							},
 							Title: (route, navigator, index, navState) => {
-								return (<FilterBar
+								return ( route.index === 2 ?
+                        <Text style={styles.dsplNone}>.</Text>
+                       :
+                       <FilterBar
                           filter={Concerts.getWeekDays()}
                           activeFilter={activeFilter}
                           setFilter={this.setFilter.bind(this)}/>);

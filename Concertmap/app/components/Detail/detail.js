@@ -7,6 +7,7 @@ export const detail = StyleSheet.create({
     backgroundColor: colors.black,
     flex: 1,
     padding: 12,
+    marginTop: -40,
   },
   row: {
     flexDirection: 'row',

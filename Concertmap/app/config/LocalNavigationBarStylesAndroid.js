@@ -27,7 +27,7 @@ var BASE_STYLES = {
     right: 0,
     alignItems: 'stretch',
     height: 40,
-    backgroundColor: colors.black,
+    backgroundColor: 'transparent',
   },
   LeftButton: {
     position: 'absolute',
