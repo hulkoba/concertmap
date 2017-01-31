@@ -15,6 +15,9 @@ export const detail = StyleSheet.create({
     paddingRight: 12,
     paddingTop: 12,
   },
+  address: {
+    justifyContent: 'space-between',
+  },
   image: {
     flex: 1,
     height: 200,
@@ -31,6 +34,8 @@ export const detail = StyleSheet.create({
     alignItems: 'stretch',
   },
   map: {
-		height: 111,
+		 // height: 111,
+    width: window.width,
+    height: 222,
 	 },
 });

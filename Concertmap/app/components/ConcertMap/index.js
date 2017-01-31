@@ -50,6 +50,7 @@ export default class ConcertMap extends Component {
                 }}
                 title={concert.title}
                 image={images.marker}
+                flat
                 onPress={() => this.onMarkerPress(concert)}
                 />
            ))}

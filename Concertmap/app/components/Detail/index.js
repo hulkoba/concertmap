@@ -49,7 +49,7 @@ export default class ListDetail extends Component {
         </Text>
 
         <View style={detail.row}>
-          <View>
+          <View style={detail.address}>
             <Text style={fonts.importantInfo}>
               {concert.venue}
             </Text>

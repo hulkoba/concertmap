@@ -89,6 +89,10 @@ export default class Concerts extends Component {
         lng: gig.venue.lng ? gig.venue.lng : gig.location.lng,
       };
 
+      var from = new google.maps.LatLng(49.004, 8.456);
+      var to   = new google.maps.LatLng(49.321, 8.789);
+      var dist = google.maps.geometry.spherical.computeDistanceBetween(from, to);
+
       return {
         title: gig.performance[0].displayName,
         venue: gig.venue.displayName,
