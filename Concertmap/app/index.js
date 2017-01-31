@@ -124,32 +124,23 @@ export default class Concerts extends Component {
   }
 
   shareConcert = (data) => {
-    /*contentURL: der zu teilende Link
-      contentTitle: gibt den Inhaltstitel im Link an
-      imageURL: die URL eines Miniaturbildes, das im Beitrag angezeigt wird
-      contentDesscription: Beschreibung des Inhalts, für gewöhnlich zwei bis vier Sätze*/
     const shareLinkContent = {
       contentType: 'link',
-      contentUrl: "https://berliner-nachtgesang.de",
-      contentDescription: 'Kommt alle mit!',
+      contentTitle: `${data.title} im ${data.venue}!`,
+      contentUrl: data.url,
+      imageUrl: data.image,
+      contentDescription: `Kommt alle mit zu ${data.title} im ${data.venue}!`,
     };
     ShareDialog.canShow(shareLinkContent).then(
       function(canShow) {
-        if (canShow) {
-          return ShareDialog.show(shareLinkContent);
-        }
+        if (canShow) { return ShareDialog.show(shareLinkContent) }
       }
     ).then(
       function(result) {
-        if (result.isCancelled) {
-          alert('Share operation was cancelled');
-        } else {
-          alert('Share was successful with postId: ' + result.postId);
-        }
+        if (result.isCancelled) { alert('Share operation was cancelled') } else {
+          alert('Share was successful with postId: ' + result.postId); }
       },
-      function(error) {
-        alert('Share failed with error: ' + error);
-      }
+      function(error) { alert('Share failed with error: ' + error) }
     );
   };
 
