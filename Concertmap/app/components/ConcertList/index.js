@@ -40,7 +40,7 @@ export default class ConcertList extends Component {
         <View style={list.column}>
           <View style={list.titleRow}>
             <Text style={fonts.title}>
-              {gig.title}
+              {gig.performance[0].artist.displayName}
             </Text>
             <Text style={fonts.info}>
               {'900'}{'m'}
@@ -48,11 +48,11 @@ export default class ConcertList extends Component {
           </View>
 
           <Text style={fonts.subTitle}>
-            {gig.releaseYear}
+            {gig.venue.displayName}
           </Text>
 
           <Text style={fonts.description} numberOfLines={2}>
-            {'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim juto, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. '}
+            {gig.start.time}
           </Text>
         </View>
       </View>

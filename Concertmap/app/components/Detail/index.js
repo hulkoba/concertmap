@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { BackAndroid, ScrollView, View, Text, Image, Linking } from 'react-native';
 import MapView from 'react-native-maps';
+import moment from 'moment';
 
 
 import { detail } from './detail';
@@ -22,7 +23,7 @@ export default class ListDetail extends Component {
   }
 
 	render() {
-		const { concert, navigator } = this.props;
+		const { concert, region, navigator } = this.props;
 
     const routes = navigator.getCurrentRoutes(0);
     const prevRoute = routes[routes.length -2].title; // vorletzte
@@ -30,42 +31,40 @@ export default class ListDetail extends Component {
     return (
       <View style={detail.container}>
         <Text style={fonts.title}>
-          {concert.title}
+          {concert.performance[0].artist.displayName}
         </Text>
         <Text style={fonts.info}>
-          {concert.releaseYear}
+          {concert.venue.displayName}
         </Text>
 
          <View style={detail.imageView}>
           <Image style={detail.image}
             source={images.pugtato}>
-            <Routenplaner interpret={concert.title} city='Berlin'/>
+            <Routenplaner
+              interpret={concert.performance[0].artist.displayName}
+              city={concert.location.city}/>
           </Image>
         </View>
 
         <Text style={fonts.title}>
-          8€ - Morgen 20:00 Uhr
+          {concert.start.date} {concert.start.time}
         </Text>
 
         <View style={detail.row}>
           <View>
             <Text style={fonts.importantInfo}>
-              BrotFabrik
+              {concert.venue.displayName}
             </Text>
             <Text style={fonts.importantInfo}>
-              HalliGalliplatz 1
-            </Text>
-            <Text style={fonts.importantInfo}>
-              13087 Berlin
+               {concert.location.city}
             </Text>
           </View>
           <Player />
         </View>
 
-
         <Text style={fonts.link}
-          onPress={() => Linking.openURL('http://www.berliner-nachtgesang.de')}>
-          http://www.berliner-nachtgesang.de
+          onPress={() => Linking.openURL(`${concert.uri}`)}>
+          {concert.uri}
         </Text>
 
         { prevRoute === 'List' ?
@@ -78,8 +77,8 @@ export default class ListDetail extends Component {
           <MapView
             style={detail.map}
             region={{
-              latitude: 52.5451157,
-              longitude: 13.355231799,
+              latitude: concert.location.lat,
+              longitude: concert.location.lng,
               latitudeDelta: 0.0055,
               longitudeDelta: 0.0055
             }}
@@ -87,15 +86,14 @@ export default class ListDetail extends Component {
             loadingIndicatorColor='#008bae'>
 
           <MapView.Marker
-            identifier={concert.title}
-            key={concert.title}
+            identifier={concert.displayName}
+            key={concert.displayName}
             coordinate={{
-                latitude: 52.5451157,
-                longitude: 13.355231799
+                latitude: concert.venue.lat ? concert.venue.lat : concert.location.lat,
+                longitude: concert.venue.lng ? concert.venue.lng : concert.location.lng,
             }}
-            title={concert.title}
+            title={concert.displayName}
             image={images.marker} />
-
          </MapView>
         }
       </View>

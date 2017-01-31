@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { TouchableHighlight, Text, View, ActivityIndicator, Navigator } from 'react-native';
+
 import moment from 'moment';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
+import EVBD from './config/evbd';
 
 import FBSDK from 'react-native-fbsdk';
 const { ShareDialog } = FBSDK;
@@ -11,7 +14,7 @@ const { ShareDialog } = FBSDK;
 // see https://github.com/facebook/react-native/issues/10600
 import * as navStyles from './config/LocalNavigationBarStylesAndroid';
 import { styles } from './components/Concerts/styles';
-
+import { settings } from './config/settings';
 import ConcertMap from './components/ConcertMap';
 import ConcertList from './components/ConcertList';
 import Detail from './components/Detail';
@@ -45,7 +48,7 @@ export default class Concerts extends Component {
 
   componentDidMount() {
     this.getPosition();
-    this.getMoviesFromApiAsync();
+    this.getConcertsFromAPI();
     if(this.state.position === 'unknown') {
       this.setState({
         position: {
@@ -62,7 +65,7 @@ export default class Concerts extends Component {
     alert(filter);
     this.setState({activeFilter: filter});
     // , loading: true
-   // this.getMoviesFromApiAsync();
+   // this.getConcertsFromAPI();
   }
 
   getPosition = () => {
@@ -83,14 +86,17 @@ export default class Concerts extends Component {
          {enableHighAccuracy: false, timeout: 10000, maximumAge: 0}
       );
   }
-  getMoviesFromApiAsync = () => {
-    return fetch('https://facebook.github.io/react-native/movies.json')
+  getConcertsFromAPI = () => {
+    const minDate = moment().format('YYYY-MM-DD');
+    const maxDate = moment().add(1, 'days').format('YYYY-MM-DD');
+    return fetch(`${settings.SONGKICK_URL}${settings.SONGKICK_API_KEY}&location=geo:52.5,13.3&min_date=${minDate}&max_date=${minDate}`)
     .then((response) => response.json())
     .then((responseJson) => {
-
+      alert(JSON.stringify(responseJson.resultsPage.results.event));
+      console.log(responseJson.resultsPage.results.event[0]);
      this.setState({
        loading: false,
-       concerts: responseJson.movies
+       concerts: responseJson.resultsPage.results.event
       });
      return responseJson;
     })
