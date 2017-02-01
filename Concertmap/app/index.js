@@ -13,6 +13,7 @@ const { ShareDialog } = FBSDK;
 import * as navStyles from './config/LocalNavigationBarStylesAndroid';
 import { styles } from './components/Concerts/styles';
 import { settings } from './config/settings';
+import { getDistance } from './utils/map-utils';
 import ConcertMap from './components/ConcertMap';
 import ConcertList from './components/ConcertList';
 import Detail from './components/Detail';
@@ -89,6 +90,9 @@ export default class Concerts extends Component {
         lng: gig.venue.lng ? gig.venue.lng : gig.location.lng,
       };
 
+        const dist = getDistance(this.state.position, position);
+        const distance = Math.round(dist * 100) / 100;
+
       return {
         title: gig.performance[0].displayName,
         venue: gig.venue.displayName,
@@ -98,6 +102,7 @@ export default class Concerts extends Component {
         datetime: gig.start.datetime ? moment(gig.start.datetime).format('DD.MMM.YY HH:mm') : moment(gig.start.date).format('DD.MMM.YY'),
         image: this.getArtistImage(gig.performance[0].artist.id),
         url: gig.uri,
+        distance
       }
     });
   }
@@ -109,7 +114,7 @@ export default class Concerts extends Component {
     .then((response) => response.json())
     .then((responseJson) => {
       const concerts = this.buildConcerts(responseJson.resultsPage.results.event);
-      alert(JSON.stringify(concerts));
+      concerts.sort((a,b) => (a.distance - b.distance));
 
       this.setState({
        loading: false,
