@@ -42,17 +42,15 @@ export default class ConcertMap extends Component {
 
             {concerts.map(concert => (
              <MapView.Marker
-                identifier={concert.title}
-                key={concert.title}
-                coordinate={{
-                    latitude: concert.position.lat,
-                    longitude: concert.position.lng
-                }}
-                title={concert.title}
-                image={images.marker}
-                flat
-                onPress={() => this.onMarkerPress(concert)}
-                />
+                  identifier={concert.title}
+                  key={concert.title}
+                  coordinate={{
+                      latitude: concert.position.lat,
+                      longitude: concert.position.lng
+                  }}
+                  title={concert.title}
+                  image={images.marker}
+                onPress={() => this.onMarkerPress(concert)} />
            ))}
          </MapView>
 			</View>

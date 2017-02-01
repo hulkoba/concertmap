@@ -1,14 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 import { BackAndroid, ScrollView, View, Text, Image, Linking } from 'react-native';
 import MapView from 'react-native-maps';
+import Polyline from '@mapbox/polyline'
 
 import { detail } from './detail';
 import { fonts } from '../../config/styles';
+import { settings } from '../../config/settings';
 import images from '../../config/images';
 import Routenplaner from '../Routenplaner';
 import Player from '../Player';
 
-export default class ListDetail extends Component {
+export default class Detail extends Component {
 
   componentWillMount() {
     BackAndroid.addEventListener('hardwareBackPress', () => {
@@ -18,6 +20,47 @@ export default class ListDetail extends Component {
       }
       return false;
     });
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      polylineCoords: []
+    }
+    this.getDirection(props.region, props.concert.position);
+  }
+
+  getDirection(fromCoords, toCoords) {
+    let url = 'https://maps.googleapis.com/maps/api/directions/json?&';
+        url += 'origin=' + fromCoords.latitude + ',' + fromCoords.longitude;
+        url += '&destination=' + toCoords.lat + ',' + toCoords.lng;
+
+    return fetch(url)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.createRouteCoordinates(responseJson)
+        return responseJson;
+      })
+      .catch((error) => {
+        return error;
+    });
+  }
+
+   createRouteCoordinates(data) {
+    if (data.status !== 'OK') { return []; }
+
+    const points = data.routes[0].overview_polyline.points;
+    const steps = Polyline.decode(points);
+
+    const polylineCoords = steps.map((step) => {
+      return {
+        latitude: step[0],
+        longitude: step[1]
+      }
+    });
+
+     this.setState({polylineCoords})
+    // return polylineCoords;
   }
 
 	render() {
@@ -77,8 +120,8 @@ export default class ListDetail extends Component {
             region={{
               latitude: concert.position.lat,
               longitude: concert.position.lng,
-              latitudeDelta: 0.0055,
-              longitudeDelta: 0.0055
+              latitudeDelta: 0.01,
+              longitudeDelta: 0.01
             }}
             showsIndoors={false}
             loadingIndicatorColor='#008bae'>
@@ -92,6 +135,11 @@ export default class ListDetail extends Component {
             }}
             title={concert.displayName}
             image={images.marker} />
+            <MapView.Polyline
+              coordinates={this.state.polylineCoords}
+              strokeWidth={2}
+              strokeColor="red"
+             />
          </MapView>
         }
       </View>
@@ -99,6 +147,8 @@ export default class ListDetail extends Component {
 	}
 }
 
-ListDetail.propTypes = {
-  concert: PropTypes.object.isRequired
+Detail.propTypes = {
+  concert: PropTypes.object.isRequired,
+  region: PropTypes.object.isRequired,
+  navigator: PropTypes.object.isRequired,
 };

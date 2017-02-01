@@ -70,7 +70,7 @@ export default class Concerts extends Component {
             }
 
             this.setState({ position: currentPosition });
-            getConcertsFromAPI();
+            this.getConcertsFromAPI();
          },
          (error) => console.log(error),
          {enableHighAccuracy: false, timeout: 10000, maximumAge: 0}
@@ -88,10 +88,6 @@ export default class Concerts extends Component {
         lat: gig.venue.lat ? gig.venue.lat : gig.location.lat,
         lng: gig.venue.lng ? gig.venue.lng : gig.location.lng,
       };
-
-      var from = new google.maps.LatLng(49.004, 8.456);
-      var to   = new google.maps.LatLng(49.321, 8.789);
-      var dist = google.maps.geometry.spherical.computeDistanceBetween(from, to);
 
       return {
         title: gig.performance[0].displayName,
@@ -164,6 +160,7 @@ export default class Concerts extends Component {
 		  case 2:
         return <Detail
                   navigator={navigator}
+                  region={this.state.position}
                   concert={route.data} />;
 		  default:
         return null;
