@@ -42,10 +42,10 @@ export default class Concerts extends Component {
       concerts: [],
       activeFilter: moment(),
       position: {
-          latitude: 52.5555,
-          longitude: 13.3333,
-          latitudeDelta: 0.3,
-          longitudeDelta: 0.3,
+          latitude: 52.5243700,
+          longitude: 13.4105300,
+          latitudeDelta: 0.15,
+          longitudeDelta: 0.18,
         },
     };
   }

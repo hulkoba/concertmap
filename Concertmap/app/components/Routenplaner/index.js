@@ -8,13 +8,13 @@ import settings from '../../config/settings';
 export default class Routenplaner extends Component {
 
 	render() {
-    const { interpret, city } = this.props;
+    const { interpret, city, duration } = this.props;
 
 		return (
       <View style={routenplaner.container}>
         <View >
           <MaterialIcons name="directions-walk" style={routenplaner.icon} />
-          <Text style={routenplaner.duration}> 11 min</Text>
+          <Text style={routenplaner.duration}>{duration.walk}</Text>
         </View>
 
         <View >
@@ -24,12 +24,12 @@ export default class Routenplaner extends Component {
 
         <View >
           <MaterialIcons name="directions-bike" style={routenplaner.icon} />
-          <Text style={routenplaner.duration}> 6 min</Text>
+          <Text style={routenplaner.duration}>{duration.bike}</Text>
         </View>
 
         <View >
           <MaterialIcons name="directions-car" style={routenplaner.icon} />
-          <Text style={routenplaner.duration}> 41 min</Text>
+          <Text style={routenplaner.duration}>{duration.car}</Text>
         </View>
 
         <Text style={routenplaner.ticketButton}
@@ -44,5 +44,6 @@ export default class Routenplaner extends Component {
 
 Routenplaner.propTypes = {
   city: PropTypes.string.isRequired,
+  duration: PropTypes.object.isRequired,
   interpret: PropTypes.string.isRequired,
 };

@@ -6,7 +6,7 @@ import MapView from 'react-native-maps';
 import { detail } from './detail';
 import { fonts } from '../../config/styles';
 import { settings } from '../../config/settings';
-import { getDirection, createRouteCoordinates } from '../../utils/map-utils';
+import { getDirection, createRouteCoordinates, getDuration } from '../../utils/map-utils';
 import images from '../../config/images';
 import Routenplaner from '../Routenplaner';
 import Player from '../Player';
@@ -26,7 +26,8 @@ export default class Detail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      polylineCoords: []
+      polylineCoords: [],
+      durations: {}
     }
   }
 
@@ -35,6 +36,27 @@ export default class Detail extends Component {
       .then((response) => {
         this.setState({polylineCoords: createRouteCoordinates(response)})
       });
+
+    const duration = {};
+    getDuration(this.props.region, this.props.concert.position)
+      .then((response) => {
+        duration.car = response;
+        return duration;
+      })
+      .then((duration) => {
+        getDuration(this.props.region, this.props.concert.position, 'walking')
+          .then((response) => {
+            duration.walk = response;
+            return duration;
+          })
+          .then((duration) => {
+          getDuration(this.props.region, this.props.concert.position, 'bicycling')
+            .then((response) => {
+              duration.bike = response;
+              this.setState({durations: duration});
+            })
+        })
+      })
   }
 
 	render() {
@@ -57,6 +79,7 @@ export default class Detail extends Component {
             source={{uri: concert.image}}>
             <Routenplaner
               interpret={concert.title}
+              duration={this.state.durations}
               city={concert.city}/>
           </Image>
         </View>

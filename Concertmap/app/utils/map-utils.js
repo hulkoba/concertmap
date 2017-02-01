@@ -19,31 +19,48 @@ export function getDistance(start, end) {
     const unit = {
         km: 6371,
     }
-
     return unit.km * c;
 }
 
-
 // travelMode = [DRIVING, BICYCLING, TRANSIT, WALKING]
-// DRIVING = default
-export function getDirection(fromCoords, toCoords, travelMode) {
-    let url = 'https://maps.googleapis.com/maps/api/directions/json?&';
-        url += 'origin=' + fromCoords.latitude + ',' + fromCoords.longitude;
-        url += '&destination=' + toCoords.lat + ',' + toCoords.lng;
+// mode=bicycling || walking ||
+export function getDuration(fromCoords, toCoords, mode) {
+  let url = 'https://maps.googleapis.com/maps/api/distancematrix/json?';
+      url += 'origins=' + fromCoords.latitude + ',' + fromCoords.longitude;
+      url += '&destinations=' + toCoords.lat + ',' + toCoords.lng;
+      url += '&language=de-DE';
+  if(mode) {
+    url += '&mode=' + mode;
+  }
 
-    if (travelMode) {
-        url += '&mode=' + travelMode;
-    }
-    return new Promise((resolve, reject) => {
-        fetch(url)
-            .then((response) => {
-                return response.json();
-            }).then((json) => {
-                resolve(json);
-            }).catch((err) => {
-                reject(err);
-            });
-    });
+  return new Promise((resolve, reject) => {
+    fetch(url)
+      .then((response) => {
+          return response.json();
+      }).then((json) => {
+          resolve(json.rows[0].elements[0].duration.text);
+      }).catch((err) => {
+          reject(err);
+      });
+  });
+}
+
+
+export function getDirection(fromCoords, toCoords) {
+  let url = 'https://maps.googleapis.com/maps/api/directions/json?&';
+      url += 'origin=' + fromCoords.latitude + ',' + fromCoords.longitude;
+      url += '&destination=' + toCoords.lat + ',' + toCoords.lng;
+
+  return new Promise((resolve, reject) => {
+    fetch(url)
+      .then((response) => {
+          return response.json();
+      }).then((json) => {
+          resolve(json);
+      }).catch((err) => {
+          reject(err);
+      });
+  });
 }
 
 export function createRouteCoordinates(data) {
