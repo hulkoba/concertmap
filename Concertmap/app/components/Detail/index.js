@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { BackAndroid, ScrollView, View, Text, Image, Linking } from 'react-native';
 import MapView from 'react-native-maps';
-import Polyline from '@mapbox/polyline'
+
 
 import { detail } from './detail';
 import { fonts } from '../../config/styles';
 import { settings } from '../../config/settings';
+import { getDirection, createRouteCoordinates } from '../../utils/map-utils';
 import images from '../../config/images';
 import Routenplaner from '../Routenplaner';
 import Player from '../Player';
@@ -27,40 +28,13 @@ export default class Detail extends Component {
     this.state = {
       polylineCoords: []
     }
-    this.getDirection(props.region, props.concert.position);
   }
 
-  getDirection(fromCoords, toCoords) {
-    let url = 'https://maps.googleapis.com/maps/api/directions/json?&';
-        url += 'origin=' + fromCoords.latitude + ',' + fromCoords.longitude;
-        url += '&destination=' + toCoords.lat + ',' + toCoords.lng;
-
-    return fetch(url)
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.createRouteCoordinates(responseJson)
-        return responseJson;
-      })
-      .catch((error) => {
-        return error;
-    });
-  }
-
-   createRouteCoordinates(data) {
-    if (data.status !== 'OK') { return []; }
-
-    const points = data.routes[0].overview_polyline.points;
-    const steps = Polyline.decode(points);
-
-    const polylineCoords = steps.map((step) => {
-      return {
-        latitude: step[0],
-        longitude: step[1]
-      }
-    });
-
-     this.setState({polylineCoords})
-    // return polylineCoords;
+  componentDidMount() {
+    getDirection(this.props.region, this.props.concert.position)
+      .then((response) => {
+        this.setState({polylineCoords: createRouteCoordinates(response)})
+      });
   }
 
 	render() {
