@@ -38,6 +38,7 @@ export default class Concerts extends Component {
       error: false,
       concerts: [],
       activeFilter: moment(),
+      initialRouteIndex: 0,
       position: {
         latitude: 52.5243700,
         longitude: 13.4105300,
@@ -52,8 +53,8 @@ export default class Concerts extends Component {
     this.getConcertsFromAPI();
   }
 
-  setFilter = (filter) => {
-    this.setState({activeFilter: filter, loading: true});
+  setFilter = (index, filter) => {
+    this.setState({activeFilter: filter, initialRouteIndex: index});
     this.getConcertsFromAPI(filter);
   }
 
@@ -80,6 +81,7 @@ export default class Concerts extends Component {
       return `http://images.sk-static.com/images/media/profile_images/artists/${id}/huge_avatar`
     }
   }
+
   buildConcerts(gigs) {
     return gigs.map((gig) => {
       const position = {
@@ -125,7 +127,6 @@ export default class Concerts extends Component {
     });
   }
 
-
   renderScene = (route, navigator, index) => {
     switch (route.index) {
       case 0:
@@ -150,11 +151,13 @@ export default class Concerts extends Component {
   };
 
   render() {
-    const { loading, error, activeFilter } = this.state
+    const { loading, error, activeFilter, initialRouteIndex } = this.state;
+
+    // I am fond of cryptic keys (but seriously, keys should be unique)
 		const routes = [
-			{ title: 'List', index: 0, key: 'list' },
-			{ title: 'Map', index: 1, key: 'map' },
-			{ title: 'Detail', index: 2, key: 'detail', data: {} },
+			{ title: 'List', index: 0, key: 'list-' + moment() },
+			{ title: 'Map', index: 1, key: 'map-' + moment() },
+			{ title: 'Detail', index: 2, key: 'detail-' + moment(), data: {} },
 		];
 
     if (loading) {
@@ -162,21 +165,21 @@ export default class Concerts extends Component {
         <View style={styles.center}>
           <ActivityIndicator animating={true} />
         </View>
-      )
+      );
     }
     if (error) {
       return (
 				<View style={styles.center}>
 					<Text>Konnte keine Konzerte laden!</Text>
 				</View>
-			)
+			);
     }
 
     return (
 			 <Navigator
 				 	style={styles.tabBar}
           sceneStyle={{paddingTop: navStyles.General.TotalNavHeight}}
-					initialRoute={routes[0]}
+					initialRoute={routes[initialRouteIndex]}
 					renderScene={this.renderScene}
 				  navigationBar={
 
@@ -188,9 +191,16 @@ export default class Concerts extends Component {
                   case 0:
 									 return (<Text style={styles.tabTextActive}>LISTE</Text>);
                   case 1:
-                    return (<TouchableHighlight onPress={() => navigator.jumpBack()}>
-                          <Text style={styles.tabText}>LISTE</Text>
-                        </TouchableHighlight>);
+                    return (
+                      <TouchableHighlight
+                        onPress={() => {
+                          if(route.index === 1) {
+                            navigator.jumpBack();
+                          }
+                      }}>
+                        <Text style={styles.tabText}>LISTE</Text>
+                      </TouchableHighlight>
+                    );
                   case 2:
                     return (
                       <TouchableHighlight onPress={() => navigator.pop()}>
@@ -225,13 +235,11 @@ export default class Concerts extends Component {
                 }
 							},
 							Title: (route, navigator, index, navState) => {
-								return ( route.index === 2 ?
-                        <Text style={styles.dsplNone}>.</Text>
-                       :
+								return ( route.index === 2 ? null :
                        <FilterBar
                           filter={Concerts.getWeekDays()}
                           activeFilter={activeFilter}
-                          setFilter={this.setFilter.bind(this)}/>);
+                          setFilter={this.setFilter.bind(this, route.index)}/>);
 							},
 						}}
 					/>

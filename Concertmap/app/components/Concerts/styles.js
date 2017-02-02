@@ -56,8 +56,4 @@ export const styles = StyleSheet.create({
     fontFamily: 'Lato-Regular',
     marginRight: 6,
   },
-  dsplNone: {
-    width: 0,
-    height: 0,
-  }
 });

@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '../../config/styles';
 
-export const filterBar = StyleSheet.create({
+export const style = StyleSheet.create({
   bar: {
     flex: 1,
     flexDirection:'row',

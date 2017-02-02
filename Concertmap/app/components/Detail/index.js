@@ -72,9 +72,6 @@ export default class Detail extends Component {
 
 	render() {
 		const { concert, region, navigator } = this.props;
-    const weekdays = [
-      "Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"
-    ];
 
     const routes = navigator.getCurrentRoutes(0);
     const prevRoute = routes[routes.length -2].title; // vorletzte
@@ -114,7 +111,7 @@ export default class Detail extends Component {
               {this.state.duration.distance}
             </Text>
           </View>
-          <Player />
+
         </View>
 
         <Text style={fonts.link}
@@ -127,11 +124,17 @@ export default class Detail extends Component {
           region={{
             latitude: concert.position.lat,
             longitude: concert.position.lng,
-            latitudeDelta: 0.015,
-            longitudeDelta: 0.015
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01,
           }}
-          showsIndoors={false}
-          loadingIndicatorColor='#008bae'>
+          showsUserLocation={true}
+          followsUserLocation={true}
+          showsCompass={false}
+          showsTraffic={false}
+          showsBuildings={false}
+          pitchEnabled={false}
+          toolbarEnabled={false}
+          >
 
           <MapView.Marker
             identifier={concert.title}
@@ -145,7 +148,7 @@ export default class Detail extends Component {
             <MapView.Polyline
               coordinates={this.state.polylineCoords}
               strokeWidth={2}
-              strokeColor="red"
+              strokeColor="magenta"
              />
          </MapView>
       </View>
