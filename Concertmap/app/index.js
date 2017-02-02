@@ -4,10 +4,6 @@ import { TouchableHighlight, Text, View, ActivityIndicator, Navigator } from 're
 import moment from 'moment';
 import deLocale from 'moment/locale/de';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
-import FBSDK from 'react-native-fbsdk';
-const { ShareDialog } = FBSDK;
 
 // overwrite native styles for showing the filter.
 // see https://github.com/facebook/react-native/issues/10600
@@ -15,10 +11,12 @@ import * as navStyles from './config/LocalNavigationBarStylesAndroid';
 import { styles } from './components/Concerts/styles';
 import { settings } from './config/settings';
 import { getDistance } from './utils/map-utils';
+
 import ConcertMap from './components/ConcertMap';
 import ConcertList from './components/ConcertList';
 import Detail from './components/Detail';
 import FilterBar from './components/FilterBar';
+import ShareBtn from './components/ShareBtn';
 
 
 export default class Concerts extends Component {
@@ -127,26 +125,6 @@ export default class Concerts extends Component {
     });
   }
 
-  shareConcert = (data) => {
-    const shareLinkContent = {
-      contentType: 'link',
-      contentTitle: `${data.title} im ${data.venue}!`,
-      contentUrl: data.url,
-      imageUrl: data.image,
-      contentDescription: `Kommt alle mit zu ${data.title} im ${data.venue}!`,
-    };
-    ShareDialog.canShow(shareLinkContent).then(
-      function(canShow) {
-        if (canShow) { return ShareDialog.show(shareLinkContent) }
-      }
-    ).then(
-      function(result) {
-        if (result.isCancelled) { alert('Share operation was cancelled') } else {
-          alert('Share was successful with postId: ' + result.postId); }
-      },
-      function(error) { alert('Share failed with error: ' + error) }
-    );
-  };
 
   renderScene = (route, navigator, index) => {
     switch (route.index) {
@@ -241,13 +219,7 @@ export default class Concerts extends Component {
                   case 1:
                     return <Text style={styles.tabTextActive}>KARTE</Text>;
                   case 2:
-                     return (
-                      <TouchableHighlight onPress={() => this.shareConcert(route.data)}>
-                        <View style={styles.tabTextShare} >
-                          <MaterialIcons name="share" style={styles.icon} />
-                          <Text style={styles.icon}>Teilen</Text>
-                        </View>
-                      </TouchableHighlight>);
+                     return (<ShareBtn concert={route.data}/>);
                   default:
                     break;
                 }
