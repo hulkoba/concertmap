@@ -12,8 +12,7 @@ export const detail = StyleSheet.create({
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingRight: 12,
-    paddingTop: 12,
+    paddingRight: 6,
   },
   address: {
     justifyContent: 'space-between',
@@ -36,6 +35,7 @@ export const detail = StyleSheet.create({
   map: {
 		 // height: 111,
     width: window.width,
-    height: 222,
+    height: 250,
+    flex: 1,
 	 },
 });

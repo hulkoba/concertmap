@@ -5,7 +5,6 @@ export const colors = {
   pressedBlue: '#006279',
   white: '#e6e6e6',
   lightGrey: '#7d7d7d',
-  grey: '#363636',
 	black: '#1a1a1a',
 };
 
@@ -23,19 +22,13 @@ export const fonts = StyleSheet.create({
     marginTop: 6,
   },
   importantInfo: {
-    fontFamily: 'Lato-Bold',
-    fontSize: 12,
+    fontFamily: 'Lato',
+    fontSize: 14,
     color: colors.white
   },
   info: {
     fontSize: 12,
     color: colors.lightGrey,
-  },
-  description: {
-    fontFamily: 'Lato-Regular',
-    fontSize: 12,
-    color: colors.grey,
-    marginTop: 6,
   },
   link: {
     fontFamily: 'Lato-Regular',

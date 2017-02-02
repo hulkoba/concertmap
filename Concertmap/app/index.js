@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { TouchableHighlight, Text, View, ActivityIndicator, Navigator } from 'react-native';
 
 import moment from 'moment';
+import deLocale from 'moment/locale/de';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
@@ -32,9 +33,7 @@ export default class Concerts extends Component {
 
   constructor(props) {
     super(props);
-     moment.locale('de', {
-      weekdaysMin : "So_Mo_Di_Mi_Do_Fr_Sa".split("_"),
-    });
+    moment.updateLocale('de', deLocale);
 
     this.state = {
       loading: true,
@@ -42,11 +41,11 @@ export default class Concerts extends Component {
       concerts: [],
       activeFilter: moment(),
       position: {
-          latitude: 52.5243700,
-          longitude: 13.4105300,
-          latitudeDelta: 0.15,
-          longitudeDelta: 0.18,
-        },
+        latitude: 52.5243700,
+        longitude: 13.4105300,
+        latitudeDelta: 0.15,
+        longitudeDelta: 0.18,
+      },
     };
   }
 
@@ -90,19 +89,19 @@ export default class Concerts extends Component {
         lng: gig.venue.lng ? gig.venue.lng : gig.location.lng,
       };
 
-        const dist = getDistance(this.state.position, position);
-        const distance = Math.round(dist * 100) / 100;
+      const distance = getDistance(this.state.position, position);
 
       return {
+        id: gig.id,
         title: gig.performance[0].displayName,
         venue: gig.venue.displayName,
         city: gig.location.city.split(',')[0],
         position,
         time: gig.start.time ? gig.start.time.slice(0, -3) : '',
-        datetime: gig.start.datetime ? moment(gig.start.datetime).format('DD.MMM.YY HH:mm') : moment(gig.start.date).format('DD.MMM.YY'),
+        datetime: gig.start.datetime ? moment(gig.start.datetime).calendar() :  moment(gig.start.date).calendar(),
         image: this.getArtistImage(gig.performance[0].artist.id),
         url: gig.uri,
-        distance
+        distance: distance
       }
     });
   }

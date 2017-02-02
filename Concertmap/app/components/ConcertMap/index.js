@@ -43,7 +43,7 @@ export default class ConcertMap extends Component {
             {concerts.map(concert => (
              <MapView.Marker
                   identifier={concert.title}
-                  key={concert.title}
+                  key={concert.id}
                   coordinate={{
                       latitude: concert.position.lat,
                       longitude: concert.position.lng

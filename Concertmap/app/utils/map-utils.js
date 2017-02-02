@@ -1,5 +1,6 @@
 import Polyline from '@mapbox/polyline'
 
+import { settings } from '../config/settings';
 
 // convert to radians
 const toRad = function (num) {
@@ -19,16 +20,15 @@ export function getDistance(start, end) {
     const unit = {
         km: 6371,
     }
-    return unit.km * c;
+    return Math.round(unit.km * c * 10) / 10;
 }
 
 // travelMode = [DRIVING, BICYCLING, TRANSIT, WALKING]
-// mode=bicycling || walking ||
 export function getDuration(fromCoords, toCoords, mode) {
   let url = 'https://maps.googleapis.com/maps/api/distancematrix/json?';
       url += 'origins=' + fromCoords.latitude + ',' + fromCoords.longitude;
       url += '&destinations=' + toCoords.lat + ',' + toCoords.lng;
-      url += '&language=de-DE';
+      url += '&language=de' //&key=' + settings.GOOGLE_KEY;
   if(mode) {
     url += '&mode=' + mode;
   }
@@ -38,7 +38,7 @@ export function getDuration(fromCoords, toCoords, mode) {
       .then((response) => {
           return response.json();
       }).then((json) => {
-          resolve(json.rows[0].elements[0].duration.text);
+          resolve(json.rows[0].elements[0]);
       }).catch((err) => {
           reject(err);
       });

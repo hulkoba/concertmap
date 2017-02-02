@@ -12,6 +12,7 @@ export default class Routenplaner extends Component {
 
 		return (
       <View style={routenplaner.container}>
+
         <View >
           <MaterialIcons name="directions-walk" style={routenplaner.icon} />
           <Text style={routenplaner.duration}>{duration.walk}</Text>
@@ -19,7 +20,7 @@ export default class Routenplaner extends Component {
 
         <View >
           <MaterialIcons name="directions-transit" style={routenplaner.icon} />
-          <Text style={routenplaner.duration}> 23 min</Text>
+          <Text style={routenplaner.duration}>{duration.metro}</Text>
         </View>
 
         <View >

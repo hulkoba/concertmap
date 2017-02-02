@@ -27,7 +27,7 @@ export default class Detail extends Component {
     super(props);
     this.state = {
       polylineCoords: [],
-      durations: {}
+      duration: {}
     }
   }
 
@@ -40,27 +40,41 @@ export default class Detail extends Component {
     const duration = {};
     getDuration(this.props.region, this.props.concert.position)
       .then((response) => {
-        duration.car = response;
+        duration.car = response.duration.text;
+        duration.distance = response.distance.text
         return duration;
       })
       .then((duration) => {
         getDuration(this.props.region, this.props.concert.position, 'walking')
           .then((response) => {
-            duration.walk = response;
+            duration.walk = response.duration.text;
             return duration;
           })
           .then((duration) => {
           getDuration(this.props.region, this.props.concert.position, 'bicycling')
             .then((response) => {
-              duration.bike = response;
-              this.setState({durations: duration});
+              duration.bike = response.duration.text;
+              this.setState({duration});
+              return duration;
             })
-        })
+/*            .then((duration) => {
+                getDuration(this.props.region, this.props.concert.position, 'transit')
+                .then((response) => {
+                  if(response) {
+                    duration.bike = response;
+                  }
+                  this.setState({durations: duration});
+                })
+          })*/
       })
+    })
   }
 
 	render() {
 		const { concert, region, navigator } = this.props;
+    const weekdays = [
+      "Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"
+    ];
 
     const routes = navigator.getCurrentRoutes(0);
     const prevRoute = routes[routes.length -2].title; // vorletzte
@@ -79,7 +93,7 @@ export default class Detail extends Component {
             source={{uri: concert.image}}>
             <Routenplaner
               interpret={concert.title}
-              duration={this.state.durations}
+              duration={this.state.duration}
               city={concert.city}/>
           </Image>
         </View>
@@ -96,6 +110,9 @@ export default class Detail extends Component {
             <Text style={fonts.importantInfo}>
                {concert.city}
             </Text>
+            <Text style={fonts.info}>
+              {this.state.duration.distance}
+            </Text>
           </View>
           <Player />
         </View>
@@ -105,32 +122,25 @@ export default class Detail extends Component {
           {concert.uri}
         </Text>
 
-        { prevRoute === 'List' ?
-        <ScrollView >
-          <Text style={fonts.info}>
-              {'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.'}
-            </Text>
-          </ScrollView>
-          :
-          <MapView
-            style={detail.map}
-            region={{
-              latitude: concert.position.lat,
-              longitude: concert.position.lng,
-              latitudeDelta: 0.01,
-              longitudeDelta: 0.01
-            }}
-            showsIndoors={false}
-            loadingIndicatorColor='#008bae'>
+        <MapView
+          style={detail.map}
+          region={{
+            latitude: concert.position.lat,
+            longitude: concert.position.lng,
+            latitudeDelta: 0.015,
+            longitudeDelta: 0.015
+          }}
+          showsIndoors={false}
+          loadingIndicatorColor='#008bae'>
 
           <MapView.Marker
-            identifier={concert.displayName}
-            key={concert.displayName}
+            identifier={concert.title}
+            key={concert.id}
             coordinate={{
                 latitude: concert.position.lat,
                 longitude: concert.position.lng,
             }}
-            title={concert.displayName}
+            title={concert.title}
             image={images.marker} />
             <MapView.Polyline
               coordinates={this.state.polylineCoords}
@@ -138,7 +148,6 @@ export default class Detail extends Component {
               strokeColor="red"
              />
          </MapView>
-        }
       </View>
 		)
 	}
