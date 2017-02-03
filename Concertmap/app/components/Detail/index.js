@@ -28,7 +28,10 @@ export default class Detail extends Component {
     this.setMode = this.setMode.bind(this);
     this.state = {
       polylineCoords: [],
-      duration: {},
+      mode: 'driving',
+      duration: {
+        distance: {}
+      },
       venueLink: '',
       street: '',
       zip: ''
@@ -42,32 +45,40 @@ export default class Detail extends Component {
         this.setState({polylineCoords: createRouteCoordinates(response)})
       });
 
-    const duration = {};
+    const duration = {
+      distance: {}
+    };
     getDuration(this.props.region, this.props.concert.position)
       .then((response) => {
         duration.car = response.duration.text;
-        duration.distance = response.distance.text
+        duration.distance.driving = response.distance.text
+
         return duration;
       })
       .then((duration) => {
         getDuration(this.props.region, this.props.concert.position, 'walking')
           .then((response) => {
             duration.walk = response.duration.text;
+            duration.distance.walking = response.distance.text
+
             return duration;
           })
           .then((duration) => {
           getDuration(this.props.region, this.props.concert.position, 'bicycling')
             .then((response) => {
               duration.bike = response.duration.text;
+              duration.distance.bicycling = response.distance.text
+
               this.setState({duration});
               return duration;
             })
            /* .then((duration) => {
                 getDuration(this.props.region, this.props.concert.position, 'transit')
                 .then((response) => {
-                  if(response) {
-                    duration.bike = response;
-                  }
+                    duration.transit = response;
+                    duration.distance = {
+                      transit: response.distance.text
+                    }
                   this.setState({durations: duration});
                 })
           })*/
@@ -78,7 +89,7 @@ export default class Detail extends Component {
   setMode(mode) {
     getDirection(this.props.region, this.props.concert.position, mode)
       .then((response) => {
-        this.setState({polylineCoords: createRouteCoordinates(response)})
+        this.setState({polylineCoords: createRouteCoordinates(response), mode: mode})
       });
   }
 
@@ -148,7 +159,7 @@ export default class Detail extends Component {
               {this.state.zip} {concert.city}
             </Text>
             <Text style={fonts.info}>
-              {this.state.duration.distance}
+              {this.state.duration.distance[this.state.mode]}
             </Text>
           </View>
         </View>
