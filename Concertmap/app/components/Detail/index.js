@@ -108,6 +108,7 @@ export default class Detail extends Component {
 	render() {
 		const { concert, region, navigator } = this.props;
 
+    const delta = concert.distance * 0.008;
     const routes = navigator.getCurrentRoutes(0);
     const prevRoute = routes[routes.length -2].title; // vorletzte
 
@@ -172,8 +173,8 @@ export default class Detail extends Component {
           region={{
             latitude: concert.position.lat,
             longitude: concert.position.lng,
-            latitudeDelta: 0.01,
-            longitudeDelta: 0.01,
+            latitudeDelta: delta,
+            longitudeDelta: delta,
           }}
           showsUserLocation={true}
           followsUserLocation={true}

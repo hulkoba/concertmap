@@ -5,7 +5,7 @@ export const style = StyleSheet.create({
   bar: {
     flex: 1,
     flexDirection:'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'stretch',
     marginHorizontal: 4,
   },
@@ -14,7 +14,7 @@ export const style = StyleSheet.create({
     fontFamily: 'Lato',
     backgroundColor: colors.blue,
     color: colors.white,
-    paddingVertical: 10,
+    paddingVertical: 8,
     paddingHorizontal: 16,
     margin: 0,
     fontSize: 14,
@@ -23,7 +23,7 @@ export const style = StyleSheet.create({
     backgroundColor: colors.pressedBlue,
     fontFamily: 'Lato',
     color: colors.white,
-    paddingVertical: 10,
+    paddingVertical: 8,
     paddingHorizontal: 16,
     fontSize: 14,
     alignSelf: 'stretch'

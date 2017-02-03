@@ -65,12 +65,12 @@ export default class Concerts extends Component {
           const currentPosition = {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
-            latitudeDelta: 0.001,
-            longitudeDelta: 0.01,
           }
 
-          this.setState({ position: currentPosition });
-          this.getConcertsFromAPI();
+          this.setState({
+            position: currentPosition,
+            concerts: this.sortByDistance(this.state.concerts)
+          });
        },
        (error) => console.log(error),
        {enableHighAccuracy: false, timeout: 10000, maximumAge: 0}
@@ -109,18 +109,21 @@ export default class Concerts extends Component {
     });
   }
 
+  sortByDistance(concerts) {
+    return concerts.sort((a,b) => (a.distance - b.distance));
+  }
+
   getConcertsFromAPI = (filter) => {
     const searchDate = moment(filter).format('YYYY-MM-DD');
 
     return fetch(`${settings.SONGKICK_URL}&location=geo:${this.state.position.latitude},${this.state.position.longitude}&min_date=${searchDate}&max_date=${searchDate}`)
     .then((response) => response.json())
     .then((responseJson) => {
-      const concerts = this.buildConcerts(responseJson.resultsPage.results.event);
-      concerts.sort((a,b) => (a.distance - b.distance));
+      concerts = this.buildConcerts(responseJson.resultsPage.results.event);
 
       this.setState({
-       loading: false,
-       concerts
+        loading: false,
+        concerts: this.sortByDistance(concerts),
       });
       return responseJson;
     })
@@ -200,7 +203,7 @@ export default class Concerts extends Component {
                     return (
                       <TouchableHighlight
                         onPress={() => {
-                          if(!navState.routeStack.filter((r) => (r.index === 0)).length > 0) {
+                          if(!navState.routeStack.some((r) => (r.index === 0))) {
                             navigator.push(routes[0])
                           } else {
                             navigator.pop()

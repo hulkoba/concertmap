@@ -27,13 +27,19 @@ export default class ConcertMap extends Component {
 
 	render() {
 		const { concerts, region } = this.props;
+    const dist = concerts[0].distance * 0.03;
 
 		return (
 			<View style={map.container}>
 
 				<MapView
 					style={map.map}
-					region={region}
+					region={{
+            latitude: region.latitude,
+            longitude: region.longitude,
+            latitudeDelta: dist,
+            longitudeDelta: dist
+          }}
 					showsIndoors={false}
 					showsUserLocation={true}
 					followUserLocation={true}
