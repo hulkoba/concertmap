@@ -28,7 +28,7 @@ export function getDuration(fromCoords, toCoords, mode) {
   let url = 'https://maps.googleapis.com/maps/api/distancematrix/json?';
       url += 'origins=' + fromCoords.latitude + ',' + fromCoords.longitude;
       url += '&destinations=' + toCoords.lat + ',' + toCoords.lng;
-      url += '&language=de' //&key=' + settings.GOOGLE_KEY;
+      url += '&language=de'; //&key=' + settings.GOOGLE_KEY;
   if(mode) {
     url += '&mode=' + mode;
   }

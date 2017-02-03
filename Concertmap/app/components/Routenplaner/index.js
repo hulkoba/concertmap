@@ -19,13 +19,13 @@ export default class Routenplaner extends Component {
         </View>
 
         <View >
-          <MaterialIcons name="directions-transit" style={routenplaner.icon} />
-          <Text style={routenplaner.duration}>{duration.metro}</Text>
+          <MaterialIcons name="directions-bike" style={routenplaner.icon} />
+          <Text style={routenplaner.duration}>{duration.bike}</Text>
         </View>
 
         <View >
-          <MaterialIcons name="directions-bike" style={routenplaner.icon} />
-          <Text style={routenplaner.duration}>{duration.bike}</Text>
+          <MaterialIcons name="directions-transit" style={routenplaner.icon} />
+          <Text style={routenplaner.duration}>{duration.metro}</Text>
         </View>
 
         <View >

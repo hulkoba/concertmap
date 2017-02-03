@@ -27,11 +27,15 @@ export default class Detail extends Component {
     super(props);
     this.state = {
       polylineCoords: [],
-      duration: {}
+      duration: {},
+      venueLink: '',
+      street: '',
+      zip: ''
     }
   }
 
   componentDidMount() {
+    this.getVenueLink();
     getDirection(this.props.region, this.props.concert.position)
       .then((response) => {
         this.setState({polylineCoords: createRouteCoordinates(response)})
@@ -57,7 +61,7 @@ export default class Detail extends Component {
               this.setState({duration});
               return duration;
             })
-/*            .then((duration) => {
+           /* .then((duration) => {
                 getDuration(this.props.region, this.props.concert.position, 'transit')
                 .then((response) => {
                   if(response) {
@@ -68,6 +72,20 @@ export default class Detail extends Component {
           })*/
       })
     })
+  }
+
+  getVenueLink() {
+     return fetch(`http://api.songkick.com/api/3.0/venues/${this.props.concert.venueId}.json?apikey=${settings.SONGKICK_API_KEY}`)
+    .then((response) => response.json())
+    .then((responseJson) => {
+      this.setState({
+        venueLink: responseJson.resultsPage.results.venue.website,
+        street: responseJson.resultsPage.results.venue.street,
+        zip: responseJson.resultsPage.results.venue.zip,
+      });
+      return responseJson;
+    })
+    .catch((error) => (error));
   }
 
 	render() {
@@ -116,19 +134,20 @@ export default class Detail extends Component {
               {concert.venue}
             </Text>
             <Text style={fonts.importantInfo}>
-               {concert.city}
+               {this.state.street}
+            </Text>
+            <Text style={fonts.importantInfo}>
+              {this.state.zip} {concert.city}
             </Text>
             <Text style={fonts.info}>
               {this.state.duration.distance}
             </Text>
           </View>
-
-
         </View>
 
-        <Text style={fonts.link}
-          onPress={() => Linking.openURL(`${concert.uri}`)}>
-          {concert.uri}
+        <Text style={[fonts.link, detail.row]}
+          onPress={() => Linking.openURL(`${this.state.venueLink}`)}>
+          {this.state.venueLink}
         </Text>
 
         <MapView

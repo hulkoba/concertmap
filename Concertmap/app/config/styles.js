@@ -39,6 +39,6 @@ export const fonts = StyleSheet.create({
     fontFamily: 'Lato-Regular',
     fontSize: 14,
     color: colors.blue,
-    paddingVertical: 12,
+    paddingBottom: 10,
   }
 });

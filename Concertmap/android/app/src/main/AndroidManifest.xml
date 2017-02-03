@@ -22,7 +22,6 @@
       <provider android:authorities="com.facebook.app.FacebookContentProvider1348523488533052"
           android:name="com.facebook.FacebookContentProvider"
           android:exported="true"/>
-
       <!--     <meta-data
         android:name="com.google.android.geo.API_KEY"
         android:value="AIzaSyBUE0ykz2AvrNASOwQZ2R5RqySD8YeKRSI"/>-->

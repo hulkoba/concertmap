@@ -109,7 +109,7 @@ export default class Concerts extends Component {
         time: gig.start.time ? gig.start.time.slice(0, -3) : '',
         datetime: gig.start.datetime ? moment(gig.start.datetime).calendar().split(' um')[0] :  moment(gig.start.date).calendar().split(' um')[0],
         image: this.getArtistImage(gig.performance[0].artist.id),
-        url: gig.uri,
+        venueId: gig.venue.id,
         distance: distance
       }
 
