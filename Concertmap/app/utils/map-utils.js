@@ -46,10 +46,13 @@ export function getDuration(fromCoords, toCoords, mode) {
 }
 
 
-export function getDirection(fromCoords, toCoords) {
+export function getDirection(fromCoords, toCoords, mode) {
   let url = 'https://maps.googleapis.com/maps/api/directions/json?&';
       url += 'origin=' + fromCoords.latitude + ',' + fromCoords.longitude;
       url += '&destination=' + toCoords.lat + ',' + toCoords.lng;
+  if(mode) {
+    url += '&mode=' + mode;
+  }
 
   return new Promise((resolve, reject) => {
     fetch(url)

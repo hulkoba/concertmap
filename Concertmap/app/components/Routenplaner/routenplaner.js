@@ -4,7 +4,7 @@ import { colors } from '../../config/styles';
 export const routenplaner = StyleSheet.create({
   container: {
     height: 50,
-    paddingVertical: 10,
+    paddingVertical: 4,
     paddingHorizontal: 22,
     backgroundColor: 'rgba(0,0,0,0.6)',
     flexDirection:'row',

@@ -25,6 +25,7 @@ export default class Detail extends Component {
 
   constructor(props) {
     super(props);
+    this.setMode = this.setMode.bind(this);
     this.state = {
       polylineCoords: [],
       duration: {},
@@ -74,6 +75,13 @@ export default class Detail extends Component {
     })
   }
 
+  setMode(mode) {
+    getDirection(this.props.region, this.props.concert.position, mode)
+      .then((response) => {
+        this.setState({polylineCoords: createRouteCoordinates(response)})
+      });
+  }
+
   getVenueLink() {
      return fetch(`http://api.songkick.com/api/3.0/venues/${this.props.concert.venueId}.json?apikey=${settings.SONGKICK_API_KEY}`)
     .then((response) => response.json())
@@ -114,7 +122,7 @@ export default class Detail extends Component {
          <View style={detail.imageView}>
           <Image style={detail.image}
             source={{uri: concert.image}}>
-            <Routenplaner duration={this.state.duration} />
+            <Routenplaner duration={this.state.duration} setMode={this.setMode}/>
           </Image>
         </View>
 
@@ -161,7 +169,6 @@ export default class Detail extends Component {
           showsUserLocation={true}
           followsUserLocation={true}
           showsCompass={false}
-          showsTraffic={false}
           showsBuildings={false}
           pitchEnabled={false}
           toolbarEnabled={false}
@@ -179,7 +186,7 @@ export default class Detail extends Component {
             <MapView.Polyline
               coordinates={this.state.polylineCoords}
               strokeWidth={2}
-              strokeColor="magenta"
+              strokeColor="#008bae"
              />
          </MapView>
       </View>
