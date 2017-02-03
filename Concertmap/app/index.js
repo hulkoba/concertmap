@@ -39,6 +39,7 @@ export default class Concerts extends Component {
       concerts: [],
       activeFilter: moment(),
       initialRouteIndex: 0,
+      navPressed: false,
       position: {
         latitude: 52.5243700,
         longitude: 13.4105300,
@@ -53,6 +54,11 @@ export default class Concerts extends Component {
     this.getConcertsFromAPI();
   }
 
+  toggleNavPressed() {
+    this.setState({ navPressed: !this.state.navPressed });
+    alert(JSON.stringify(this.state.navPressed));
+  }
+
   setFilter = (index, filter) => {
     this.setState({activeFilter: filter, initialRouteIndex: index});
     this.getConcertsFromAPI(filter);
@@ -60,20 +66,20 @@ export default class Concerts extends Component {
 
   getPosition = () => {
     navigator.geolocation.getCurrentPosition(
-         (position) => {
-            const currentPosition = {
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-              latitudeDelta: 0.001,
-              longitudeDelta: 0.01,
-            }
+       (position) => {
+          const currentPosition = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitudeDelta: 0.001,
+            longitudeDelta: 0.01,
+          }
 
-            this.setState({ position: currentPosition });
-            this.getConcertsFromAPI();
-         },
-         (error) => console.log(error),
-         {enableHighAccuracy: false, timeout: 10000, maximumAge: 0}
-      );
+          this.setState({ position: currentPosition });
+          this.getConcertsFromAPI();
+       },
+       (error) => console.log(error),
+       {enableHighAccuracy: false, timeout: 10000, maximumAge: 0}
+    );
   }
 
   getArtistImage(id) {
@@ -175,14 +181,16 @@ export default class Concerts extends Component {
 			);
     }
 
+    // https://github.com/facebook/react-native/issues/2048
+    // Navigator bug: push twice
     return (
 			 <Navigator
 				 	style={styles.tabBar}
           sceneStyle={{paddingTop: navStyles.General.TotalNavHeight}}
 					initialRoute={routes[initialRouteIndex]}
 					renderScene={this.renderScene}
-				  navigationBar={
 
+				  navigationBar={
 					 <Navigator.NavigationBar
             navigationStyles={navStyles}
 						routeMapper={{
@@ -203,7 +211,8 @@ export default class Concerts extends Component {
                     );
                   case 2:
                     return (
-                      <TouchableHighlight onPress={() => navigator.pop()}>
+                      <TouchableHighlight
+                        onPress={() => navigator.pop()}>
                         <View style={styles.tabTextShare}>
                           <SimpleLineIcons name="arrow-left" style={styles.tabTextBack} />
                           <Text style={styles.tabTextBack}>ZURÜCK</Text>

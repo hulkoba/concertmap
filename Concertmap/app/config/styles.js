@@ -5,12 +5,13 @@ export const colors = {
   pressedBlue: '#006279',
   white: '#e6e6e6',
   lightGrey: '#7d7d7d',
+  grey: '#363636',
 	black: '#1a1a1a',
 };
 
 export const fonts = StyleSheet.create({
   title: {
-    fontSize: 18,
+    fontSize: 17,
     fontFamily: 'Track',
     color: colors.white,
     marginBottom: 6,

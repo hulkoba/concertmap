@@ -88,16 +88,19 @@ export default class Detail extends Component {
          <View style={detail.imageView}>
           <Image style={detail.image}
             source={{uri: concert.image}}>
-            <Routenplaner
-              interpret={concert.title}
-              duration={this.state.duration}
-              city={concert.city}/>
+            <Routenplaner duration={this.state.duration} />
           </Image>
         </View>
 
-        <Text style={fonts.title}>
-          {concert.datetime}
-        </Text>
+        <View style={detail.row}>
+          <Text style={fonts.title}>
+            {concert.datetime}
+          </Text>
+          <Text style={detail.ticketButton}
+            onPress={() => Linking.openURL(`${settings.TICKETMASTER_URL}${concert.title}+${concert.city}`)}>
+            Ticket kaufen
+          </Text>
+        </View>
 
         <View style={detail.row}>
           <View style={detail.address}>
@@ -111,6 +114,7 @@ export default class Detail extends Component {
               {this.state.duration.distance}
             </Text>
           </View>
+
 
         </View>
 

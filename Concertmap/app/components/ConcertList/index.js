@@ -40,7 +40,7 @@ export default class ConcertList extends Component {
 
         <View style={list.column}>
           <View style={list.titleRow}>
-            <Text style={fonts.title} numberOfLines={2}>
+            <Text style={[fonts.title, list.title]}>
               {gig.title}
             </Text>
             <Text style={fonts.info}>
@@ -48,13 +48,17 @@ export default class ConcertList extends Component {
             </Text>
           </View>
 
-          <Text style={fonts.subTitle}>
-            {gig.venue}
-          </Text>
+          <View>
+            <Text style={fonts.subTitle}>
+              {gig.venue}
+            </Text>
+          </View>
 
-          <Text style={fonts.info}>
-            {gig.time}
-          </Text>
+          <View>
+            <Text style={fonts.info}>
+              {gig.time}
+            </Text>
+          </View>
         </View>
       </View>
     </TouchableHighlight>
@@ -77,9 +81,9 @@ export default class ConcertList extends Component {
         <ListView
           style={list.list}
           dataSource={rows}
+          renderSeparator={(sectionId, rowId) => <View key={rowId} style={list.separator} />}
           renderRow={this.renderRow}
           renderFooter={this.renderFooter}
-          renderSeparator={(sectionId, rowId) => <View key={rowId} style={list.separator} />}
         />
       </View>
 		)

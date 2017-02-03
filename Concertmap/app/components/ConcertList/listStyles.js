@@ -11,29 +11,25 @@ export const list = StyleSheet.create({
   },
   row: {
     padding: 14,
-    paddingTop: 0,
     backgroundColor: colors.black,
     flexDirection: 'row',
   },
   column: {
     flex: 1,
     flexDirection: 'column',
+    justifyContent: 'space-between',
     marginLeft: 40,
     paddingVertical: 10,
   },
-  sklogo: {
-    height: 22,
-    width: 77,
-  },
-  skImageView: {
-    marginTop: 6,
-    height: 33,
+  titleRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    flex: 1
   },
-  separator: {
-    height: 1,
-    backgroundColor: colors.grey,
-    marginHorizontal: 25,
+  title: {
+    flex: 1,
+    paddingRight: 3,
   },
   image: {
     width: 75,
@@ -44,10 +40,18 @@ export const list = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  titleRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    flex: 1
+  separator: {
+    height: 1,
+    backgroundColor: colors.grey,
+    marginHorizontal: 25,
+  },
+  sklogo: {
+    height: 22,
+    width: 77,
+  },
+  skImageView: {
+    marginTop: 6,
+    height: 33,
+    alignItems: 'center',
   },
 });

@@ -6,24 +6,32 @@ export const detail = StyleSheet.create({
   container: {
     backgroundColor: colors.black,
     flex: 1,
-    padding: 12,
-    marginTop: -40,
+    marginTop: -33,
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingRight: 6,
+    marginLeft: 10,
   },
   address: {
     justifyContent: 'space-between',
+  },
+  ticketButton: {
+    backgroundColor: colors.blue,
+    color: colors.white,
+    borderRadius: 3,
+    padding: 4,
+    textAlign: 'center',
+    fontSize: 14,
   },
   image: {
     flex: 1,
     height: 200,
     backgroundColor: colors.grey,
     resizeMode: 'contain',
-   // marginHorizontal: -12,
-  //  width: window.width,
+  //  marginHorizontal: -12,
+    width: window.width,
     justifyContent: 'flex-end',
   },
   imageView: {

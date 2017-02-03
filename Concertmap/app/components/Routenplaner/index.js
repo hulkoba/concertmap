@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { View, Text, Linking } from 'react-native';
+import { View, Text } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import { routenplaner } from './routenplaner';
@@ -8,7 +8,7 @@ import settings from '../../config/settings';
 export default class Routenplaner extends Component {
 
 	render() {
-    const { interpret, city, duration } = this.props;
+    const { duration } = this.props;
 
 		return (
       <View style={routenplaner.container}>
@@ -33,18 +33,11 @@ export default class Routenplaner extends Component {
           <Text style={routenplaner.duration}>{duration.car}</Text>
         </View>
 
-        <Text style={routenplaner.ticketButton}
-          onPress={() => Linking.openURL(`${settings.TICKETMASTER_URL}${interpret}+${city}`)}>
-          Ticket kaufen
-        </Text>
-
       </View>
 		)
 	}
 }
 
 Routenplaner.propTypes = {
-  city: PropTypes.string.isRequired,
   duration: PropTypes.object.isRequired,
-  interpret: PropTypes.string.isRequired,
 };
