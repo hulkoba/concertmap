@@ -98,10 +98,12 @@ export default class Concerts extends Component {
       const support = gig.performance.find((act) => act.billingIndex === 2);
       const subSupport = gig.performance.find((act) => act.billingIndex === 3);
 
-      const concert = {
+      return {
         id: gig.id,
         title: gig.performance[0].displayName,
         venue: gig.venue.displayName,
+        support: support ? support.displayName : null,
+        subSupport: subSupport ? subSupport.displayName : null,
         city: gig.location.city.split(',')[0],
         position,
         time: gig.start.time ? gig.start.time.slice(0, -3) : '',
@@ -111,20 +113,12 @@ export default class Concerts extends Component {
         distance: distance
       }
 
-      if(support) {
-        concert.support = support.displayName;
-      }
-      if(subSupport) {
-        concert.subSupport = subSupport.displayName;
-      }
-
     /*  if(supports.length > 0) {
         alert(JSON.stringify(supports));
         concert.support = supports[0].displayName;
         // supports.length > 1 ? concert.subSupport = supports[1].displayName : null;
       }
 */
-        return concert;
     });
   }
 
