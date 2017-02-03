@@ -6,7 +6,9 @@ import MapView from 'react-native-maps';
 import { detail } from './detail';
 import { fonts } from '../../config/styles';
 import { settings } from '../../config/settings';
-import { getDirection, createRouteCoordinates, getDuration } from '../../utils/map-utils';
+import { getRouteCoordinates } from '../../utils/map-utils';
+import { getVenueDetails, getDuration, getDirection } from '../../utils/api';
+
 import images from '../../config/images';
 import Routenplaner from '../Routenplaner';
 import Player from '../Player';
@@ -39,10 +41,18 @@ export default class Detail extends Component {
   }
 
   componentDidMount() {
-    this.getVenueLink();
+
+    getVenueDetails(this.props.concert.venueId).then((details) => {
+      this.setState({
+        street: details.street,
+        venueLink: details.venueLink,
+        zip: details.zip
+      });
+    });
+
     getDirection(this.props.region, this.props.concert.position)
       .then((response) => {
-        this.setState({polylineCoords: createRouteCoordinates(response)})
+        this.setState({polylineCoords: getRouteCoordinates(response)})
       });
 
     const duration = {
@@ -87,24 +97,12 @@ export default class Detail extends Component {
   }
 
   setMode(mode) {
-    getDirection(this.props.region, this.props.concert.position, mode)
-      .then((response) => {
-        this.setState({polylineCoords: createRouteCoordinates(response), mode: mode})
-      });
-  }
-
-  getVenueLink() {
-     return fetch(`http://api.songkick.com/api/3.0/venues/${this.props.concert.venueId}.json?apikey=${settings.SONGKICK_API_KEY}`)
-    .then((response) => response.json())
-    .then((responseJson) => {
-      this.setState({
-        venueLink: responseJson.resultsPage.results.venue.website,
-        street: responseJson.resultsPage.results.venue.street,
-        zip: responseJson.resultsPage.results.venue.zip,
-      });
-      return responseJson;
-    })
-    .catch((error) => (error));
+    if(mode !== this.state.mode) {
+      getDirection(this.props.region, this.props.concert.position, mode)
+        .then((response) => {
+          this.setState({polylineCoords: getRouteCoordinates(response), mode: mode})
+        });
+    }
   }
 
 	render() {

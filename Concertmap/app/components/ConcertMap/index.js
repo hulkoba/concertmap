@@ -21,7 +21,7 @@ export default class ConcertMap extends Component {
     this.props.navigator.push({
       title: 'Detail',
       index: 2,
-      data: concert,
+      passProps: concert,
     });
   }
 

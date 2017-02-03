@@ -67,7 +67,7 @@ export default class ConcertList extends Component {
     this.props.navigator.push({
       title: 'Detail',
       index: 2,
-      data: concert
+      passProps: concert
     });
   }
 

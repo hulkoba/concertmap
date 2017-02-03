@@ -160,7 +160,7 @@ export default class Concerts extends Component {
         return <Detail
                   navigator={navigator}
                   region={this.state.position}
-                  concert={route.data} />;
+                  concert={route.passProps} />;
 		  default:
         return null;
     }
@@ -173,7 +173,7 @@ export default class Concerts extends Component {
 		const routes = [
 			{ title: 'List', index: 0, key: 'list-' + moment() },
 			{ title: 'Map', index: 1, key: 'map-' + moment() },
-			{ title: 'Detail', index: 2, key: 'detail-' + moment(), data: {} },
+			{ title: 'Detail', index: 2, key: 'detail-' + moment() },
 		];
 
     if (loading) {
@@ -198,6 +198,7 @@ export default class Concerts extends Component {
 				 	style={styles.tabBar}
           sceneStyle={{paddingTop: navStyles.General.TotalNavHeight}}
 					initialRoute={routes[initialRouteIndex]}
+       //   initialRouteStack={[routes[0], routes[1]]}
 					renderScene={this.renderScene}
 
 				  navigationBar={
@@ -211,11 +212,7 @@ export default class Concerts extends Component {
                   case 1:
                     return (
                       <TouchableHighlight
-                        onPress={() => {
-                          if(route.index === 1) {
-                            navigator.jumpBack();
-                          }
-                      }}>
+                        onPress={() => navigator.jumpBack()}>
                         <Text style={styles.tabText}>LISTE</Text>
                       </TouchableHighlight>
                     );
@@ -227,7 +224,8 @@ export default class Concerts extends Component {
                           <SimpleLineIcons name="arrow-left" style={styles.tabTextBack} />
                           <Text style={styles.tabTextBack}>ZURÜCK</Text>
                         </View>
-                      </TouchableHighlight>);
+                      </TouchableHighlight>
+                    );
                   default:
                     break;
                 }
@@ -236,13 +234,7 @@ export default class Concerts extends Component {
                 switch(route.index) {
                   case 0:
                     return (
-                      <TouchableHighlight onPress={() => {
-                          if (route.index === 0) {
-                            navigator.push(routes[1]);
-                          } else {
-                            navigator.pop();
-                          }
-                        }}>
+                      <TouchableHighlight onPress={() => navigator.push(routes[1])}>
                         <Text style={styles.tabText}>KARTE</Text>
                       </TouchableHighlight>);
                   case 1:
@@ -254,11 +246,13 @@ export default class Concerts extends Component {
                 }
 							},
 							Title: (route, navigator, index, navState) => {
-								return ( route.index === 2 ? null :
-                       <FilterBar
-                          filter={Concerts.getWeekDays()}
-                          activeFilter={activeFilter}
-                          setFilter={this.setFilter.bind(this, route.index)}/>);
+								return (
+                  route.index === 2 ? null :
+                    <FilterBar
+                      filter={Concerts.getWeekDays()}
+                      activeFilter={activeFilter}
+                      setFilter={this.setFilter.bind(this, route.index)}/>
+                  );
 							},
 						}}
 					/>
