@@ -29,8 +29,8 @@ export const list = StyleSheet.create({
   title: {
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'flex-start',
     paddingRight: 3,
+    alignItems: 'flex-end'
   },
   image: {
     width: 75,

@@ -82,9 +82,16 @@ export default class Detail extends Component {
           <Text style={fonts.title}>
             {concert.title}
           </Text>
-          <Text style={fonts.info}>
-            {concert.venue}
-          </Text>
+          {concert.support ?
+            <Text style={fonts.importantInfo}>
+              with {concert.support}
+            </Text>
+          : null }
+          {concert.subSupport ?
+            <Text style={fonts.importantInfo}>
+              and {concert.subSupport}
+            </Text>
+          : null }
          </View>
          <View style={detail.imageView}>
           <Image style={detail.image}

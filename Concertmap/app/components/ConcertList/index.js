@@ -44,9 +44,7 @@ export default class ConcertList extends Component {
               <Text style={fonts.title}>
                 {gig.title}
               </Text>
-              {gig.support !== null ?
-              <Text style={fonts.action}> & more</Text>
-              : ''}
+              {gig.support ? <Text style={fonts.action}> and more</Text> : null}
             </View>
             <Text style={fonts.info}>
               ~{gig.distance} km
