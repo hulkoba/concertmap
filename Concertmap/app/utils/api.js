@@ -1,5 +1,10 @@
 import { settings } from '../config/settings';
 
+export function getArtistImage(id) {
+   if(id) {
+      return `http://images.sk-static.com/images/media/profile_images/artists/${id}/huge_avatar`;
+    }
+}
 
 export function getVenueDetails(venueId) {
   return fetch(`http://api.songkick.com/api/3.0/venues/${venueId}.json?apikey=${settings.SONGKICK_API_KEY}`)

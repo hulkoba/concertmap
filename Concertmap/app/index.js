@@ -11,6 +11,7 @@ import * as navStyles from './config/LocalNavigationBarStylesAndroid';
 import { styles } from './components/Concerts/styles';
 import { settings } from './config/settings';
 import { getDistance } from './utils/map-utils';
+import { getArtistImage } from './utils/api';
 
 import ConcertMap from './components/ConcertMap';
 import ConcertList from './components/ConcertList';
@@ -39,7 +40,6 @@ export default class Concerts extends Component {
       concerts: [],
       activeFilter: moment(),
       initialRouteIndex: 0,
-      navPressed: false,
       position: {
         latitude: 52.5243700,
         longitude: 13.4105300,
@@ -52,11 +52,6 @@ export default class Concerts extends Component {
   componentDidMount() {
     this.getPosition();
     this.getConcertsFromAPI();
-  }
-
-  toggleNavPressed() {
-    this.setState({ navPressed: !this.state.navPressed });
-    alert(JSON.stringify(this.state.navPressed));
   }
 
   setFilter = (index, filter) => {
@@ -82,12 +77,6 @@ export default class Concerts extends Component {
     );
   }
 
-  getArtistImage(id) {
-    if(id) {
-      return `http://images.sk-static.com/images/media/profile_images/artists/${id}/huge_avatar`
-    }
-  }
-
   buildConcerts(gigs) {
     return gigs.map((gig) => {
       const position = {
@@ -108,17 +97,15 @@ export default class Concerts extends Component {
         position,
         time: gig.start.time ? gig.start.time.slice(0, -3) : '',
         datetime: gig.start.datetime ? moment(gig.start.datetime).calendar().split(' um')[0] :  moment(gig.start.date).calendar().split(' um')[0],
-        image: this.getArtistImage(gig.performance[0].artist.id),
+        image: getArtistImage(gig.performance[0].artist.id),
         venueId: gig.venue.id,
         distance: distance
       }
-
     /*  if(supports.length > 0) {
         alert(JSON.stringify(supports));
         concert.support = supports[0].displayName;
         // supports.length > 1 ? concert.subSupport = supports[1].displayName : null;
-      }
-*/
+      } */
     });
   }
 
@@ -212,14 +199,20 @@ export default class Concerts extends Component {
                   case 1:
                     return (
                       <TouchableHighlight
-                        onPress={() => navigator.jumpBack()}>
+                        onPress={() => {
+                          if(!navState.routeStack.filter((r) => (r.index === 0)).length > 0) {
+                            navigator.push(routes[0])
+                          } else {
+                            navigator.pop()
+                          }
+                        }}>
                         <Text style={styles.tabText}>LISTE</Text>
                       </TouchableHighlight>
                     );
                   case 2:
                     return (
                       <TouchableHighlight
-                        onPress={() => navigator.pop()}>
+                        onPress={() => navigator.jumpBack()}>
                         <View style={styles.tabTextShare}>
                           <SimpleLineIcons name="arrow-left" style={styles.tabTextBack} />
                           <Text style={styles.tabTextBack}>ZURÜCK</Text>
@@ -234,7 +227,14 @@ export default class Concerts extends Component {
                 switch(route.index) {
                   case 0:
                     return (
-                      <TouchableHighlight onPress={() => navigator.push(routes[1])}>
+                      <TouchableHighlight
+                        onPress={() => {
+                          if(!navState.routeStack.some((r) => r.index === 1)) {
+                            navigator.push(routes[1])
+                          } else {
+                            navigator.jumpTo(routes[1])
+                          }
+                        }}>
                         <Text style={styles.tabText}>KARTE</Text>
                       </TouchableHighlight>);
                   case 1:
