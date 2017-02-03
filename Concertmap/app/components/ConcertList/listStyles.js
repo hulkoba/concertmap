@@ -10,7 +10,7 @@ export const list = StyleSheet.create({
    ...StyleSheet.absoluteFillObject,
   },
   row: {
-    padding: 14,
+    padding: 12,
     backgroundColor: colors.black,
     flexDirection: 'row',
   },
@@ -18,17 +18,18 @@ export const list = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
-    marginLeft: 40,
-    paddingVertical: 10,
+    marginLeft: 35,
+
   },
   titleRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    flex: 1
+    alignItems: 'flex-start',
   },
   title: {
     flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
     paddingRight: 3,
   },
   image: {

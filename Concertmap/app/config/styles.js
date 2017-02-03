@@ -16,11 +16,15 @@ export const fonts = StyleSheet.create({
     color: colors.white,
     marginBottom: 6,
   },
+  action: {
+    fontFamily: 'Lato-Regular',
+    fontSize: 14,
+    color: colors.pressedBlue,
+  },
   subTitle: {
     fontFamily: 'Lato-Bold',
     fontSize: 14,
     color: colors.white,
-    marginTop: 6,
   },
   importantInfo: {
     fontFamily: 'Lato',
@@ -33,7 +37,7 @@ export const fonts = StyleSheet.create({
   },
   link: {
     fontFamily: 'Lato-Regular',
-    fontSize: 12,
+    fontSize: 14,
     color: colors.blue,
     paddingVertical: 12,
   }

@@ -78,13 +78,14 @@ export default class Detail extends Component {
 
     return (
       <View style={detail.container}>
-        <Text style={fonts.title}>
-          {concert.title}
-        </Text>
-        <Text style={fonts.info}>
-          {concert.venue}
-        </Text>
-
+        <View style={detail.titlerow}>
+          <Text style={fonts.title}>
+            {concert.title}
+          </Text>
+          <Text style={fonts.info}>
+            {concert.venue}
+          </Text>
+         </View>
          <View style={detail.imageView}>
           <Image style={detail.image}
             source={{uri: concert.image}}>
@@ -94,7 +95,7 @@ export default class Detail extends Component {
 
         <View style={detail.row}>
           <Text style={fonts.title}>
-            {concert.datetime}
+            {concert.datetime}  {concert.time}
           </Text>
           <Text style={detail.ticketButton}
             onPress={() => Linking.openURL(`${settings.TICKETMASTER_URL}${concert.title}+${concert.city}`)}>

@@ -9,9 +9,12 @@ export const detail = StyleSheet.create({
     marginTop: -33,
   },
   row: {
+    marginLeft: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingRight: 6,
+  },
+  titlerow: {
     marginLeft: 10,
   },
   address: {
@@ -20,7 +23,7 @@ export const detail = StyleSheet.create({
   ticketButton: {
     backgroundColor: colors.blue,
     color: colors.white,
-    borderRadius: 3,
+    borderRadius: 2,
     padding: 4,
     textAlign: 'center',
     fontSize: 14,
