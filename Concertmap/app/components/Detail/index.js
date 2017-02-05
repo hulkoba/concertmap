@@ -5,13 +5,13 @@ import MapView from 'react-native-maps';
 
 import { detail } from './detail';
 import { fonts } from '../../config/styles';
-import { settings } from '../../config/settings';
+import { TICKETMASTER_URL } from '../../config/settings';
 import { getRouteCoordinates } from '../../utils/map-utils';
 import { getVenueDetails, getDuration, getDirection } from '../../utils/api';
 
 import images from '../../config/images';
 import Routenplaner from '../Routenplaner';
-import Player from '../Player';
+import Play from '../Player';
 
 export default class Detail extends Component {
 
@@ -62,7 +62,6 @@ export default class Detail extends Component {
       .then((response) => {
         duration.car = response.duration.text;
         duration.distance.driving = response.distance.text
-
         return duration;
       })
       .then((duration) => {
@@ -70,7 +69,6 @@ export default class Detail extends Component {
           .then((response) => {
             duration.walk = response.duration.text;
             duration.distance.walking = response.distance.text
-
             return duration;
           })
           .then((duration) => {
@@ -78,22 +76,19 @@ export default class Detail extends Component {
             .then((response) => {
               duration.bike = response.duration.text;
               duration.distance.bicycling = response.distance.text
-
-              this.setState({duration});
               return duration;
             })
-           /* .then((duration) => {
+            .then((duration) => {
                 getDuration(this.props.region, this.props.concert.position, 'transit')
                 .then((response) => {
-                    duration.transit = response;
-                    duration.distance = {
-                      transit: response.distance.text
-                    }
-                  this.setState({durations: duration});
-                })
-          })*/
-      })
-    })
+                    duration.transit = response.duration.text;
+                    duration.distance.transit = response.distance.text;
+
+                    this.setState({duration});
+                });
+          });
+      });
+    });
   }
 
   setMode(mode) {
@@ -129,6 +124,7 @@ export default class Detail extends Component {
             </Text>
           : null }
          </View>
+
          <View style={detail.imageView}>
           <Image style={detail.image}
             source={{uri: concert.image}}>
@@ -141,9 +137,10 @@ export default class Detail extends Component {
             {concert.datetime}  {concert.time}
           </Text>
           <Text style={detail.ticketButton}
-            onPress={() => Linking.openURL(`${settings.TICKETMASTER_URL}${concert.title}+${concert.city}`)}>
+            onPress={() => Linking.openURL(`${TICKETMASTER_URL}${concert.title}+${concert.city}`)}>
             Ticket kaufen
           </Text>
+
         </View>
 
         <View style={detail.row}>
@@ -161,7 +158,9 @@ export default class Detail extends Component {
               {this.state.duration.distance[this.state.mode]}
             </Text>
           </View>
+
         </View>
+          <Play artist={concert.title}/>
 
         <Text style={[fonts.link, detail.row]}
           onPress={() => Linking.openURL(`${this.state.venueLink}`)}>

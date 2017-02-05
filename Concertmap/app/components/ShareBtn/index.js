@@ -6,7 +6,6 @@ const { ShareDialog } = FBSDK;
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import { settings } from '../../config/settings';
 import { style } from './shareBtn';
 
 class ShareBtn extends Component {

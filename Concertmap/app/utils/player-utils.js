@@ -1,4 +1,4 @@
-import { setting } from './settings';
+import { SOUNDCLOUD_CLIENT_ID } from './settings';
 
 export function formatSongTitle(str) {
   if (!str) { return '' }
@@ -14,11 +14,11 @@ export function formatSeconds(num) {
 }
 
 export function formatStreamUrl(str) {
-  return `${str}?client_id=${settings.SOUNDCLOUD_CLIENT_ID}`;
+  return `${str}?client_id=${SOUNDCLOUD_CLIENT_ID}`;
 }
 
 export function constructSongUrl(songId) {
-  return `http://api.soundcloud.com/tracks/${songId}?client_id=${CLIENT_ID}`;
+  return `http://api.soundcloud.com/tracks/${songId}?client_id=${SOUNDCLOUD_CLIENT_ID}`;
 }
 
 function padZero(num, size) {

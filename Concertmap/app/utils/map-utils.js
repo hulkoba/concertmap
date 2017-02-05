@@ -1,7 +1,5 @@
 import Polyline from '@mapbox/polyline'
 
-import { settings } from '../config/settings';
-
 // convert to radians
 const toRad = function (num) {
     return num * Math.PI / 180

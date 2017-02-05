@@ -1,75 +1,78 @@
 import React, { Component } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View, Text } from 'react-native';
 
-import RCTAudio from 'react-native-player';
-import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
+import { ReactNativeAudioStreaming, Player } from 'react-native-audio-streaming';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import { settings } from '../../config/settings';
+import { getSongsByArtist, getSong } from '../../utils/api';
 import { style } from './player';
 
-class Player extends Component {
+class Play extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       isPlaying: false,
+      title: '',
+      url: null,
     };
+
+  /*  ReactNativeAudioStreaming.pause();
+      ReactNativeAudioStreaming.resume();
+      ReactNativeAudioStreaming.play(this.state.url, {showIniOSMediaCenter: true, showInAndroidNotifications: true});
+    ReactNativeAudioStreaming.stop();*/
   }
 
-  componentWillMount () {
-  //  RCTDeviceEventEmitter.addListener('error', this.onError)
-    RCTDeviceEventEmitter.addListener('end', this.onEnd)
-    RCTDeviceEventEmitter.addListener('ready', this.onReady)
-    RCTDeviceEventEmitter.addListener('buffering', this.onBuffering)
-    //RCTDeviceEventEmitter.addListener('preparing', this.onPreparing)
+  togglePlay() {
+    if(this.state.isPlaying) {
+      this.setState({isPlaying: false});
+      //ReactNativeAudioStreaming.pause()
+    } else {
+      this.setState({isPlaying: true});
+      //alert(this.state.url);
+   //   ReactNativeAudioStreaming.play(this.state.url, {})
+    }
   }
 
   componentDidMount () {
-    RCTAudio.prepare(`http://api.soundcloud.com/tracks.json?client_id=${settings.SOUNDCLOUD_CLIENT_ID}`, true);
-    // this.playSong(formatStreamUrl(song.stream_url))
-  }
+    const songs = getSongsByArtist(this.props.artist).then((songs) => {
+      alert(JSON.stringify(songs));
+      //const mp3 = songs.find((song) => (song.format.includes('VBR MP3')));
 
-  componentWillReceiveProps (nextProps) {
-   /* const {playingSongId} = this.props
-    const song = nextProps.songs[playingSongId]
-    if (nextProps.playingSongId && nextProps.playingSongId === playingSongId) {
-      return
-    }
-    this.playSong(formatStreamUrl(song.stream_url))*/
-  }
+     // alert('### mp3 '+JSON.stringify(mp3));
 
-  playSong () {
-   // RCTAudio.prepare(url, true)
-    if(this.state.isPlaying) {
-      RCTAudio.pause();
-      this.pause();
-    } else {
-      RCTAudio.start();
-    }
-    this.setState({isPlaying: !this.state.isPlaying});
-  }
+          //this.setState({title: songs[0].title})
+        getSong(songs[0].streamUrl).then((audio) => {
+          alert(JSON.stringify(audio.http_mp3_128_url));
 
-  pause () { RCTAudio.pause() }
-  resume () { RCTAudio.resume() }
-  onBuffering () { alert('on buffering...') }
-  // onError (err) { alert(JSON.stringify(err)); }
-  // onError (err) { alert(JSON.stringify(err)); }
-  onEnd () { console.log('on end...') }
-  onReady () { alert('on ready...') }
-  // onPreparing () { alert('on preparing...') }
+          this.setState({url: audio.http_mp3_128_url})
+          ReactNativeAudioStreaming.play(audio.http_mp3_128_url, {})
+        })
+
+    })
+  }
 
   render() {
     return (
-      <TouchableOpacity onPress={this.playSong.bind(this)}>
-        {this.state.isPlaying ?
-          <MaterialIcons name="pause-circle-outline" style={style.icon} />
-          :
-          <MaterialIcons name="play-circle-outline" style={style.icon} />
-        }
-      </TouchableOpacity>
+      <View>
+       {this.state.url ?
+          <View>
+            <Text>{this.state.title}</Text>
+            <TouchableOpacity onPress={this.togglePlay.bind(this)}>
+
+              {/*this.state.isPlaying ?
+
+                  <MaterialIcons name="pause-circle-outline" style={style.icon} />
+                  :
+                  <MaterialIcons name="play-circle-outline" style={style.icon} />
+              */}
+            </TouchableOpacity>
+            <Player url={this.state.url}/>
+        </View>
+        : null }
+      </View>
     )
   }
 }
 
-export default Player
+export default Play

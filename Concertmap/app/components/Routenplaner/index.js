@@ -3,7 +3,6 @@ import { TouchableOpacity, View, Text } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import { routenplaner } from './routenplaner';
-import settings from '../../config/settings';
 
 export default class Routenplaner extends Component {
 
@@ -26,7 +25,7 @@ export default class Routenplaner extends Component {
 
         <TouchableOpacity onPress={() => setMode('transit')}>
           <MaterialIcons name="directions-transit" style={routenplaner.icon} />
-          <Text style={routenplaner.duration}>{duration.metro}</Text>
+          <Text style={routenplaner.duration}>{duration.transit}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => setMode('driving')}>

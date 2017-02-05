@@ -9,7 +9,7 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 // see https://github.com/facebook/react-native/issues/10600
 import * as navStyles from './config/LocalNavigationBarStylesAndroid';
 import { styles } from './components/Concerts/styles';
-import { settings } from './config/settings';
+import { SONGKICK_URL } from './config/settings';
 import { getDistance } from './utils/map-utils';
 import { getArtistImage } from './utils/api';
 
@@ -116,7 +116,7 @@ export default class Concerts extends Component {
   getConcertsFromAPI = (filter) => {
     const searchDate = moment(filter).format('YYYY-MM-DD');
 
-    return fetch(`${settings.SONGKICK_URL}&location=geo:${this.state.position.latitude},${this.state.position.longitude}&min_date=${searchDate}&max_date=${searchDate}`)
+    return fetch(`${SONGKICK_URL}&location=geo:${this.state.position.latitude},${this.state.position.longitude}&min_date=${searchDate}&max_date=${searchDate}`)
     .then((response) => response.json())
     .then((responseJson) => {
       concerts = this.buildConcerts(responseJson.resultsPage.results.event);
