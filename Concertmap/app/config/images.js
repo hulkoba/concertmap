@@ -1,7 +1,2 @@
-const images = {
-  songkickLogo: require('../images/by-sk/by-songkick-pink.png'),
-	pugtato: require('../images/pugtato.png'),
-	marker: require('../images/marker.png'),
-}
-
-export default images;
+export const songkickLogo = require('../images/by-sk/by-songkick-pink.png');
+export const marker = require('../images/marker.png');

@@ -9,38 +9,6 @@ export const list = StyleSheet.create({
   list: {
    ...StyleSheet.absoluteFillObject,
   },
-  row: {
-    padding: 12,
-    backgroundColor: colors.black,
-    flexDirection: 'row',
-  },
-  column: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    marginLeft: 35,
-
-  },
-  titleRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-  },
-  title: {
-    flex: 1,
-    flexDirection: 'row',
-    paddingRight: 3,
-    alignItems: 'flex-end'
-  },
-  image: {
-    width: 75,
-    height: 75,
-  },
-  imageView: {
-    width: 33,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   separator: {
     height: 1,
     backgroundColor: colors.grey,

@@ -1,13 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { Navigator, TouchableHighlight, ListView, View, Text, Image } from 'react-native';
-import moment from 'moment';
+import { Navigator, ListView, View, Image } from 'react-native';
 
-import images from '../../config/images';
-import { fonts } from '../../config/styles';
+import { songkickLogo } from '../../config/images';
 
 import Detail from '../Detail';
+import Row from '../Row';
 import { list } from './listStyles';
-
 
 // Row comparison function
 const rowHasChanged = (r1, r2) => r1.id !== r2.id;
@@ -24,43 +22,12 @@ export default class ConcertList extends Component {
 
   renderFooter = () => (
     <View style={list.skImageView}>
-      <Image style={list.sklogo} source={images.songkickLogo} />
+      <Image style={list.sklogo} source={songkickLogo} />
     </View>
   )
 
 	renderRow = (gig) => (
-    <TouchableHighlight
-			onPress={() => this.rowPressed(gig)}
-      underlayColor='#008bae'>
-      <View style={list.row}>
-        <View style={list.imageView}>
-          <Image style={list.image}
-            source={{uri: gig.image}} />
-        </View>
-
-        <View style={list.column}>
-          <View style={list.titleRow}>
-            <View style={list.title}>
-              <Text style={fonts.title}>
-                {gig.title}
-              </Text>
-                {gig.support ? <Text style={fonts.action}>  and more</Text> : null}
-            </View>
-            <Text style={fonts.info}>
-              ~{gig.distance} km
-            </Text>
-          </View>
-
-          <Text style={fonts.subTitle}>
-            {gig.venue}
-          </Text>
-
-          <Text style={fonts.info}>
-            {gig.time}
-          </Text>
-        </View>
-      </View>
-    </TouchableHighlight>
+    <Row gig={gig} onRowPressed={this.rowPressed.bind(this, gig)} />
   )
 
   rowPressed(concert) {

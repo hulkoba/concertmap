@@ -12,7 +12,7 @@ import { getVenueDetails,
 
 import { detail } from './detail';
 import { fonts } from '../../config/styles';
-import images from '../../config/images';
+import { marker } from '../../config/images';
 import Routenplaner from '../Routenplaner';
 import { CustomPlayer } from '../CustomPlayer/LocalReactNativeAudioStreaming';
 
@@ -230,7 +230,7 @@ export default class Detail extends Component {
                 longitude: concert.position.lng,
             }}
             title={concert.title}
-            image={images.marker} />
+            image={marker} />
             <MapView.Polyline
               coordinates={this.state.polylineCoords}
               strokeWidth={2}

@@ -3,7 +3,7 @@ import { BackAndroid, View, Text, Image } from 'react-native';
 import MapView from 'react-native-maps';
 
 import { map } from './mapStyles';
-import images from '../../config/images';
+import { marker } from '../../config/images';
 
 export default class ConcertMap extends Component {
 
@@ -55,7 +55,7 @@ export default class ConcertMap extends Component {
                       longitude: concert.position.lng
                   }}
                   title={concert.title}
-                  image={images.marker}
+                  image={marker}
                 onPress={() => this.onMarkerPress(concert)} />
            ))}
          </MapView>
