@@ -1,7 +1,7 @@
-// import {arrayOf, normalize} from 'normalizr';
+import { SONGKICK_API_KEY,
+        GOOGLE_DISTANCE_KEY,
+        SOUNDCLOUD_CLIENT_ID } from '../config/settings';
 
-import { SONGKICK_API_KEY, GOOGLE_DISTANCE_KEY, SOUNDCLOUD_CLIENT_ID } from '../config/settings';
-import { songSchema } from '../config/schemas'
 
 export function getArtistImage(id) {
    if(id) {
@@ -46,8 +46,8 @@ export function getDuration(fromCoords, toCoords, mode) {
 }
 
 export function getDirection(fromCoords, toCoords, mode) {
-  let url = 'https://maps.googleapis.com/maps/api/directions/json?&';
-      url += 'origin=' + fromCoords.latitude + ',' + fromCoords.longitude;
+  let url = 'https://maps.googleapis.com/maps/api/directions/json?';
+      url += '&origin=' + fromCoords.latitude + ',' + fromCoords.longitude;
       url += '&destination=' + toCoords.lat + ',' + toCoords.lng;
   if(mode) {
     url += '&mode=' + mode;
@@ -59,14 +59,43 @@ export function getDirection(fromCoords, toCoords, mode) {
           return response.json();
       }).then((json) => {
           resolve(json);
-      }).catch((err) => {
-          reject(err);
-      });
+      }).catch((err) => (reject(err)));
   });
 }
-/*
 
-export function getSongsByArtist(query) {
+export function getSongsByArtist(artist) {
+  return new Promise((resolve, reject) => {
+    fetch(`http://api.soundcloud.com/tracks.json?client_id=${SOUNDCLOUD_CLIENT_ID}&q=${artist}`)
+      .then((response) => {
+          return response.json();
+      }).then((json) => {
+          const soundData = json.map((data) => {
+            if(data.kind === 'track' && data.streamable) {
+              return {
+                title: data.title,
+                streamUrl: data.stream_url,
+                url: data.stream_url + 'client_id=' + SOUNDCLOUD_CLIENT_ID,
+                cover: data.artwork_url
+              }
+            }
+          });
+        resolve(soundData);
+      }).catch((err) => (reject(err)));
+  });
+}
+
+
+export function getSong(streamUrl) {
+  return new Promise((resolve, reject) => {
+    fetch(`${streamUrl}s?client_id=${SOUNDCLOUD_CLIENT_ID}`)
+      .then((response) => {
+          return response.json();
+      }).then((json) => {
+          resolve(json);
+      }).catch((err) => (reject(err)));
+  });
+}
+/* export function getSongsByArtist(query) {
     const query_string = query.split(' ').join('+');
 
     return new Promise((resolve, reject) => {
@@ -83,7 +112,6 @@ export function getSongsByArtist(query) {
             } else {
               return d.creator.toLowerCase() === lowQuery
             }
-
           }
         });
         resolve(data);
@@ -106,52 +134,4 @@ export function getSong(id) {
           reject(err);
       });
   });
-}
-*/
-
-
-export function getSongsByArtist(artist) {
-
-  const url = `http://api.soundcloud.com/tracks.json?client_id=${SOUNDCLOUD_CLIENT_ID}&q=${artist}`;
-
-  return new Promise((resolve, reject) => {
-    fetch(url)
-      .then((response) => {
-          return response.json();
-      }).then((json) => {
-          const soundData = json.map((data) => {
-            if(data.kind === 'track' && data.streamable) {
-              return {
-                title: data.title,
-                streamUrl: data.stream_url,
-                url: data.stream_url + 'client_id=' + SOUNDCLOUD_CLIENT_ID,
-                cover: data.artwork_url
-              }
-            }
-          });
-        resolve(soundData);
-      }).catch((err) => (reject(err)));
-  });
-}
-
-
-export function getSong(streamUrl) {
-  const url = `${streamUrl}s?client_id=${SOUNDCLOUD_CLIENT_ID}`;
-
-  return new Promise((resolve, reject) => {
-    fetch(url)
-      .then((response) => {
-          return response.json();
-      }).then((json) => {
-          alert('json: '+ JSON.stringify(json));
-        //  const normalized = normalize(json, songSchema)
-         // alert('normalized: '+ JSON.stringify(normalized));
-          resolve(json);
-      }).catch((err) => {
-          alert('error: '+ JSON.stringify(err));
-
-          reject(err);
-      });
-  });
-}
-
+}*/

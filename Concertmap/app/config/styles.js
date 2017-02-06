@@ -42,3 +42,28 @@ export const fonts = StyleSheet.create({
     paddingBottom: 10,
   }
 });
+
+
+export const external = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+
+    // flexDirection: 'row',
+  //  height: 80,
+    paddingHorizontal: 10,
+  },
+  icon: {
+    fontSize: 33,
+    textAlign: 'center',
+    color: colors.blue,
+  },
+  textContainer: {
+ //   flexDirection: 'column',
+    margin: 10
+  },
+  songName: {
+    fontSize: 12,
+    fontFamily: 'Lato',
+    color: colors.lightGrey
+  }
+});

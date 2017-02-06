@@ -188,7 +188,6 @@ export default class Concerts extends Component {
 				 	style={styles.tabBar}
           sceneStyle={{paddingTop: navStyles.General.TotalNavHeight}}
 					initialRoute={routes[initialRouteIndex]}
-       //   initialRouteStack={[routes[0], routes[1]]}
 					renderScene={this.renderScene}
 
 				  navigationBar={
@@ -215,7 +214,7 @@ export default class Concerts extends Component {
                   case 2:
                     return (
                       <TouchableHighlight
-                        onPress={() => navigator.jumpBack()}>
+                        onPress={() => navigator.pop()}>
                         <View style={styles.tabTextShare}>
                           <SimpleLineIcons name="arrow-left" style={styles.tabTextBack} />
                           <Text style={styles.tabTextBack}>ZURÜCK</Text>

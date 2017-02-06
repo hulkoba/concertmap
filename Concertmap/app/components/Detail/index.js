@@ -159,8 +159,8 @@ export default class Detail extends Component {
             </Text>
           </View>
 
-        </View>
           <Play artist={concert.title}/>
+        </View>
 
         <Text style={[fonts.link, detail.row]}
           onPress={() => Linking.openURL(`${this.state.venueLink}`)}>
