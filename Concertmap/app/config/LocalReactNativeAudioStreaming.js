@@ -25,85 +25,85 @@ const START_PREPARING = 'START_PREPARING'; // Android only
 const BUFFERING_START = 'BUFFERING_START'; // Android only
 
 class CustomPlayer extends Component {
-    constructor(props) {
-        super(props);
-        this._onPress = this._onPress.bind(this);
-        this.state = {
-            status: STOPPED,
-        };
-    }
-
-    componentDidMount() {
-        this.subscription = DeviceEventEmitter.addListener(
-            'AudioBridgeEvent', (evt) => {
-                // We just want meta update for song name
-                if (evt.status === METADATA_UPDATED && evt.key === 'StreamTitle') {
-                    this.setState({song: evt.value});
-                } else if (evt.status != METADATA_UPDATED) {
-                    this.setState(evt);
-                }
-            }
-        );
-
-        ReactNativeAudioStreaming.getStatus((error, status) => {
-            (error) ? console.log(error) : this.setState(status)
-        });
-    }
-
-    _onPress() {
-        switch (this.state.status) {
-            case PLAYING:
-            case STREAMING:
-                ReactNativeAudioStreaming.pause();
-                break;
-            case PAUSED:
-                ReactNativeAudioStreaming.resume();
-                break;
-            case STOPPED:
-            case ERROR:
-                ReactNativeAudioStreaming.play(this.props.url, {showIniOSMediaCenter: true, showInAndroidNotifications: true});
-                break;
-            case BUFFERING:
-                ReactNativeAudioStreaming.stop();
-                break;
-        }
-    }
-
     // NOTE added
-    stop() {
+    static stop() {
       ReactNativeAudioStreaming.stop();
     }
 
+    constructor(props) {
+      super(props);
+      this._onPress = this._onPress.bind(this);
+      this.state = {
+          status: STOPPED,
+      };
+    }
+
+    componentDidMount() {
+      this.subscription = DeviceEventEmitter.addListener(
+        'AudioBridgeEvent', (evt) => {
+          // We just want meta update for song name
+          if (evt.status === METADATA_UPDATED && evt.key === 'StreamTitle') {
+            this.setState({song: evt.value});
+          } else if (evt.status != METADATA_UPDATED) {
+            this.setState(evt);
+          }
+        }
+      );
+
+      ReactNativeAudioStreaming.getStatus((error, status) => {
+          (error) ? console.log(error) : this.setState(status)
+      });
+    }
+
+    _onPress() {
+      switch (this.state.status) {
+        case PLAYING:
+        case STREAMING:
+            ReactNativeAudioStreaming.pause();
+            break;
+        case PAUSED:
+            ReactNativeAudioStreaming.resume();
+            break;
+        case STOPPED:
+        case ERROR:
+            ReactNativeAudioStreaming.play(this.props.url, {showIniOSMediaCenter: true, showInAndroidNotifications: true});
+            break;
+        case BUFFERING:
+            ReactNativeAudioStreaming.stop();
+            break;
+      }
+    }
+
     render() {
-        let icon = null;
-        switch (this.state.status) {
-            case PLAYING:
-            case STREAMING:
-                icon = <MaterialIcons name="pause-circle-outline" style={external.icon} />;
-                break;
-            case PAUSED:
-            case STOPPED:
-            case ERROR:
-                icon = <MaterialIcons name="play-circle-outline" style={external.icon} />;
-                break;
-            case BUFFERING:
-            case BUFFERING_START:
-            case START_PREPARING:
-                icon = <ActivityIndicator
-                    animating={true}
-                    style={{height: 80}}
-                    size="large"
-                />;
-                break;
+      let icon = null;
+    //  let title = null;
+      switch (this.state.status) {
+        case PLAYING:
+         //   title = <Text style={external.songName}>{this.props.songTitle}</Text>;
+        case STREAMING:
+            icon = <MaterialIcons name="pause-circle-outline" style={external.icon} />;
+            break;
+        case PAUSED:
+        case STOPPED:
+        case ERROR:
+            icon = <MaterialIcons name="play-circle-outline" style={external.icon} />;
+            break;
+        case BUFFERING:
+        case BUFFERING_START:
+        case START_PREPARING:
+            icon = <ActivityIndicator
+                animating={true}
+                style={{height: 80}}
+                size="large"
+            />;
+            break;
         }
 
         return (
-            <TouchableOpacity style={external.container} onPress={this._onPress}>
-                <View style={external.textContainer}>
-                    <Text style={external.songName}>{this.props.songTitle}</Text>
-                </View>
-                {icon}
-            </TouchableOpacity>
+          <TouchableOpacity style={external.container} onPress={this._onPress}>
+            {icon}
+            <Text style={external.songName}>{this.props.songTitle}</Text>
+          </TouchableOpacity>
         );
     }
 }

@@ -14,12 +14,12 @@ export const fonts = StyleSheet.create({
     fontSize: 17,
     fontFamily: 'Track',
     color: colors.white,
-    marginBottom: 6,
   },
   action: {
     fontFamily: 'Lato-Regular',
-    fontSize: 14,
+    fontSize: 12,
     color: colors.pressedBlue,
+    marginBottom: 3,
   },
   subTitle: {
     fontFamily: 'Lato-Bold',
@@ -32,6 +32,7 @@ export const fonts = StyleSheet.create({
     color: colors.white
   },
   info: {
+    fontFamily: 'Lato',
     fontSize: 12,
     color: colors.lightGrey,
   },
@@ -46,20 +47,16 @@ export const fonts = StyleSheet.create({
 
 export const external = StyleSheet.create({
   container: {
+    flexDirection: 'column',
     alignItems: 'center',
-
-    // flexDirection: 'row',
-  //  height: 80,
+    justifyContent: 'center',
+    flex: 1,
     paddingHorizontal: 10,
   },
   icon: {
     fontSize: 33,
-    textAlign: 'center',
     color: colors.blue,
-  },
-  textContainer: {
- //   flexDirection: 'column',
-    margin: 10
+    margin: 6,
   },
   songName: {
     fontSize: 12,

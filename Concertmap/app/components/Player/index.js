@@ -2,16 +2,9 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 
 import { CustomPlayer } from '../../config/LocalReactNativeAudioStreaming';
-
 import { getSongsByArtist, getSong } from '../../utils/api';
-import { style } from './player';
 
 class Play extends Component {
-  /*  ReactNativeAudioStreaming.pause();
-      ReactNativeAudioStreaming.resume();
-      ReactNativeAudioStreaming.play(this.state.url, {showIniOSMediaCenter: true, showInAndroidNotifications: true});
-    ReactNativeAudioStreaming.stop();*/
-
   constructor(props) {
     super(props);
     this.stopPlaying = this.stopPlaying.bind(this);
@@ -22,17 +15,6 @@ class Play extends Component {
     };
   }
 
-  togglePlay() {
-    if(this.state.isPlaying) {
-      this.setState({isPlaying: false});
-      //ReactNativeAudioStreaming.pause()
-    } else {
-      this.setState({isPlaying: true});
-
-   //   ReactNativeAudioStreaming.play(this.state.url, {})
-    }
-  }
-
   componentDidMount () {
     const songs = getSongsByArtist(this.props.artist).then((songs) => {
       if(songs.length > 0) {
@@ -40,14 +22,13 @@ class Play extends Component {
 
         getSong(songs[0].streamUrl).then((audio) => {
           this.setState({url: audio.http_mp3_128_url})
-        //  ReactNativeAudioStreaming.play(audio.http_mp3_128_url, {})
         });
       }
     });
   }
 
   componentWillUnmount() {
-    // this.stopPlaying(this);
+    this.stopPlaying(this);
   }
 
   stopPlaying() {

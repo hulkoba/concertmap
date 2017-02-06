@@ -7,15 +7,14 @@ export const detail = StyleSheet.create({
     backgroundColor: colors.black,
     flex: 1,
     marginTop: -33,
+    paddingLeft: 10,
   },
   row: {
-    marginLeft: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingRight: 6,
   },
   titlerow: {
-    marginLeft: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -24,6 +23,7 @@ export const detail = StyleSheet.create({
   },
   address: {
     justifyContent: 'space-between',
+    flex: 1,
   },
   ticketButton: {
     flex: 1,
@@ -31,16 +31,17 @@ export const detail = StyleSheet.create({
     color: colors.white,
     borderRadius: 2,
     padding: 4,
+    marginRight: 10,
     textAlign: 'center',
     fontSize: 14,
-    height: 30,
+    height: 27,
   },
   image: {
     flex: 1,
     height: 200,
     backgroundColor: colors.grey,
     resizeMode: 'contain',
-  //  marginHorizontal: -12,
+    marginLeft: -10,
     width: window.width,
     justifyContent: 'flex-end',
   },
@@ -54,6 +55,7 @@ export const detail = StyleSheet.create({
 		 // height: 111,
     width: window.width,
     height: 250,
+    marginLeft: -10,
     flex: 1,
 	 },
 });

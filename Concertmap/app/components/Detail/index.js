@@ -139,13 +139,10 @@ export default class Detail extends Component {
         </View>
 
         <View style={detail.row}>
-          <Text style={fonts.title}>
-            {concert.datetime}  {concert.time}
-          </Text>
-        </View>
-
-        <View style={detail.row}>
           <View style={detail.address}>
+            <Text style={fonts.title}>
+              {concert.datetime}  {concert.time}
+            </Text>
             <Text style={fonts.importantInfo}>
               {concert.venue}
             </Text>
@@ -155,18 +152,20 @@ export default class Detail extends Component {
             <Text style={fonts.importantInfo}>
               {this.state.zip} {concert.city}
             </Text>
-            <Text style={fonts.info}>
-              {this.state.duration.distance[this.state.mode]}
-            </Text>
           </View>
 
           <Play artist={concert.title}/>
         </View>
 
+        <View style={detail.row}>
         <Text style={[fonts.link, detail.row]}
           onPress={() => Linking.openURL(`${this.state.venueLink}`)}>
           {this.state.venueLink}
         </Text>
+        <Text style={fonts.info}>
+          {this.state.duration.distance[this.state.mode]}
+        </Text>
+        </View>
 
         <MapView
           style={detail.map}
