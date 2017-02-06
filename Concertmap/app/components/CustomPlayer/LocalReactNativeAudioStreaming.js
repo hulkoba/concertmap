@@ -11,7 +11,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 // const { ReactNativeAudioStreaming } = NativeModules;
 import { ReactNativeAudioStreaming } from 'react-native-audio-streaming';
 
-import { external } from './styles';
+import { external } from './customPlayer';
 
 // Possibles states
 const PLAYING = 'PLAYING';

@@ -23,6 +23,7 @@ export const detail = StyleSheet.create({
   },
   address: {
     justifyContent: 'space-between',
+    flexDirection: 'column',
     flex: 1,
   },
   ticketButton: {

@@ -2,16 +2,19 @@ import React, { Component, PropTypes } from 'react';
 import { BackAndroid, ScrollView, View, Text, Image, Linking } from 'react-native';
 import MapView from 'react-native-maps';
 
+import { TICKETMASTER_URL } from '../../config/settings';
+import { getRouteCoordinates } from '../../utils/map-utils';
+import { getVenueDetails,
+        getDuration,
+        getDirection,
+        getSongsByArtist,
+        getSong } from '../../utils/api';
 
 import { detail } from './detail';
 import { fonts } from '../../config/styles';
-import { TICKETMASTER_URL } from '../../config/settings';
-import { getRouteCoordinates } from '../../utils/map-utils';
-import { getVenueDetails, getDuration, getDirection } from '../../utils/api';
-
 import images from '../../config/images';
 import Routenplaner from '../Routenplaner';
-import Play from '../Player';
+import { CustomPlayer } from '../CustomPlayer/LocalReactNativeAudioStreaming';
 
 export default class Detail extends Component {
 
@@ -36,26 +39,27 @@ export default class Detail extends Component {
       },
       venueLink: '',
       street: '',
-      zip: ''
+      zip: '',
+      PLAYING: false,
+      songTitle: '',
+      url: null,
     }
   }
 
   componentDidMount() {
 
-    getVenueDetails(this.props.concert.venueId).then((details) => {
-      this.setState({
-        street: details.street,
-        venueLink: details.venueLink,
-        zip: details.zip
-      });
-    });
+    this.getSong();
+    this.getVenue();
+    this.getDurations();
 
     getDirection(this.props.region, this.props.concert.position)
       .then((response) => {
         this.setState({polylineCoords: getRouteCoordinates(response)})
       });
+  }
 
-    const duration = {
+  getDurations() {
+     const duration = {
       distance: {}
     };
     getDuration(this.props.region, this.props.concert.position)
@@ -79,14 +83,36 @@ export default class Detail extends Component {
               return duration;
             })
             .then((duration) => {
-                getDuration(this.props.region, this.props.concert.position, 'transit')
-                .then((response) => {
-                    duration.transit = response.duration.text;
-                    duration.distance.transit = response.distance.text;
+              getDuration(this.props.region, this.props.concert.position, 'transit')
+              .then((response) => {
+                duration.transit = response.duration.text;
+                duration.distance.transit = response.distance.text;
 
-                    this.setState({duration});
-                });
+                this.setState({duration});
+              });
           });
+      });
+    });
+  }
+
+  getSong() {
+    getSongsByArtist(this.props.concert.title).then((songs) => {
+      if(songs.length > 0) {
+        this.setState({songTitle: songs[0].title})
+
+        getSong(songs[0].streamUrl).then((audio) => {
+          this.setState({url: audio.http_mp3_128_url})
+        });
+      }
+    });
+  }
+
+  getVenue() {
+    getVenueDetails(this.props.concert.venueId).then((details) => {
+      this.setState({
+        street: details.street,
+        venueLink: details.venueLink,
+        zip: details.zip
       });
     });
   }
@@ -98,6 +124,15 @@ export default class Detail extends Component {
           this.setState({polylineCoords: getRouteCoordinates(response), mode: mode})
         });
     }
+  }
+
+  stopPlaying() {
+    CustomPlayer.stop();
+    this.setState({title: '', url: null});
+  }
+
+  togglePlay() {
+    this.setState({PLAYING: !this.state.PLAYING});
   }
 
 	render() {
@@ -154,17 +189,21 @@ export default class Detail extends Component {
             </Text>
           </View>
 
-          <Play artist={concert.title}/>
+          {this.state.url && this.state.songTitle ?
+            <CustomPlayer
+              url={this.state.url}
+              songTitle={this.state.songTitle}/>
+          : null }
         </View>
 
         <View style={detail.row}>
-        <Text style={[fonts.link, detail.row]}
-          onPress={() => Linking.openURL(`${this.state.venueLink}`)}>
-          {this.state.venueLink}
-        </Text>
-        <Text style={fonts.info}>
-          {this.state.duration.distance[this.state.mode]}
-        </Text>
+          <Text style={[fonts.link, detail.row]}
+            onPress={() => Linking.openURL(`${this.state.venueLink}`)}>
+            {this.state.venueLink}
+          </Text>
+          <Text style={fonts.info}>
+            {this.state.duration.distance[this.state.mode]}
+          </Text>
         </View>
 
         <MapView

@@ -69,12 +69,12 @@ export function getSongsByArtist(artist) {
       .then((response) => {
           return response.json();
       }).then((json) => {
+         // genre: data.genre,
           const soundData = json.map((data) => {
             if(data.kind === 'track' && data.streamable) {
               return {
                 title: data.title,
                 streamUrl: data.stream_url,
-                url: data.stream_url + 'client_id=' + SOUNDCLOUD_CLIENT_ID,
                 cover: data.artwork_url
               }
             }
