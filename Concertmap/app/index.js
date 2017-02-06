@@ -9,9 +9,9 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 // see https://github.com/facebook/react-native/issues/10600
 import * as navStyles from './config/LocalNavigationBarStylesAndroid';
 import { styles } from './components/Concerts/styles';
+
 import { SONGKICK_URL } from './config/settings';
-import { getDistance } from './utils/map-utils';
-import { getArtistImage } from './utils/api';
+import { sortByDistance, buildConcerts } from './utils/gig-utils';
 
 import ConcertMap from './components/ConcertMap';
 import ConcertList from './components/ConcertList';
@@ -21,14 +21,6 @@ import ShareBtn from './components/ShareBtn';
 
 
 export default class Concerts extends Component {
-
-  static getWeekDays() {
-    const filters = [];
-    for(let i = 0; i <=6; i++) {
-      filters.push(moment().add(i, 'days'));
-    }
-    return filters;
-  }
 
   constructor(props) {
     super(props);
@@ -69,7 +61,7 @@ export default class Concerts extends Component {
 
           this.setState({
             position: currentPosition,
-            concerts: this.sortByDistance(this.state.concerts)
+            concerts: sortByDistance(this.state.concerts)
           });
        },
        (error) => console.log(error),
@@ -77,53 +69,16 @@ export default class Concerts extends Component {
     );
   }
 
-  buildConcerts(gigs) {
-    return gigs.map((gig) => {
-      const position = {
-        lat: gig.venue.lat ? gig.venue.lat : gig.location.lat,
-        lng: gig.venue.lng ? gig.venue.lng : gig.location.lng,
-      };
-      const distance = getDistance(this.state.position, position);
-      const support = gig.performance.find((act) => act.billingIndex === 2);
-      const subSupport = gig.performance.find((act) => act.billingIndex === 3);
-
-      return {
-        id: gig.id,
-        title: gig.performance[0].displayName,
-        venue: gig.venue.displayName,
-        support: support ? support.displayName : null,
-        subSupport: subSupport ? subSupport.displayName : null,
-        city: gig.location.city.split(',')[0],
-        position,
-        time: gig.start.time ? gig.start.time.slice(0, -3) : '',
-        datetime: gig.start.datetime ? moment(gig.start.datetime).calendar().split(' um')[0] :  moment(gig.start.date).calendar().split(' um')[0],
-        image: getArtistImage(gig.performance[0].artist.id),
-        venueId: gig.venue.id,
-        distance: distance
-      }
-    /*  if(supports.length > 0) {
-        alert(JSON.stringify(supports));
-        concert.support = supports[0].displayName;
-        // supports.length > 1 ? concert.subSupport = supports[1].displayName : null;
-      } */
-    });
-  }
-
-  sortByDistance(concerts) {
-    return concerts.sort((a,b) => (a.distance - b.distance));
-  }
-
   getConcertsFromAPI = (filter) => {
     const searchDate = moment(filter).format('YYYY-MM-DD');
-
-    return fetch(`${SONGKICK_URL}&location=geo:${this.state.position.latitude},${this.state.position.longitude}&min_date=${searchDate}&max_date=${searchDate}`)
+    fetch(`${SONGKICK_URL}&location=geo:${this.state.position.latitude},${this.state.position.longitude}&min_date=${searchDate}&max_date=${searchDate}`)
     .then((response) => response.json())
     .then((responseJson) => {
-      concerts = this.buildConcerts(responseJson.resultsPage.results.event);
+      concerts = buildConcerts(responseJson.resultsPage.results.event, this.state.position);
 
       this.setState({
         loading: false,
-        concerts: this.sortByDistance(concerts),
+        concerts: sortByDistance(concerts),
       });
       return responseJson;
     })
@@ -240,9 +195,9 @@ export default class Concerts extends Component {
                         <Text style={styles.tabText}>KARTE</Text>
                       </TouchableHighlight>);
                   case 1:
-                    return <Text style={styles.tabTextActive}>KARTE</Text>;
+                    return (<Text style={styles.tabTextActive}>KARTE</Text>);
                   case 2:
-                     return (<ShareBtn concert={route.data}/>);
+                     return (<ShareBtn concert={route.passProps}/>);
                   default:
                     break;
                 }
@@ -251,7 +206,6 @@ export default class Concerts extends Component {
 								return (
                   route.index === 2 ? null :
                     <FilterBar
-                      filter={Concerts.getWeekDays()}
                       activeFilter={activeFilter}
                       setFilter={this.setFilter.bind(this, route.index)}/>
                   );

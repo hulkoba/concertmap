@@ -15,9 +15,12 @@ class ShareBtn extends Component {
       contentType: 'link',
       contentTitle: `${data.title} im ${data.venue}!`,
       contentUrl: data.url,
-      imageUrl: data.image,
       contentDescription: `Kommt alle mit zu ${data.title} im ${data.venue}!`,
     };
+
+    if( data.image) {
+      shareLinkContent.imageUrl = data.image;
+    }
     ShareDialog.canShow(shareLinkContent).then(
       function(canShow) {
         if (canShow) { return ShareDialog.show(shareLinkContent) }

@@ -5,8 +5,18 @@ import moment from 'moment';
 import { style } from './dayFilter';
 
 export default class FilterBar extends Component {
+
+  static getWeekDays() {
+    const filters = [];
+    for(let i = 0; i <=6; i++) {
+      filters.push(moment().add(i, 'days'));
+    }
+    return filters;
+  }
+
 	render() {
-		const { filter, activeFilter, setFilter } = this.props;
+		const { activeFilter, setFilter } = this.props;
+    const filter = FilterBar.getWeekDays();
 		return (
       <View style={style.bar}>
         {filter.map((f) => {
@@ -30,6 +40,5 @@ export default class FilterBar extends Component {
 
 FilterBar.propTypes = {
   activeFilter: PropTypes.object.isRequired,
-  filter: PropTypes.array.isRequired,
   setFilter: PropTypes.func.isRequired,
 };
