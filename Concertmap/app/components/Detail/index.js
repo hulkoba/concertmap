@@ -110,6 +110,7 @@ export default class Detail extends Component {
     return (
       <View style={detail.container}>
         <View style={detail.titlerow}>
+          <View style={detail.acts}>
           <Text style={fonts.title}>
             {concert.title}
           </Text>
@@ -123,6 +124,11 @@ export default class Detail extends Component {
               and {concert.subSupport}
             </Text>
           : null }
+          </View>
+          <Text style={detail.ticketButton}
+            onPress={() => Linking.openURL(`${TICKETMASTER_URL}${concert.title}+${concert.city}`)}>
+            Ticket kaufen
+          </Text>
          </View>
 
          <View style={detail.imageView}>
@@ -136,11 +142,6 @@ export default class Detail extends Component {
           <Text style={fonts.title}>
             {concert.datetime}  {concert.time}
           </Text>
-          <Text style={detail.ticketButton}
-            onPress={() => Linking.openURL(`${TICKETMASTER_URL}${concert.title}+${concert.city}`)}>
-            Ticket kaufen
-          </Text>
-
         </View>
 
         <View style={detail.row}>

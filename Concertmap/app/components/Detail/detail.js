@@ -16,17 +16,24 @@ export const detail = StyleSheet.create({
   },
   titlerow: {
     marginLeft: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  acts: {
+    flex: 3,
   },
   address: {
     justifyContent: 'space-between',
   },
   ticketButton: {
+    flex: 1,
     backgroundColor: colors.blue,
     color: colors.white,
     borderRadius: 2,
     padding: 4,
     textAlign: 'center',
     fontSize: 14,
+    height: 30,
   },
   image: {
     flex: 1,
