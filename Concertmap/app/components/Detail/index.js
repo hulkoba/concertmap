@@ -40,7 +40,6 @@ export default class Detail extends Component {
       venueLink: '',
       street: '',
       zip: '',
-      PLAYING: false,
       songTitle: '',
       url: null,
     }
@@ -126,21 +125,13 @@ export default class Detail extends Component {
     }
   }
 
-  stopPlaying() {
-    CustomPlayer.stop();
-    this.setState({title: '', url: null});
-  }
-
-  togglePlay() {
-    this.setState({PLAYING: !this.state.PLAYING});
+  calcDistance() {
+    return this.props.concert.distance * 0.008;
   }
 
 	render() {
 		const { concert, region, navigator } = this.props;
-
-    const delta = concert.distance * 0.008;
-    const routes = navigator.getCurrentRoutes(0);
-    const prevRoute = routes[routes.length -2].title; // vorletzte
+    const delta = this.calcDistance();
 
     return (
       <View style={detail.container}>

@@ -8,7 +8,7 @@ import Row from '../Row';
 import { list } from './listStyles';
 
 // Row comparison function
-const rowHasChanged = (r1, r2) => r1.id !== r2.id;
+const rowHasChanged = (r1, r2) => r1.title !== r2.title;
 
 // DataSource template object
 const ds = new ListView.DataSource({rowHasChanged});
