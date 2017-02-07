@@ -153,7 +153,7 @@ export default class Detail extends Component {
           </View>
           <Text style={detail.ticketButton}
             onPress={() => Linking.openURL(`${TICKETMASTER_URL}${concert.title}+${concert.city}`)}>
-            Ticket
+            Ticket kaufen
           </Text>
          </View>
 
