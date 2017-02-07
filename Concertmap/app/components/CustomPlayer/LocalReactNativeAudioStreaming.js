@@ -1,3 +1,4 @@
+/*
 import React, { Component } from 'react';
 import {
     Text,
@@ -114,3 +115,4 @@ CustomPlayer.propTypes = {
 };
 
 // export default class CustomPlayer;
+*/

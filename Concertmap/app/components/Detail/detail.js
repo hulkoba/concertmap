@@ -36,7 +36,7 @@ export const detail = StyleSheet.create({
     textAlign: 'center',
     fontSize: 14,
     height: 27,
-    minWidth: 100,
+    minWidth: 99,
   },
   image: {
     flex: 1,

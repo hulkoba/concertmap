@@ -17,6 +17,7 @@ export const style = StyleSheet.create({
     alignSelf: 'center',
   },
   songName: {
+    textAlign: 'center',
     fontSize: 12,
     fontFamily: 'Lato',
     color: colors.lightGrey,
