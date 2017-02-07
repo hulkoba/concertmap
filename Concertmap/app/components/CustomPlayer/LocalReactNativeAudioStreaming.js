@@ -24,7 +24,7 @@ const BUFFERING = 'BUFFERING';
 const START_PREPARING = 'START_PREPARING'; // Android only
 const BUFFERING_START = 'BUFFERING_START'; // Android only
 
-class CustomPlayer extends Component {
+export default class CustomPlayer extends Component {
     // NOTE added
     static stop() {
       ReactNativeAudioStreaming.stop();
@@ -113,4 +113,4 @@ CustomPlayer.propTypes = {
     songTitle: React.PropTypes.string.isRequired
 };
 
-export { CustomPlayer }
+// export default class CustomPlayer;

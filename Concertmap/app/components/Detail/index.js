@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { BackAndroid, ScrollView, View, Text, Image, Linking } from 'react-native';
+import {BackAndroid, View, Text, Image, Linking } from 'react-native';
 import MapView from 'react-native-maps';
 
 import { TICKETMASTER_URL } from '../../config/settings';
@@ -14,7 +14,7 @@ import { detail } from './detail';
 import { fonts } from '../../config/styles';
 import { marker } from '../../config/images';
 import Routenplaner from '../Routenplaner';
-import { CustomPlayer } from '../CustomPlayer/LocalReactNativeAudioStreaming';
+import Player from '../CustomPlayer';
 
 export default class Detail extends Component {
 
@@ -46,7 +46,6 @@ export default class Detail extends Component {
   }
 
   componentDidMount() {
-
     this.getSong();
     this.getVenue();
     this.getDurations();
@@ -100,7 +99,8 @@ export default class Detail extends Component {
         this.setState({songTitle: songs[0].title})
 
         getSong(songs[0].streamUrl).then((audio) => {
-          this.setState({url: audio.http_mp3_128_url})
+          this.setState({url: audio.http_mp3_128_url});
+          // RCTAudio.prepare(audio.http_mp3_128_url, true)
         });
       }
     });
@@ -153,7 +153,7 @@ export default class Detail extends Component {
           </View>
           <Text style={detail.ticketButton}
             onPress={() => Linking.openURL(`${TICKETMASTER_URL}${concert.title}+${concert.city}`)}>
-            Ticket kaufen
+            Ticket
           </Text>
          </View>
 
@@ -181,9 +181,7 @@ export default class Detail extends Component {
           </View>
 
           {this.state.url && this.state.songTitle ?
-            <CustomPlayer
-              url={this.state.url}
-              songTitle={this.state.songTitle}/>
+            <Player url={this.state.url} songTitle={this.state.songTitle} />
           : null }
         </View>
 

@@ -11,6 +11,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.audioStreaming.ReactNativeAudioStreamingPackage;
+import com.xeodou.rctplayer.*;
 
 // facebook imports
 import com.facebook.CallbackManager;
@@ -51,6 +52,7 @@ public class MainApplication extends Application implements ReactApplication {
             new VectorIconsPackage(),
             new MapsPackage(),
             new ReactNativeAudioStreamingPackage(),
+            new ReactPlayerManager(),
             new FBSDKPackage(mCallbackManager)
         );
       }
