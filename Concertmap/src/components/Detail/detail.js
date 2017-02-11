@@ -32,7 +32,7 @@ export const detail = StyleSheet.create({
     color: colors.white,
     borderRadius: 2,
     padding: 4,
-    marginRight: 10,
+    marginRight: 6,
     textAlign: 'center',
     fontSize: 14,
     height: 27,

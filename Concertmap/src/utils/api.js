@@ -1,6 +1,6 @@
 import { SONGKICK_API_KEY,
         GOOGLE_DISTANCE_KEY,
-        SOUNDCLOUD_CLIENT_ID } from '../config/settings';
+        SOUNDCLOUD_CLIENT_ID } from '../config/constants';
 
 
 export function getArtistImage(id) {

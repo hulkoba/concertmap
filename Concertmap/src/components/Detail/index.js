@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import {BackAndroid, View, Text, Image, Linking } from 'react-native';
+import { BackAndroid, View, Text, Image, Linking } from 'react-native';
 import MapView from 'react-native-maps';
 
-import { TICKETMASTER_URL } from '../../config/settings';
+import TICKETMASTER_URL from '../../config/constants';
 import { getRouteCoordinates } from '../../utils/map-utils';
 import { getVenueDetails,
         getDuration,
@@ -137,22 +137,26 @@ export default class Detail extends Component {
       <View style={detail.container}>
         <View style={detail.titlerow}>
           <View style={detail.acts}>
-          <Text style={fonts.title}>
-            {concert.title}
-          </Text>
-          {concert.support ?
-            <Text style={fonts.importantInfo}>
-              with {concert.support}
+            <Text style={fonts.title}>
+              {concert.title}
             </Text>
-          : null }
-          {concert.subSupport ?
-            <Text style={fonts.importantInfo}>
-              and {concert.subSupport}
-            </Text>
-          : null }
+            {concert.support ?
+              <Text style={fonts.importantInfo}>
+                with {concert.support}
+              </Text>
+            : null }
+            {concert.subSupport ?
+              <Text style={fonts.importantInfo}>
+                and {concert.subSupport}
+              </Text>
+            : null }
           </View>
+
           <Text style={detail.ticketButton}
-            onPress={() => Linking.openURL(`${TICKETMASTER_URL}${concert.title}+${concert.city}`)}>
+            onPress={() => {
+              alert(JSON.stringify(TICKETMASTER_URL));
+             Linking.openURL(`${TICKETMASTER_URL}${concert.title}+${concert.city}`)
+            }}>
             Ticket kaufen
           </Text>
          </View>

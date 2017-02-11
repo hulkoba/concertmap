@@ -13,29 +13,10 @@ import com.facebook.react.shell.MainReactPackage;
 import com.audioStreaming.ReactNativeAudioStreamingPackage;
 import com.xeodou.rctplayer.*;
 
-// facebook imports
-import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
-import com.facebook.reactnative.androidsdk.FBSDKPackage;
-import com.facebook.appevents.AppEventsLogger;
-
 import java.util.Arrays;
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
-
-    private static CallbackManager mCallbackManager = CallbackManager.Factory.create();
-
-    protected static CallbackManager getCallbackManager() {
-      return mCallbackManager;
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
-    }
 
     private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
 
@@ -52,8 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
             new VectorIconsPackage(),
             new MapsPackage(),
             new ReactNativeAudioStreamingPackage(),
-            new ReactPlayerManager(),
-            new FBSDKPackage(mCallbackManager)
+            new ReactPlayerManager()
         );
       }
   };

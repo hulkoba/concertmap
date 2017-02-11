@@ -10,7 +10,7 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import * as navStyles from './config/LocalNavigationBarStylesAndroid';
 import { styles } from './components/Concerts/styles';
 
-import { SONGKICK_URL } from './config/settings';
+import { SONGKICK_URL } from './config/constants';
 import { sortByDistance, buildConcerts } from './utils/gig-utils';
 
 import ConcertMap from './components/ConcertMap';
@@ -21,7 +21,7 @@ import ShareBtn from './components/ShareBtn';
 
 
 export default class Concerts extends Component {
-
+  watchID : ? number = null;
   constructor(props) {
     super(props);
     moment.updateLocale('de', deLocale);
@@ -32,6 +32,7 @@ export default class Concerts extends Component {
       concerts: [],
       activeFilter: moment(),
       initialRouteIndex: 0,
+      lastPostition: 'unknown',
       position: {
         latitude: 52.5243700,
         longitude: 13.4105300,
@@ -65,8 +66,17 @@ export default class Concerts extends Component {
           });
        },
        (error) => console.log(error),
-       {enableHighAccuracy: false, timeout: 10000, maximumAge: 0}
+       {enableHighAccuracy: false, timeout: 20000, maximumAge: 0}
     );
+    this.watchID = navigator.geolocation.watchPosition((position) => {
+      const lastPosition = position;
+     // alert(JSON.stringify(lastPosition));
+      this.setState({lastPosition});
+    });
+  }
+
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchID);
   }
 
   getConcertsFromAPI = (filter) => {
