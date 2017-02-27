@@ -4,18 +4,13 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import { style } from './shareBtn';
 
-class ShareBtn extends Component {
+const ShareBtn = () => (
+  <TouchableHighlight >
+    <View style={style.ShareText} >
+      <MaterialIcons name="share" style={style.shareIcon} />
+      <Text style={style.shareIcon}>Teilen</Text>
+    </View>
+  </TouchableHighlight>
+)
 
-  render() {
-    return (
-      <TouchableHighlight >
-        <View style={style.ShareText} >
-          <MaterialIcons name="share" style={style.shareIcon} />
-          <Text style={style.shareIcon}>Teilen</Text>
-        </View>
-      </TouchableHighlight>
-    )
-  }
-}
-
-export default ShareBtn
+export default ShareBtn;
