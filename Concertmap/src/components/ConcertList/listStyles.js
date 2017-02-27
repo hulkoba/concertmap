@@ -4,7 +4,7 @@ import { colors } from '../../config/styles';
 export const list = StyleSheet.create({
   container: {
     flex: 1,
-     marginTop: 6,
+    backgroundColor: colors.black,
   },
   list: {
    ...StyleSheet.absoluteFillObject,

@@ -1,9 +1,8 @@
 import { StyleSheet } from 'react-native';
 
 export const map = StyleSheet.create({
-   container: {
-		 flex: 1,
-     marginTop: 6,
+  container: {
+		flex: 1,
 	 },
 	 map: {
 		 ...StyleSheet.absoluteFillObject,

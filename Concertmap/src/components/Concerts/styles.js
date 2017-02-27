@@ -16,24 +16,16 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.black,
   },
   tabText: {
-    fontFamily: 'Track',
-		fontSize: 16,
 		color: colors.lightGrey,
-		paddingHorizontal: 66,
-		marginTop: 12,
-		borderBottomColor: colors.lightGrey,
-		borderBottomWidth: 4,
-		paddingBottom: 12,
+  },
+  tabIndicator: {
+    backgroundColor: colors.blue,
+    height: 3,
   },
 	tabTextActive: {
 		color: colors.white,
-		borderBottomColor: colors.blue,
-		borderBottomWidth: 4,
 		fontFamily: 'Track',
 		fontSize: 16,
-		paddingHorizontal: 66,
-		marginTop: 12,
-		paddingBottom: 12,
 	},
   // detail view
   tabTextShare: {

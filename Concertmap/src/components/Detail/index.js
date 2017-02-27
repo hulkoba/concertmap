@@ -18,6 +18,14 @@ import Player from '../CustomPlayer';
 
 export default class Detail extends Component {
 
+/* <TouchableHighlight
+    onPress={}>
+    <View style={styles.tabTextShare}>
+      <SimpleLineIcons name="arrow-left" style={styles.tabTextBack} />
+      <Text style={styles.tabTextBack}>ZURÜCK</Text>
+    </View>
+    </TouchableHighlight>
+ <ShareBtn concert={route.passProps}/>*/
   componentWillMount() {
     BackAndroid.addEventListener('hardwareBackPress', () => {
       if (this.props.navigator && this.props.navigator.getCurrentRoutes().length > 1) {

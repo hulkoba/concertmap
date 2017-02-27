@@ -17,13 +17,23 @@ import { sortByDistance, buildConcerts } from './utils/gig-utils';
 
 import ConcertMap from './components/ConcertMap';
 import ConcertList from './components/ConcertList';
-import Detail from './components/Detail';
 import FilterBar from './components/FilterBar';
-import ShareBtn from './components/ShareBtn';
+
 
 const AppNavigator = TabNavigator({
   Liste: { screen: ConcertList },
   Karte: { screen: ConcertMap },
+  },
+  {
+  tabBarPosition: 'top',
+  animationEnabled: true,
+  initialRouteName: 'Liste',
+  tabBarOptions: {
+    style: styles.tabBar,
+    labelStyle: styles.tabTextActive,
+    inactiveTintColor: styles.tabText,
+    indicatorStyle: styles.tabIndicator,
+  }
 });
 
 export default class Concerts extends Component {
@@ -128,86 +138,24 @@ export default class Concerts extends Component {
 			);
     }
 
-    // https://github.com/facebook/react-native/issues/2048
-    // Navigator bug: push twice
     return (
       <AppNavigator ref={nav => { this.navigator = nav; }}
-        screenProps={{concerts: this.state.concerts, region: this.state.position, filter: this.state.filter}}/>
-			/* <Navigator
-				 	style={styles.tabBar}
-          sceneStyle={{paddingTop: navStyles.General.TotalNavHeight}}
-					initialRoute={routes[initialRouteIndex]}
-					renderScene={this.renderScene}
+        screenProps={{
+          concerts: this.state.concerts,
+          region: this.state.position,
+          filter: this.state.activeFilter}}
+        style={styles.container}/>
+			/*
 
-				  navigationBar={
-					 <Navigator.NavigationBar
-            navigationStyles={navStyles}
-						routeMapper={{
-							LeftButton: (route, navigator, index, navState) => {
-                switch(route.index) {
-                  case 0:
-									 return (<Text style={styles.tabTextActive}>LISTE</Text>);
-                  case 1:
-                    return (
-                      <TouchableHighlight
-                        onPress={() => {
-                          if(!navState.routeStack.some((r) => (r.index === 0))) {
-                            navigator.push(routes[0])
-                          } else {
-                            navigator.pop()
-                          }
-                        }}>
-                        <Text style={styles.tabText}>LISTE</Text>
-                      </TouchableHighlight>
-                    );
-                  case 2:
-                    return (
-                      <TouchableHighlight
-                        onPress={() => navigator.pop()}>
-                        <View style={styles.tabTextShare}>
-                          <SimpleLineIcons name="arrow-left" style={styles.tabTextBack} />
-                          <Text style={styles.tabTextBack}>ZURÜCK</Text>
-                        </View>
-                      </TouchableHighlight>
-                    );
-                  default:
-                    break;
-                }
-							},
-							RightButton: (route, navigator, index, navState) => {
-                switch(route.index) {
-                  case 0:
-                    return (
-                      <TouchableHighlight
-                        onPress={() => {
-                          if(!navState.routeStack.some((r) => r.index === 1)) {
-                            navigator.push(routes[1])
-                          } else {
-                            navigator.jumpTo(routes[1])
-                          }
-                        }}>
-                        <Text style={styles.tabText}>KARTE</Text>
-                      </TouchableHighlight>);
-                  case 1:
-                    return (<Text style={styles.tabTextActive}>KARTE</Text>);
-                  case 2:
-                     return (<ShareBtn concert={route.passProps}/>);
-                  default:
-                    break;
-                }
-							},
-							Title: (route, navigator, index, navState) => {
-								return (
-                  route.index === 2 ? null :
-                    <FilterBar
-                      activeFilter={activeFilter}
-                      setFilter={this.setFilter.bind(this, route.index)}/>
-                  );
-							},
-						}}
-					/>
-				}
-      />*/
+		 return (<Text style={styles.tabTextActive}>LISTE</Text>);
+
+      <Text style={styles.tabText}>LISTE</Text>
+
+      <FilterBar
+        activeFilter={activeFilter}
+        setFilter={this.setFilter.bind(this, route.index)}/>
+
+      */
     )
   }
 }
