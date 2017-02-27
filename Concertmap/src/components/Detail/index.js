@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { View, Text, Image, Linking } from 'react-native';
 import MapView from 'react-native-maps';
 
-import TICKETMASTER_URL from '../../config/constants';
+import { TICKETMASTER_URL } from '../../config/constants';
 import { getRouteCoordinates } from '../../utils/map-utils';
 import { getVenueDetails,
         getDuration,
@@ -23,6 +23,7 @@ class Detail extends Component {
   constructor(props) {
     super(props);
     this.setMode = this.setMode.bind(this);
+    this.Ticketmaster_url = TICKETMASTER_URL;
     this.state = {
       polylineCoords: [],
       mode: 'driving',
@@ -38,7 +39,6 @@ class Detail extends Component {
   }
 
   componentDidMount() {
-    alert(TICKETMASTER_URL);
     const props = this.props.navigation.state.params;
     this.getSong(props.concert);
     this.getVenue(props.concert);
