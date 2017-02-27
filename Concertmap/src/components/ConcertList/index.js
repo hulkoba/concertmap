@@ -34,15 +34,15 @@ export default class ConcertList extends Component {
   )
 
   rowPressed(concert) {
-    this.props.navigator.push({
+   /* this.props.navigator.push({
       title: 'Detail',
       index: 2,
       passProps: concert
-    });
+    });*/
   }
 
 	render() {
-		const { concerts, filter } = this.props;
+		const { concerts, filter } = this.props.screenProps;
 		// Use the dataSource
     const rows = this.dataSource.cloneWithRows(concerts || []);
 		return (
@@ -60,5 +60,7 @@ export default class ConcertList extends Component {
 }
 
 ConcertList.propTypes = {
-  concerts: PropTypes.array.isRequired,
+  screenProps: React.PropTypes.shape({
+    concerts: React.PropTypes.array,
+  }),
 };

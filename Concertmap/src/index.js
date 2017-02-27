@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { TouchableHighlight, Text, View, ActivityIndicator, Navigator } from 'react-native';
 
+import { StackNavigator, TabNavigator } from 'react-navigation';
+
 import moment from 'moment';
 import deLocale from 'moment/locale/de';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
@@ -19,6 +21,10 @@ import Detail from './components/Detail';
 import FilterBar from './components/FilterBar';
 import ShareBtn from './components/ShareBtn';
 
+const AppNavigator = TabNavigator({
+  Liste: { screen: ConcertList },
+  Karte: { screen: ConcertMap },
+});
 
 export default class Concerts extends Component {
   watchID : ? number = null;
@@ -31,7 +37,6 @@ export default class Concerts extends Component {
       error: false,
       concerts: [],
       activeFilter: moment(),
-      initialRouteIndex: 0,
       lastPostition: 'unknown',
       position: {
         latitude: 52.5243700,
@@ -40,6 +45,13 @@ export default class Concerts extends Component {
         longitudeDelta: 0.18,
       },
     };
+
+    // call navigate for AppNavigator here:
+    this.navigator && this.navigator.dispatch({
+      type: 'Navigate',
+      routeName,
+      params,
+    });
   }
 
   componentDidMount() {
@@ -98,38 +110,8 @@ export default class Concerts extends Component {
     });
   }
 
-  renderScene = (route, navigator, index) => {
-    switch (route.index) {
-      case 0:
-        return <ConcertList
-           concerts={this.state.concerts}
-           navigator={navigator}
-          />;
-      case 1:
-        return <ConcertMap
-          concerts={this.state.concerts}
-          region={this.state.position}
-          navigator={navigator}
-        />;
-		  case 2:
-        return <Detail
-                  navigator={navigator}
-                  region={this.state.position}
-                  concert={route.passProps} />;
-		  default:
-        return null;
-    }
-  };
-
   render() {
-    const { loading, error, activeFilter, initialRouteIndex } = this.state;
-
-    // I am fond of cryptic keys (but seriously, keys should be unique)
-		const routes = [
-			{ title: 'List', index: 0, key: 'list-' + moment() },
-			{ title: 'Map', index: 1, key: 'map-' + moment() },
-			{ title: 'Detail', index: 2, key: 'detail-' + moment() },
-		];
+    const { loading, error, activeFilter } = this.state;
 
     if (loading) {
       return (
@@ -149,7 +131,9 @@ export default class Concerts extends Component {
     // https://github.com/facebook/react-native/issues/2048
     // Navigator bug: push twice
     return (
-			 <Navigator
+      <AppNavigator ref={nav => { this.navigator = nav; }}
+        screenProps={{concerts: this.state.concerts, region: this.state.position, filter: this.state.filter}}/>
+			/* <Navigator
 				 	style={styles.tabBar}
           sceneStyle={{paddingTop: navStyles.General.TotalNavHeight}}
 					initialRoute={routes[initialRouteIndex]}
@@ -223,7 +207,7 @@ export default class Concerts extends Component {
 						}}
 					/>
 				}
-      />
+      />*/
     )
   }
 }

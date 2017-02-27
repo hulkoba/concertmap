@@ -26,7 +26,7 @@ export default class ConcertMap extends Component {
   }
 
 	render() {
-		const { concerts, region } = this.props;
+		const { concerts, region } = this.props.screenProps;
     const dist = concerts[0].distance * 0.03;
 
 		return (
@@ -65,7 +65,8 @@ export default class ConcertMap extends Component {
 }
 
 ConcertMap.propTypes = {
-  concerts: PropTypes.array.isRequired,
-  region: PropTypes.object.isRequired,
-  navigator: PropTypes.object.isRequired,
+  screenProps: React.PropTypes.shape({
+    concerts: PropTypes.array.isRequired,
+    region: PropTypes.object.isRequired,
+  }),
 };
