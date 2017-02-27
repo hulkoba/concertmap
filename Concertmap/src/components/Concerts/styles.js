@@ -27,25 +27,4 @@ export const styles = StyleSheet.create({
 		fontFamily: 'Track',
 		fontSize: 16,
 	},
-  // detail view
-  tabTextShare: {
-    marginTop: 12,
-    marginRight: 12,
-		paddingBottom: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  tabTextBack: {
-    marginTop: 6,
-    color: colors.white,
-    fontSize: 14,
-    fontFamily: 'Track',
-    marginLeft: 6,
-  },
-  icon: {
-    color: colors.blue,
-    fontSize: 18,
-    fontFamily: 'Lato-Regular',
-    marginRight: 6,
-  },
 });

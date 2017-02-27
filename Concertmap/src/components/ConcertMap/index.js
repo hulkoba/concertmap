@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { BackAndroid, View, Text, Image } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import MapView from 'react-native-maps';
 
 import { map } from './mapStyles';
@@ -7,21 +7,14 @@ import { marker } from '../../config/images';
 
 export default class ConcertMap extends Component {
 
-  componentWillMount() {
-    BackAndroid.addEventListener('hardwareBackPress', () => {
-      if (this.props.navigator && this.props.navigator.getCurrentRoutes().length > 1) {
-        this.props.navigator.pop();
-        return true;
-      }
-      return false;
-    });
+  constructor(props) {
+    super(props);
+    this.onMarkerPress = this.onMarkerPress.bind(this);
   }
 
-  onMarkerPress(concert) {
-    this.props.navigator.push({
-      title: 'Detail',
-      index: 2,
-      passProps: concert,
+  onMarkerPress(concert, region) {
+    this.props.navigation.navigate('Detail', {
+      concert, region
     });
   }
 
@@ -48,15 +41,15 @@ export default class ConcertMap extends Component {
 
             {concerts.map(concert => (
              <MapView.Marker
-                  identifier={concert.title}
-                  key={concert.id}
-                  coordinate={{
-                      latitude: concert.position.lat,
-                      longitude: concert.position.lng
-                  }}
-                  title={concert.title}
-                  image={marker}
-                onPress={() => this.onMarkerPress(concert)} />
+                identifier={concert.title}
+                key={concert.id}
+                coordinate={{
+                    latitude: concert.position.lat,
+                    longitude: concert.position.lng
+                }}
+                title={concert.title}
+                image={marker}
+                onPress={() => this.onMarkerPress(concert, region)} />
            ))}
          </MapView>
 			</View>

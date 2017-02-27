@@ -1,33 +1,33 @@
 import React, { Component } from 'react';
-import { TouchableHighlight, Text, View, ActivityIndicator, Navigator } from 'react-native';
+import { TouchableHighlight, Text, View, ActivityIndicator } from 'react-native';
 
-import { StackNavigator, TabNavigator } from 'react-navigation';
+import { TabNavigator, StackNavigator } from 'react-navigation';
 
 import moment from 'moment';
 import deLocale from 'moment/locale/de';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-
-// overwrite native styles for showing the filter.
-// see https://github.com/facebook/react-native/issues/10600
-import * as navStyles from './config/LocalNavigationBarStylesAndroid';
-import { styles } from './components/Concerts/styles';
 
 import { SONGKICK_URL } from './config/constants';
 import { sortByDistance, buildConcerts } from './utils/gig-utils';
 
+import { styles } from './components/Concerts/styles';
 import ConcertMap from './components/ConcertMap';
 import ConcertList from './components/ConcertList';
+import Detail from './components/Detail';
 import FilterBar from './components/FilterBar';
+
+/*<FilterBar
+  activeFilter={state.activeFilter}
+  setFilter={this.setFilter.bind(this, route.index)}/>*/
 
 
 const AppNavigator = TabNavigator({
-  Liste: { screen: ConcertList },
-  Karte: { screen: ConcertMap },
+  Liste: { screen: ConcertList, params: {} },
+  Karte: { screen: ConcertMap, params: {} },
   },
   {
   tabBarPosition: 'top',
   animationEnabled: true,
-  initialRouteName: 'Liste',
+ // initialRouteName: 'Liste',
   tabBarOptions: {
     style: styles.tabBar,
     labelStyle: styles.tabTextActive,
@@ -36,8 +36,28 @@ const AppNavigator = TabNavigator({
   }
 });
 
+const ConcertApp = StackNavigator({
+  Concerts: { screen: AppNavigator },
+  Detail: { screen: Detail },
+},
+{
+  headerMode: 'none'
+});
+
+
 export default class Concerts extends Component {
   watchID : ? number = null;
+
+  componentWillMount() {
+
+    // call navigate for AppNavigator here:
+    this.navigator && this.navigator.dispatch({
+      type: 'Navigate',
+      routeName,
+      params,
+    });
+  }
+
   constructor(props) {
     super(props);
     moment.updateLocale('de', deLocale);
@@ -56,12 +76,6 @@ export default class Concerts extends Component {
       },
     };
 
-    // call navigate for AppNavigator here:
-    this.navigator && this.navigator.dispatch({
-      type: 'Navigate',
-      routeName,
-      params,
-    });
   }
 
   componentDidMount() {
@@ -70,7 +84,7 @@ export default class Concerts extends Component {
   }
 
   setFilter = (index, filter) => {
-    this.setState({activeFilter: filter, initialRouteIndex: index});
+    this.setState({activeFilter: filter});
     this.getConcertsFromAPI(filter);
   }
 
@@ -90,15 +104,6 @@ export default class Concerts extends Component {
        (error) => console.log(error),
        {enableHighAccuracy: false, timeout: 20000, maximumAge: 0}
     );
-    this.watchID = navigator.geolocation.watchPosition((position) => {
-      const lastPosition = position;
-     // alert(JSON.stringify(lastPosition));
-      this.setState({lastPosition});
-    });
-  }
-
-  componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.watchID);
   }
 
   getConcertsFromAPI = (filter) => {
@@ -121,7 +126,7 @@ export default class Concerts extends Component {
   }
 
   render() {
-    const { loading, error, activeFilter } = this.state;
+    const { loading, error } = this.state;
 
     if (loading) {
       return (
@@ -139,23 +144,12 @@ export default class Concerts extends Component {
     }
 
     return (
-      <AppNavigator ref={nav => { this.navigator = nav; }}
+      <ConcertApp ref={nav => { this.navigator = nav; }}
         screenProps={{
           concerts: this.state.concerts,
           region: this.state.position,
           filter: this.state.activeFilter}}
         style={styles.container}/>
-			/*
-
-		 return (<Text style={styles.tabTextActive}>LISTE</Text>);
-
-      <Text style={styles.tabText}>LISTE</Text>
-
-      <FilterBar
-        activeFilter={activeFilter}
-        setFilter={this.setFilter.bind(this, route.index)}/>
-
-      */
     )
   }
 }

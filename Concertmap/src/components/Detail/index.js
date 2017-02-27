@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { BackAndroid, View, Text, Image, Linking } from 'react-native';
+import { View, Text, Image, Linking } from 'react-native';
 import MapView from 'react-native-maps';
 
 import TICKETMASTER_URL from '../../config/constants';
@@ -13,28 +13,12 @@ import { getVenueDetails,
 import { detail } from './detail';
 import { fonts } from '../../config/styles';
 import { marker } from '../../config/images';
+
+import DetailHeader from '../DetailHeader';
 import Routenplaner from '../Routenplaner';
 import Player from '../CustomPlayer';
 
-export default class Detail extends Component {
-
-/* <TouchableHighlight
-    onPress={}>
-    <View style={styles.tabTextShare}>
-      <SimpleLineIcons name="arrow-left" style={styles.tabTextBack} />
-      <Text style={styles.tabTextBack}>ZURÜCK</Text>
-    </View>
-    </TouchableHighlight>
- <ShareBtn concert={route.passProps}/>*/
-  componentWillMount() {
-    BackAndroid.addEventListener('hardwareBackPress', () => {
-      if (this.props.navigator && this.props.navigator.getCurrentRoutes().length > 1) {
-        this.props.navigator.pop();
-        return true;
-      }
-      return false;
-    });
-  }
+class Detail extends Component {
 
   constructor(props) {
     super(props);
@@ -54,42 +38,44 @@ export default class Detail extends Component {
   }
 
   componentDidMount() {
-    this.getSong();
-    this.getVenue();
-    this.getDurations();
+    alert(TICKETMASTER_URL);
+    const props = this.props.navigation.state.params;
+    this.getSong(props.concert);
+    this.getVenue(props.concert);
+    this.getDurations(props);
 
-    getDirection(this.props.region, this.props.concert.position)
+    getDirection(props.region, props.concert.position)
       .then((response) => {
         this.setState({polylineCoords: getRouteCoordinates(response)})
       });
   }
 
-  getDurations() {
-     const duration = {
+  getDurations(props) {
+    const duration = {
       distance: {}
     };
-    getDuration(this.props.region, this.props.concert.position)
+    getDuration(props.region, props.concert.position)
       .then((response) => {
         duration.car = response.duration.text;
         duration.distance.driving = response.distance.text
         return duration;
       })
       .then((duration) => {
-        getDuration(this.props.region, this.props.concert.position, 'walking')
+        getDuration(props.region, props.concert.position, 'walking')
           .then((response) => {
             duration.walk = response.duration.text;
             duration.distance.walking = response.distance.text
             return duration;
           })
           .then((duration) => {
-          getDuration(this.props.region, this.props.concert.position, 'bicycling')
+          getDuration(props.region, props.concert.position, 'bicycling')
             .then((response) => {
               duration.bike = response.duration.text;
               duration.distance.bicycling = response.distance.text
               return duration;
             })
             .then((duration) => {
-              getDuration(this.props.region, this.props.concert.position, 'transit')
+              getDuration(props.region, props.concert.position, 'transit')
               .then((response) => {
                 duration.transit = response.duration.text;
                 duration.distance.transit = response.distance.text;
@@ -101,8 +87,8 @@ export default class Detail extends Component {
     });
   }
 
-  getSong() {
-    getSongsByArtist(this.props.concert.title).then((songs) => {
+  getSong(concert) {
+    getSongsByArtist(concert.title).then((songs) => {
       if(songs.length > 0) {
         this.setState({songTitle: songs[0].title})
 
@@ -114,8 +100,8 @@ export default class Detail extends Component {
     });
   }
 
-  getVenue() {
-    getVenueDetails(this.props.concert.venueId).then((details) => {
+  getVenue(concert) {
+    getVenueDetails(concert.venueId).then((details) => {
       this.setState({
         street: details.street,
         venueLink: details.venueLink,
@@ -126,23 +112,32 @@ export default class Detail extends Component {
 
   setMode(mode) {
     if(mode !== this.state.mode) {
-      getDirection(this.props.region, this.props.concert.position, mode)
+      getDirection(this.props.navigation.state.params.region, this.props.navigation.state.params.concert.position, mode)
         .then((response) => {
           this.setState({polylineCoords: getRouteCoordinates(response), mode: mode})
         });
     }
   }
 
-  calcDistance() {
-    return this.props.concert.distance * 0.008;
+  calcDistance(concert) {
+    return concert.distance * 0.008;
+  }
+
+  handleGoBack() {
+    this.props.navigation.navigate('Concerts', {});
   }
 
 	render() {
-		const { concert, region, navigator } = this.props;
-    const delta = this.calcDistance();
+
+		const { concert, region } = this.props.navigation.state.params;
+    const delta = this.calcDistance(concert);
 
     return (
       <View style={detail.container}>
+        <DetailHeader
+          gig={concert}
+          goBack={() => this.handleGoBack} />
+
         <View style={detail.titlerow}>
           <View style={detail.acts}>
             <Text style={fonts.title}>
@@ -162,7 +157,6 @@ export default class Detail extends Component {
 
           <Text style={detail.ticketButton}
             onPress={() => {
-              alert(JSON.stringify(TICKETMASTER_URL));
              Linking.openURL(`${TICKETMASTER_URL}${concert.title}+${concert.city}`)
             }}>
             Ticket kaufen
@@ -240,11 +234,12 @@ export default class Detail extends Component {
          </MapView>
       </View>
 		)
-	}
+  }
 }
 
 Detail.propTypes = {
-  concert: PropTypes.object.isRequired,
-  region: PropTypes.object.isRequired,
-  navigator: PropTypes.object.isRequired,
+  //concert: PropTypes.object.isRequired,
+  //region: PropTypes.object.isRequired,
 };
+
+export default Detail;

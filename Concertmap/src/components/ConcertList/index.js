@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { Navigator, ListView, View, Image } from 'react-native';
+import { ListView, View, Image } from 'react-native';
+import { StackNavigator } from 'react-navigation';
 
 import { songkickLogo } from '../../config/images';
 
@@ -21,6 +22,8 @@ export default class ConcertList extends Component {
   constructor (props) {
     super(props);
     this.dataSource = ds;
+ //   this.handleRowPressed = this.handleRowPressed.bind(this);
+
   }
 
   renderFooter = () => (
@@ -30,15 +33,13 @@ export default class ConcertList extends Component {
   )
 
 	renderRow = (gig) => (
-    <Row gig={gig} onRowPressed={this.rowPressed.bind(this, gig)} />
+    <Row gig={gig} onRowPressed={this.handleRowPressed.bind(this, gig)} />
   )
 
-  rowPressed(concert) {
-   /* this.props.navigator.push({
-      title: 'Detail',
-      index: 2,
-      passProps: concert
-    });*/
+  handleRowPressed(gig) {
+    this.props.navigation.navigate('Detail', {
+      concert: gig, region: this.props.screenProps.region
+    });
   }
 
 	render() {
