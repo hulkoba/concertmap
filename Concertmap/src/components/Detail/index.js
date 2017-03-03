@@ -124,6 +124,7 @@ class Detail extends Component {
   }
 
   handleGoBack() {
+    alert('##### GO BACK');
     this.props.navigation.navigate('Concerts', {});
   }
 
@@ -136,7 +137,7 @@ class Detail extends Component {
       <View style={detail.container}>
         <DetailHeader
           gig={concert}
-          goBack={() => this.handleGoBack} />
+          goBack={this.handleGoBack} />
 
         <View style={detail.titlerow}>
           <View style={detail.acts}>
