@@ -38,7 +38,8 @@ export default class ConcertList extends Component {
 
   handleRowPressed(gig) {
     this.props.navigation.navigate('Detail', {
-      concert: gig, region: this.props.screenProps.region
+      concert: gig,
+      region: this.props.screenProps.region
     });
   }
 

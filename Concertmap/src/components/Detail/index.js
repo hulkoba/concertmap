@@ -22,7 +22,8 @@ class Detail extends Component {
 
   constructor(props) {
     super(props);
-    this.setMode = this.setMode.bind(this);
+    this.setTravelMode = this.setTravelMode.bind(this);
+    this.handleGoBack = this.handleGoBack.bind(this);
     this.Ticketmaster_url = TICKETMASTER_URL;
     this.state = {
       polylineCoords: [],
@@ -90,11 +91,10 @@ class Detail extends Component {
   getSong(concert) {
     getSongsByArtist(concert.title).then((songs) => {
       if(songs.length > 0) {
-        this.setState({songTitle: songs[0].title})
+        this.setState({songTitle: songs[0].title});
 
         getSong(songs[0].streamUrl).then((audio) => {
           this.setState({url: audio.http_mp3_128_url});
-          // RCTAudio.prepare(audio.http_mp3_128_url, true)
         });
       }
     });
@@ -110,7 +110,7 @@ class Detail extends Component {
     });
   }
 
-  setMode(mode) {
+  setTravelMode(mode) {
     if(mode !== this.state.mode) {
       getDirection(this.props.navigation.state.params.region, this.props.navigation.state.params.concert.position, mode)
         .then((response) => {
@@ -124,7 +124,6 @@ class Detail extends Component {
   }
 
   handleGoBack() {
-    alert('##### GO BACK');
     this.props.navigation.navigate('Concerts', {});
   }
 
@@ -144,16 +143,16 @@ class Detail extends Component {
             <Text style={fonts.title}>
               {concert.title}
             </Text>
-            {concert.support ?
+
+            {concert.support &&
               <Text style={fonts.importantInfo}>
                 with {concert.support}
-              </Text>
-            : null }
-            {concert.subSupport ?
+              </Text> }
+
+            {concert.subSupport &&
               <Text style={fonts.importantInfo}>
                 and {concert.subSupport}
-              </Text>
-            : null }
+              </Text> }
           </View>
 
           <Text style={detail.ticketButton}
@@ -167,7 +166,7 @@ class Detail extends Component {
          <View style={detail.imageView}>
           <Image style={detail.image}
             source={{uri: concert.image}}>
-            <Routenplaner duration={this.state.duration} setMode={this.setMode}/>
+            <Routenplaner duration={this.state.duration} setTravelMode={this.setTravelMode}/>
           </Image>
         </View>
 

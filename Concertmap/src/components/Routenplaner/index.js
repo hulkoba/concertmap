@@ -4,26 +4,26 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import { routenplaner } from './routenplaner';
 
-const Routenplaner = ({ duration, setMode }) => (
+const Routenplaner = ({ duration, setTravelMode }) => (
   <View style={routenplaner.container}>
 
     <TouchableOpacity
-      onPress={() => setMode('walking')}>
+      onPress={() => setTravelMode('walking')}>
       <MaterialIcons name="directions-walk" style={routenplaner.icon} />
       <Text style={routenplaner.duration}>{duration.walk}</Text>
     </TouchableOpacity>
 
-    <TouchableOpacity onPress={() => setMode('bicycling')}>
+    <TouchableOpacity onPress={() => setTravelMode('bicycling')}>
       <MaterialIcons name="directions-bike" style={routenplaner.icon} />
       <Text style={routenplaner.duration}>{duration.bike}</Text>
     </TouchableOpacity>
 
-    <TouchableOpacity onPress={() => setMode('transit')}>
+    <TouchableOpacity onPress={() => setTravelMode('transit')}>
       <MaterialIcons name="directions-transit" style={routenplaner.icon} />
       <Text style={routenplaner.duration}>{duration.transit}</Text>
     </TouchableOpacity>
 
-    <TouchableOpacity onPress={() => setMode('driving')}>
+    <TouchableOpacity onPress={() => setTravelMode('driving')}>
       <MaterialIcons name="directions-car" style={routenplaner.icon} />
       <Text style={routenplaner.duration}>{duration.car}</Text>
     </TouchableOpacity>
@@ -33,7 +33,7 @@ const Routenplaner = ({ duration, setMode }) => (
 
 Routenplaner.propTypes = {
   duration: PropTypes.object.isRequired,
-  setMode: PropTypes.func.isRequired,
+  setTravelMode: PropTypes.func.isRequired,
 };
 
 export default Routenplaner;
