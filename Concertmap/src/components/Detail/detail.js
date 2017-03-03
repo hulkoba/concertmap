@@ -13,29 +13,10 @@ export const detail = StyleSheet.create({
     justifyContent: 'space-between',
     paddingRight: 6,
   },
-  titlerow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  acts: {
-    flex: 3,
-  },
   address: {
     justifyContent: 'space-between',
     flexDirection: 'column',
     flex: 1,
-  },
-  ticketButton: {
-    flex: 1,
-    backgroundColor: colors.blue,
-    color: colors.white,
-    borderRadius: 2,
-    padding: 4,
-    marginRight: 6,
-    textAlign: 'center',
-    fontSize: 14,
-    height: 27,
-    minWidth: 99,
   },
   image: {
     flex: 1,

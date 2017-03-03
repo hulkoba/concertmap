@@ -1,29 +1,40 @@
 import React, { PropTypes } from 'react';
-import { TouchableHighlight, View, Text } from 'react-native';
+import { View, Text, Linking } from 'react-native';
 
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import { TICKETMASTER_URL } from '../../config/constants';
 
-import ShareBtn from '../ShareBtn';
+import { style } from './detailHeader';
+import { fonts } from '../../config/styles';
 
-import { style } from './tabs';
+const DetailHeader = ({ gig }) => (
+  <View style={style.titlerow}>
+    <View style={style.acts}>
+      <Text style={fonts.title}>
+        {gig.title}
+      </Text>
 
-const DetailHeader = ({ gig, goBack }) => (
-  <View style={style.header}>
-    <TouchableHighlight
-      onPress={goBack}>
-      <View style={style.tabTextShare}>
-        <SimpleLineIcons name="arrow-left" style={style.tabTextBack} />
-        <Text style={style.tabTextBack}>ZURÜCK</Text>
-      </View>
-      </TouchableHighlight>
+      {gig.support &&
+        <Text style={fonts.importantInfo}>
+          with {gig.support}
+        </Text> }
 
-   <ShareBtn concert={gig}/>
+      {gig.subSupport &&
+        <Text style={fonts.importantInfo}>
+          and {gig.subSupport}
+        </Text> }
+    </View>
+
+    <Text style={style.ticketButton}
+      onPress={() => {
+       Linking.openURL(`${TICKETMASTER_URL}${gig.title}+${gig.city}`)
+      }}>
+      Ticket kaufen
+    </Text>
   </View>
 )
 
 
 DetailHeader.propTypes = {
-  goBack: PropTypes.func.isRequired,
   gig: PropTypes.object.isRequired
 };
 

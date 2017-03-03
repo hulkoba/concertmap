@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { View, Text, Image, Linking } from 'react-native';
 import MapView from 'react-native-maps';
 
-import { TICKETMASTER_URL } from '../../config/constants';
 import { getRouteCoordinates } from '../../utils/map-utils';
 import { getVenueDetails,
         getDuration,
@@ -14,6 +13,7 @@ import { detail } from './detail';
 import { fonts } from '../../config/styles';
 import { marker } from '../../config/images';
 
+import DetailNavigationHeader from '../DetailNavigationHeader';
 import DetailHeader from '../DetailHeader';
 import Routenplaner from '../Routenplaner';
 import Player from '../CustomPlayer';
@@ -24,7 +24,6 @@ class Detail extends Component {
     super(props);
     this.setTravelMode = this.setTravelMode.bind(this);
     this.handleGoBack = this.handleGoBack.bind(this);
-    this.Ticketmaster_url = TICKETMASTER_URL;
     this.state = {
       polylineCoords: [],
       mode: 'driving',
@@ -134,36 +133,13 @@ class Detail extends Component {
 
     return (
       <View style={detail.container}>
-        <DetailHeader
+        <DetailNavigationHeader
           gig={concert}
           goBack={this.handleGoBack} />
 
-        <View style={detail.titlerow}>
-          <View style={detail.acts}>
-            <Text style={fonts.title}>
-              {concert.title}
-            </Text>
+        <DetailHeader gig={concert}/>
 
-            {concert.support &&
-              <Text style={fonts.importantInfo}>
-                with {concert.support}
-              </Text> }
-
-            {concert.subSupport &&
-              <Text style={fonts.importantInfo}>
-                and {concert.subSupport}
-              </Text> }
-          </View>
-
-          <Text style={detail.ticketButton}
-            onPress={() => {
-             Linking.openURL(`${TICKETMASTER_URL}${concert.title}+${concert.city}`)
-            }}>
-            Ticket kaufen
-          </Text>
-         </View>
-
-         <View style={detail.imageView}>
+        <View style={detail.imageView}>
           <Image style={detail.image}
             source={{uri: concert.image}}>
             <Routenplaner duration={this.state.duration} setTravelMode={this.setTravelMode}/>
