@@ -17,7 +17,7 @@ import FilterBar from './components/FilterBar';
 
 /*<FilterBar
   activeFilter={state.activeFilter}
-  setFilter={this.setFilter.bind(this, route.index)}/>*/
+  setFilter={this.setFilter.bind(this)}/>*/
 
 
 const AppNavigator = TabNavigator({
@@ -59,6 +59,8 @@ export default class Concerts extends Component {
     super(props);
     moment.updateLocale('de', deLocale);
 
+    this.setFilter = this.setFilter.bind(this);
+
     this.state = {
       loading: true,
       error: false,
@@ -78,7 +80,7 @@ export default class Concerts extends Component {
     this.getConcertsFromAPI();
   }
 
-  setFilter = (index, filter) => {
+  setFilter = (filter) => {
     this.setState({activeFilter: filter});
     this.getConcertsFromAPI(filter);
   }
@@ -147,7 +149,8 @@ export default class Concerts extends Component {
         screenProps={{
           concerts: this.state.concerts,
           region: this.state.position,
-          filter: this.state.activeFilter}}
+          filter: this.state.activeFilter,
+          setFilter: this.setFilter}}
         style={styles.container}/>
     )
   }

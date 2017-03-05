@@ -5,8 +5,10 @@ import { StackNavigator } from 'react-navigation';
 import { songkickLogo } from '../../config/images';
 
 import Detail from '../Detail';
+import FilterBar from '../FilterBar';
 import Row from '../Row';
 import { list } from './listStyles';
+
 
 // Row comparison function
 const rowHasChanged = (r1, r2) => {
@@ -41,12 +43,16 @@ export default class ConcertList extends Component {
     });
   }
 
+
 	render() {
-		const { concerts, filter } = this.props.screenProps;
+		const { concerts, filter, setFilter } = this.props.screenProps;
 		// Use the dataSource
     const rows = this.dataSource.cloneWithRows(concerts || []);
 		return (
       <View style={list.container}>
+        <FilterBar
+          activeFilter={filter}
+          setFilter={setFilter}/>
         <ListView
           style={list.list}
           dataSource={rows}

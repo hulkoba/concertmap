@@ -7,7 +7,8 @@ export const style = StyleSheet.create({
     flexDirection:'row',
     justifyContent: 'space-around',
     alignItems: 'stretch',
-    marginHorizontal: 4,
+    marginHorizontal: -2,
+    marginTop: 6,
   },
   filter: {
     alignSelf: 'stretch',

@@ -7,6 +7,7 @@ export const list = StyleSheet.create({
     backgroundColor: colors.black,
   },
   list: {
+    marginTop: 40,
    ...StyleSheet.absoluteFillObject,
   },
   separator: {
