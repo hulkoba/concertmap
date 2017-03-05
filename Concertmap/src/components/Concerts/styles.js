@@ -1,5 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { colors } from '../../config/styles';
+
+const window = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
@@ -19,19 +21,19 @@ export const styles = StyleSheet.create({
     fontFamily: 'Track',
 		fontSize: 16,
 		color: colors.lightGrey,
-		paddingHorizontal: 66,
-		marginTop: 12,
-		borderBottomColor: colors.lightGrey,
-		borderBottomWidth: 4,
-		paddingBottom: 12,
+    paddingHorizontal: window.width/5,
+    marginTop: 12,
+    borderBottomColor: colors.lightGrey,
+    borderBottomWidth: 4,
+    paddingBottom: 12,
   },
-	tabTextActive: {
-		color: colors.white,
-		borderBottomColor: colors.blue,
-		borderBottomWidth: 4,
-		fontFamily: 'Track',
-		fontSize: 16,
-		paddingHorizontal: 66,
+  tabTextActive: {
+    color: colors.white,
+    borderBottomColor: colors.blue,
+    borderBottomWidth: 4,
+    fontFamily: 'Track',
+    fontSize: 16,
+		paddingHorizontal: window.width/5,
 		marginTop: 12,
 		paddingBottom: 12,
 	},
@@ -49,6 +51,19 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'Track',
     marginLeft: 6,
+  },
+  ticketButton: {
+    backgroundColor: colors.blue,
+    color: colors.white,
+    borderRadius: 2,
+    padding: 4,
+    marginRight: 6,
+    marginBottom: 10,
+    textAlign: 'center',
+    fontSize: 14,
+    height: 27,
+    minWidth: 99,
+    alignSelf: 'flex-end'
   },
   icon: {
     color: colors.blue,

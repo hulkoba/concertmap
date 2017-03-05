@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TouchableHighlight, Text, View, ActivityIndicator, Navigator } from 'react-native';
+import { Linking, TouchableHighlight, Text, View, ActivityIndicator, Navigator } from 'react-native';
 
 import moment from 'moment';
 import deLocale from 'moment/locale/de';
@@ -10,7 +10,8 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import * as navStyles from './config/LocalNavigationBarStylesAndroid';
 import { styles } from './components/Concerts/styles';
 
-import { SONGKICK_URL } from './config/constants';
+import { SONGKICK_URL, TICKETMASTER_URL } from './config/constants';
+//import { TICKETMASTER_URL } from '../../config/constants';
 import { sortByDistance, buildConcerts } from './utils/gig-utils';
 
 import ConcertMap from './components/ConcertMap';
@@ -21,7 +22,6 @@ import ShareBtn from './components/ShareBtn';
 
 
 export default class Concerts extends Component {
-  watchID : ? number = null;
   constructor(props) {
     super(props);
     moment.updateLocale('de', deLocale);
@@ -32,7 +32,6 @@ export default class Concerts extends Component {
       concerts: [],
       activeFilter: moment(),
       initialRouteIndex: 0,
-      lastPostition: 'unknown',
       position: {
         latitude: 52.5243700,
         longitude: 13.4105300,
@@ -68,15 +67,6 @@ export default class Concerts extends Component {
        (error) => console.log(error),
        {enableHighAccuracy: false, timeout: 20000, maximumAge: 0}
     );
-    this.watchID = navigator.geolocation.watchPosition((position) => {
-      const lastPosition = position;
-     // alert(JSON.stringify(lastPosition));
-      this.setState({lastPosition});
-    });
-  }
-
-  componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.watchID);
   }
 
   getConcertsFromAPI = (filter) => {
@@ -213,12 +203,20 @@ export default class Concerts extends Component {
                 }
 							},
 							Title: (route, navigator, index, navState) => {
-								return (
-                  route.index === 2 ? null :
-                    <FilterBar
-                      activeFilter={activeFilter}
-                      setFilter={this.setFilter.bind(this, route.index)}/>
+								if(route.index === 2) {
+                  return ( <Text style={styles.ticketButton}
+                    onPress={() => {
+                     Linking.openURL(`${TICKETMASTER_URL}${route.passProps.title}+${route.passProps.city}`)
+                    }}>
+                    Ticket kaufen
+                  </Text>)
+                } else {
+                return (
+                  <FilterBar
+                    activeFilter={activeFilter}
+                    setFilter={this.setFilter.bind(this, route.index)}/>
                   );
+                }
 							},
 						}}
 					/>

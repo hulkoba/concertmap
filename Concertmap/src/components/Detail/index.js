@@ -139,12 +139,14 @@ export default class Detail extends Component {
     return (
       <View style={detail.container}>
 
-          <DetailHeader gig={concert}/>
+        <DetailHeader gig={concert}/>
 
-         <View style={detail.imageView}>
+        <View style={detail.imageView}>
           <Image style={detail.image}
             source={{uri: concert.image}}>
-            <Routenplaner duration={this.state.duration} setTravelMode={this.setTravelMode}/>
+            <Routenplaner
+              duration={this.state.duration}
+              setTravelMode={this.setTravelMode}/>
           </Image>
         </View>
 

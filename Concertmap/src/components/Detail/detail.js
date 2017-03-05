@@ -6,6 +6,7 @@ export const detail = StyleSheet.create({
   container: {
     backgroundColor: colors.black,
     flex: 1,
+    marginTop: -33,
     paddingLeft: 10,
   },
   row: {
