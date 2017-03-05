@@ -69,7 +69,6 @@ export function getSongsByArtist(artist) {
       .then((response) => {
           return response.json();
       }).then((json) => {
-         // genre: data.genre,
           const soundData = json.map((data) => {
             if(data.kind === 'track' && data.streamable) {
               return {
@@ -95,43 +94,3 @@ export function getSong(streamUrl) {
       }).catch((err) => (reject(err)));
   });
 }
-/* export function getSongsByArtist(query) {
-    const query_string = query.split(' ').join('+');
-
-    return new Promise((resolve, reject) => {
-      // advanced search: format, creator, title, identifier, sorted by downloads
-    fetch('http://archive.org/advancedsearch.php?q='+query+'&fl%5B%5D=creator&fl%5B%5D=format&fl%5B%5D=downloads&fl%5B%5D=identifier&fl%5B%5D=title&sort%5B%5D=downloads+desc&sort%5B%5D=&sort%5B%5D=&rows=50&page=1&output=json&save=yes')
-      .then((response) => {
-        return response.json();
-      }).then((json) => {
-        const lowQuery = query.toLowerCase();
-        const data = json.response.docs.filter((d) => {
-          if(d.creator) {
-            if(d.creator instanceof Array) {
-              return d.creator.includes((creator) => (creator.toLowerCase() === query.toLowerCase()))
-            } else {
-              return d.creator.toLowerCase() === lowQuery
-            }
-          }
-        });
-        resolve(data);
-      }).catch((err) => (reject(err)));
-  });
-}
-
-export function getSong(id) {
-  return new Promise((resolve, reject) => {
-    fetch('https://archive.org/metadata/' + id)
-      .then((response) => {
-          return response.json();
-      }).then((json) => {
-          const audios = json.files.filter((file) => (file.format === 'VBR MP3'));
-          if(audios.length === 0) return;
-          const url = 'https://archive.org'+json.dir+'/'+audios[0].name;
-          resolve({title: audios[0].title, url});
-      }).catch((err) => {
-          alert('error: '+ JSON.stringify(err));
-          reject(err);
-      });
-  });
-}*/

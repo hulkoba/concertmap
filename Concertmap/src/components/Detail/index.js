@@ -13,6 +13,9 @@ import { getVenueDetails,
 import { detail } from './detail';
 import { fonts } from '../../config/styles';
 import { marker } from '../../config/images';
+
+
+import DetailHeader from '../DetailHeader';
 import Routenplaner from '../Routenplaner';
 import Player from '../CustomPlayer';
 
@@ -30,7 +33,7 @@ export default class Detail extends Component {
 
   constructor(props) {
     super(props);
-    this.setMode = this.setMode.bind(this);
+    this.setTravelMode = this.setTravelMode.bind(this);
     this.state = {
       polylineCoords: [],
       mode: 'driving',
@@ -116,7 +119,7 @@ export default class Detail extends Component {
     });
   }
 
-  setMode(mode) {
+  setTravelMode(mode) {
     if(mode !== this.state.mode) {
       getDirection(this.props.region, this.props.concert.position, mode)
         .then((response) => {
@@ -135,36 +138,13 @@ export default class Detail extends Component {
 
     return (
       <View style={detail.container}>
-        <View style={detail.titlerow}>
-          <View style={detail.acts}>
-            <Text style={fonts.title}>
-              {concert.title}
-            </Text>
-            {concert.support ?
-              <Text style={fonts.importantInfo}>
-                with {concert.support}
-              </Text>
-            : null }
-            {concert.subSupport ?
-              <Text style={fonts.importantInfo}>
-                and {concert.subSupport}
-              </Text>
-            : null }
-          </View>
 
-          <Text style={detail.ticketButton}
-            onPress={() => {
-              alert(JSON.stringify(TICKETMASTER_URL));
-             Linking.openURL(`${TICKETMASTER_URL}${concert.title}+${concert.city}`)
-            }}>
-            Ticket kaufen
-          </Text>
-         </View>
+          <DetailHeader gig={concert}/>
 
          <View style={detail.imageView}>
           <Image style={detail.image}
             source={{uri: concert.image}}>
-            <Routenplaner duration={this.state.duration} setMode={this.setMode}/>
+            <Routenplaner duration={this.state.duration} setTravelMode={this.setTravelMode}/>
           </Image>
         </View>
 

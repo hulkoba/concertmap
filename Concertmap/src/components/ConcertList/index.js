@@ -30,10 +30,10 @@ export default class ConcertList extends Component {
   )
 
 	renderRow = (gig) => (
-    <Row gig={gig} onRowPressed={this.rowPressed.bind(this, gig)} />
+    <Row gig={gig} onRowPressed={this.handleRowPressed.bind(this, gig)} />
   )
 
-  rowPressed(concert) {
+  handleRowPressed(concert) {
     this.props.navigator.push({
       title: 'Detail',
       index: 2,

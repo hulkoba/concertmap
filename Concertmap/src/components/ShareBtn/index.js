@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { TouchableHighlight, View, Text } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
