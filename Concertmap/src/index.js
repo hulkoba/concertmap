@@ -44,12 +44,9 @@ const ConcertApp = StackNavigator({
   headerMode: 'none'
 });
 
-
 export default class Concerts extends Component {
-  watchID : ? number = null;
 
   componentWillMount() {
-
     // call navigate for AppNavigator here:
     this.navigator && this.navigator.dispatch({
       type: 'Navigate',
@@ -67,7 +64,6 @@ export default class Concerts extends Component {
       error: false,
       concerts: [],
       activeFilter: moment(),
-      lastPostition: 'unknown',
       position: {
         latitude: 52.5243700,
         longitude: 13.4105300,
@@ -75,7 +71,6 @@ export default class Concerts extends Component {
         longitudeDelta: 0.18,
       },
     };
-
   }
 
   componentDidMount() {
@@ -108,7 +103,11 @@ export default class Concerts extends Component {
 
   getConcertsFromAPI = (filter) => {
     const searchDate = moment(filter).format('YYYY-MM-DD');
-    fetch(`${SONGKICK_URL}&location=geo:${this.state.position.latitude},${this.state.position.longitude}&min_date=${searchDate}&max_date=${searchDate}`)
+    let url = `${SONGKICK_URL}`;
+    url += `&location=geo:${this.state.position.latitude},${this.state.position.longitude}`;
+    url += `&min_date=${searchDate}&max_date=${searchDate}`;
+
+    fetch(url)
     .then((response) => response.json())
     .then((responseJson) => {
       concerts = buildConcerts(responseJson.resultsPage.results.event, this.state.position);

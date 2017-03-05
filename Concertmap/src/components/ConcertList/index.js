@@ -22,8 +22,6 @@ export default class ConcertList extends Component {
   constructor (props) {
     super(props);
     this.dataSource = ds;
- //   this.handleRowPressed = this.handleRowPressed.bind(this);
-
   }
 
   renderFooter = () => (

@@ -36,6 +36,7 @@
 		19D4F4C13E284F67AF64B613 /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 70DDFCC0A0A046818EFB5BA1 /* libRCTFBSDK.a */; };
 		AE111F63E51C41A389A5BACE /* libReactNativeAudioStreaming.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A47458EA2F044ADE9E0C5472 /* libReactNativeAudioStreaming.a */; };
 		5B4202751EB44500AA046C42 /* libReactNativeConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E3DCD1C12D1E45B4B3FEC8BA /* libReactNativeConfig.a */; };
+		ED696C1BB0E74EA598DBC11B /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 395380D2E6994962AD4F2B94 /* MaterialCommunityIcons.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,6 +160,7 @@
 		A47458EA2F044ADE9E0C5472 /* libReactNativeAudioStreaming.a */ = {isa = PBXFileReference; name = "libReactNativeAudioStreaming.a"; path = "libReactNativeAudioStreaming.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		253C30911A49411084038811 /* ReactNativeConfig.xcodeproj */ = {isa = PBXFileReference; name = "ReactNativeConfig.xcodeproj"; path = "../node_modules/react-native-config/ios/ReactNativeConfig.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		E3DCD1C12D1E45B4B3FEC8BA /* libReactNativeConfig.a */ = {isa = PBXFileReference; name = "libReactNativeConfig.a"; path = "libReactNativeConfig.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		395380D2E6994962AD4F2B94 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; name = "MaterialCommunityIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -362,6 +364,7 @@
 				92B0BDCCBB624369A1C6B99F /* Octicons.ttf */,
 				C3C7416CA6A843FDAADA5317 /* SimpleLineIcons.ttf */,
 				0594EEA661F041D8BAB72A10 /* Zocial.ttf */,
+				395380D2E6994962AD4F2B94 /* MaterialCommunityIcons.ttf */,
 			);
 			name = Resources;
 			path = "";
@@ -578,6 +581,7 @@
 				1DFB3AC577624D3382E6E81E /* Octicons.ttf in Resources */,
 				D4295A5632354AB5AF5370DD /* SimpleLineIcons.ttf in Resources */,
 				55D137DD77C641D69F94D9DC /* Zocial.ttf in Resources */,
+				ED696C1BB0E74EA598DBC11B /* MaterialCommunityIcons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
