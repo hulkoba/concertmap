@@ -7,15 +7,13 @@ export const style = StyleSheet.create({
     flexDirection:'row',
     justifyContent: 'space-around',
     alignItems: 'stretch',
-    marginHorizontal: 4,
   },
   filter: {
-    alignSelf: 'stretch',
     fontFamily: 'Lato',
     backgroundColor: colors.blue,
     color: colors.white,
     paddingVertical: 8,
-    paddingHorizontal: 16,
+    paddingHorizontal: 18,
     margin: 0,
     fontSize: 14,
   },
@@ -24,9 +22,7 @@ export const style = StyleSheet.create({
     fontFamily: 'Lato',
     color: colors.white,
     paddingVertical: 8,
-    paddingHorizontal: 16,
+    paddingHorizontal: 18,
     fontSize: 14,
-    alignSelf: 'stretch'
-
   }
 });

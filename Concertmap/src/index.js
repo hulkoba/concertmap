@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { Linking, TouchableHighlight, Text, View, ActivityIndicator, Navigator } from 'react-native';
+import {
+  PermissionsAndroid,
+  Linking,
+  TouchableHighlight,
+  Text,
+  View,
+  ActivityIndicator,
+  Navigator } from 'react-native';
 
 import moment from 'moment';
 import deLocale from 'moment/locale/de';
@@ -11,7 +18,6 @@ import * as navStyles from './config/LocalNavigationBarStylesAndroid';
 import { styles } from './components/Concerts/styles';
 
 import { SONGKICK_URL, TICKETMASTER_URL } from './config/constants';
-//import { TICKETMASTER_URL } from '../../config/constants';
 import { sortByDistance, buildConcerts } from './utils/gig-utils';
 
 import ConcertMap from './components/ConcertMap';
@@ -22,6 +28,7 @@ import ShareBtn from './components/ShareBtn';
 
 
 export default class Concerts extends Component {
+
   constructor(props) {
     super(props);
     moment.updateLocale('de', deLocale);
@@ -30,6 +37,7 @@ export default class Concerts extends Component {
       loading: true,
       error: false,
       concerts: [],
+      permissionGranted: false,
       activeFilter: moment(),
       initialRouteIndex: 0,
       position: {
@@ -39,12 +47,49 @@ export default class Concerts extends Component {
         longitudeDelta: 0.18,
       },
     };
+
+    this.checkLocationPermissionAndStart();
   }
 
-  componentDidMount() {
+  getAppData() {
     this.getPosition();
     this.getConcertsFromAPI();
   }
+
+  checkLocationPermissionAndStart = () => {
+    this.hasLocationPermission().then((hasLocationPermission) => {
+      console.warn('hasLocationPermission result is ' + hasLocationPermission);
+      if (hasLocationPermission) {
+        this.getAppData();
+      } else {
+         this.requestLocationPermission();
+      }
+    });
+  };
+
+  hasLocationPermission = async() => {
+    try {
+      const result = await PermissionsAndroid.check(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+      return result;
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
+  async requestLocationPermission() {
+    const permission = PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION;
+
+    try {
+      const granted = await PermissionsAndroid.request(permission);
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        this.getAppData();
+      } else {
+        this.getConcertsFromAPI();
+      }
+    } catch (err) { console.warn(err); }
+  }
+
 
   setFilter = (index, filter) => {
     this.setState({activeFilter: filter, initialRouteIndex: index});
@@ -204,21 +249,24 @@ export default class Concerts extends Component {
 							},
 							Title: (route, navigator, index, navState) => {
 								if(route.index === 2) {
-                  return ( <Text style={styles.ticketButton}
-                    onPress={() => {
-                     Linking.openURL(`${TICKETMASTER_URL}${route.passProps.title}+${route.passProps.city}`)
-                    }}>
-                    Ticket kaufen
-                  </Text>)
+                  return (
+                    <Text style={styles.ticketButton}
+                      onPress={() => {
+                        Linking.openURL(`${TICKETMASTER_URL}${route.passProps.title}+${route.passProps.city}`)
+                      }}>
+                      Ticket kaufen
+                    </Text>
+                  )
                 } else {
-                return (
-                  <FilterBar
-                    activeFilter={activeFilter}
-                    setFilter={this.setFilter.bind(this, route.index)}/>
-                  );
-                }
-							},
-						}}
+                  return (
+                    <FilterBar
+                      activeFilter={activeFilter}
+                      setFilter={this.setFilter.bind(this, route.index)}/>
+                    );
+                  }
+  							},
+  						}
+            }
 					/>
 				}
       />

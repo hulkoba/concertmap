@@ -21,6 +21,7 @@ const FilterBar = ({ activeFilter, setFilter }) => (
         <TouchableHighlight
           onPress={() => setFilter(f)}
           key={f}
+          style={style.filterBox}
           activeOpacity={0.5}
           underlayColor='#006279'>
           <Text
