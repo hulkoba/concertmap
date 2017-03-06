@@ -71,9 +71,7 @@ export default class Concerts extends Component {
       const result = await PermissionsAndroid.check(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
       return result;
-    } catch (err) {
-      console.warn(err);
-    }
+    } catch (err) { console.warn(error) }
   };
 
   async requestLocationPermission() {
@@ -86,7 +84,7 @@ export default class Concerts extends Component {
       } else {
         this.getConcertsFromAPI();
       }
-    } catch (err) { console.warn(err); }
+    } catch (err) { console.warn(error) }
   }
 
 
@@ -132,7 +130,7 @@ export default class Concerts extends Component {
     });
   }
 
-  renderScene = (route, navigator, index) => {
+  renderScene = (route, navigator) => {
     switch (route.index) {
       case 0:
         return <ConcertList
@@ -183,13 +181,13 @@ export default class Concerts extends Component {
     // https://github.com/facebook/react-native/issues/2048
     // Navigator bug: push twice
     return (
-			 <Navigator
-				 	style={styles.tabBar}
-          sceneStyle={{paddingTop: navStyles.General.TotalNavHeight}}
-					initialRoute={routes[initialRouteIndex]}
-					renderScene={this.renderScene}
+			<Navigator
+			 	style={styles.tabBar}
+        sceneStyle={{paddingTop: navStyles.General.TotalNavHeight}}
+				initialRoute={routes[initialRouteIndex]}
+				renderScene={this.renderScene}
 
-				  navigationBar={
+				navigationBar={
 					 <Navigator.NavigationBar
             navigationStyles={navStyles}
 						routeMapper={{
@@ -241,7 +239,7 @@ export default class Concerts extends Component {
                   case 1:
                     return (<Text style={styles.tabTextActive}>KARTE</Text>);
                   case 2:
-                     return (<ShareBtn concert={route.passProps}/>);
+                     return (<ShareBtn gig={route.passProps}/>);
                   default:
                     break;
                 }

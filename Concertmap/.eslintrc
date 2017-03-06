@@ -1,6 +1,20 @@
 {
   // I want to use babel-eslint for parsing
   "parser": "babel-eslint",
+  "env": {
+    "browser": true
+  },
+	"plugins": [
+		"react",
+		"react-native"
+	],
+  "ecmaFeatures": {
+    "jsx": true
+  },
+	"extends": [
+
+	  "plugin:react-native/all"
+  ],
   "rules": {
   	strict: 0,
     "quotes": [2, "single"],

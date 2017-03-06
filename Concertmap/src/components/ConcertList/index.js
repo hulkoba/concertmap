@@ -42,7 +42,7 @@ export default class ConcertList extends Component {
   }
 
 	render() {
-		const { concerts, filter } = this.props;
+		const { concerts } = this.props;
 		// Use the dataSource
     const rows = this.dataSource.cloneWithRows(concerts || []);
 		return (
