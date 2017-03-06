@@ -58,7 +58,6 @@ export default class Concerts extends Component {
 
   checkLocationPermissionAndStart = () => {
     this.hasLocationPermission().then((hasLocationPermission) => {
-      console.warn('hasLocationPermission result is ' + hasLocationPermission);
       if (hasLocationPermission) {
         this.getAppData();
       } else {

@@ -172,11 +172,11 @@ export default class Detail extends Component {
         </View>
 
         <View style={detail.row}>
-          <Text style={[fonts.link, detail.row]}
+          <Text style={[fonts.link, detail.link]}
             onPress={() => Linking.openURL(`${this.state.venueLink}`)}>
             {this.state.venueLink}
           </Text>
-          <Text style={fonts.info}>
+          <Text style={[fonts.info, detail.distance]}>
             {this.state.duration.distance[this.state.mode]}
           </Text>
         </View>

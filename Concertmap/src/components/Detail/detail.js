@@ -14,6 +14,12 @@ export const detail = StyleSheet.create({
     justifyContent: 'space-between',
     paddingRight: 6,
   },
+  link: {
+    width: window.width - 55,
+  },
+  distance: {
+    alignSelf: 'flex-end',
+  },
   address: {
     justifyContent: 'space-between',
     flexDirection: 'column',
@@ -35,7 +41,6 @@ export const detail = StyleSheet.create({
     alignItems: 'stretch',
   },
   map: {
-     // height: 111,
     width: window.width,
     height: 250,
     marginLeft: -10,
