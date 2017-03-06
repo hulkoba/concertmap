@@ -14,11 +14,20 @@ exports.examples = [{
 	}
 }];
 
+function getActs(gig) {
+	if(gig.support) {
+		return `${gig.title} und ${gig.support}`;
+	} else if(gig.subsupport) {
+		return `${gig.title}, ${gig.support} und ${gig.subSupport}`;
+	}
+	return gig.title;
+}
+
 function shareGig(gig) {
  	Share.share({
- 		message: `Kommst du mit? - ${gig.url}`,
+ 		message: 'Kommst du mit?',
  		url: gig.url,
- 		title: `Hey, ich gehe ${gig.datetime} zu ${gig.title} im ${gig.venue}.`
+ 		title: `Hey, ich gehe ${gig.datetime} zu ${getActs(gig)} im ${gig.venue}.`
  	}, {
  		dialogTitle: '',
  		excludedActivityTypes: [

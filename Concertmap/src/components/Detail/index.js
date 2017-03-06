@@ -103,7 +103,6 @@ export default class Detail extends Component {
 
         getSong(songs[0].streamUrl).then((audio) => {
           this.setState({url: audio.http_mp3_128_url});
-          // RCTAudio.prepare(audio.http_mp3_128_url, true)
         });
       }
     });

@@ -22,21 +22,16 @@ export function buildConcerts(gigs, devicePosition) {
         id: gig.id,
         title: gig.performance[0].displayName.split(' (official)')[0],
         venue: gig.venue.displayName,
-        support: support ? support.displayName : null,
-        subSupport: subSupport ? subSupport.displayName : null,
+        support: support && support.displayName,
+        subSupport: subSupport && subSupport.displayName,
         city: gig.location.city.split(',')[0],
         position,
-        time: gig.start.time ? gig.start.time.slice(0, -3) : '',
+        time: gig.start.time && gig.start.time.slice(0, -3),
         datetime: gig.start.datetime ? moment(gig.start.datetime).calendar().split(' um')[0] :  moment(gig.start.date).calendar().split(' um')[0],
         image: getArtistImage(gig.performance[0].artist.id),
         venueId: gig.venue.id,
         distance: distance,
         url: gig.uri,
       }
-    /*  if(supports.length > 0) {
-        alert(JSON.stringify(supports));
-        concert.support = supports[0].displayName;
-        // supports.length > 1 ? concert.subSupport = supports[1].displayName : null;
-      } */
     });
   }
