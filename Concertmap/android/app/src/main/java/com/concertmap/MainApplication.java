@@ -6,11 +6,10 @@ import android.util.Log;
 import com.facebook.react.ReactApplication;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.airbnb.android.react.maps.MapsPackage;
-import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
-import com.audioStreaming.ReactNativeAudioStreamingPackage;
+
 import com.xeodou.rctplayer.*;
 
 import java.util.Arrays;
@@ -32,7 +31,6 @@ public class MainApplication extends Application implements ReactApplication {
             new MainReactPackage(),
             new VectorIconsPackage(),
             new MapsPackage(),
-            new ReactNativeAudioStreamingPackage(),
             new ReactPlayerManager()
         );
       }
