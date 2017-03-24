@@ -3,17 +3,7 @@ import { TouchableOpacity, Text, Share } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import { style } from './shareBtn';
-import { getVenueDetails } from '../../utils/api';
-
-exports.framework = 'React';
-exports.title = 'Share';
-exports.description = 'Share data with other Apps.';
-exports.examples = [{
-	title: 'Share Text Content',
-	render() {
-		return <ShareBtn />;
-	}
-}];
+import { colors } from '../../config/styles';
 
 getActs = (gig) => {
 	if(gig.support) {
@@ -24,23 +14,13 @@ getActs = (gig) => {
 	return gig.title;
 }
 
-getVenueLink = (venueId) => {
- getVenueDetails(venueId).then((details) => {
-    return details.venueLink;
-  });
-}
-
 shareGig = (gig) => {
  	Share.share({
- 		message: 'Kommst du mit?',
- 		url: getVenueLink(gig.venueId),
- 		title: `Hey, ich gehe ${gig.datetime} zu ${getActs(gig)} im ${gig.venue}.`
+ 		message: `ich gehe ${gig.datetime} zu ${getActs(gig)} im ${gig.venue}. Kommst du mit?`,
+ 		title: `Hey`
  	}, {
  		dialogTitle: 'Teilen',
- 		excludedActivityTypes: [
- 		'com.apple.UIKit.activity.PostToTwitter'
- 		],
- 		tintColor: 'blue'
+ 		tintColor: colors.blue
  	}).then()
  	.catch((error) => console.warn(error.message));
 }

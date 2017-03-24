@@ -16,6 +16,7 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 // see https://github.com/facebook/react-native/issues/10600
 import * as navStyles from './config/LocalNavigationBarStylesAndroid';
 import { styles } from './components/Concerts/styles';
+import { fonts } from './config/styles';
 
 import { SONGKICK_URL, TICKETMASTER_URL } from './config/constants';
 import { sortByDistance, buildConcerts } from './utils/gig-utils';
@@ -87,7 +88,6 @@ export default class Concerts extends Component {
     } catch (err) { console.warn(error) }
   }
 
-
   setFilter = (index, filter) => {
     this.setState({activeFilter: filter, initialRouteIndex: index});
     this.getConcertsFromAPI(filter);
@@ -133,9 +133,9 @@ export default class Concerts extends Component {
     switch (route.index) {
       case 0:
         return <ConcertList
-           concerts={this.state.concerts}
-           navigator={navigator}
-          />;
+          concerts={this.state.concerts}
+          navigator={navigator}
+        />;
       case 1:
         return <ConcertMap
           concerts={this.state.concerts}
@@ -144,9 +144,9 @@ export default class Concerts extends Component {
         />;
 		  case 2:
         return <Detail
-                  navigator={navigator}
-                  region={this.state.position}
-                  concert={route.passProps} />;
+          navigator={navigator}
+          region={this.state.position}
+          concert={route.passProps} />;
 		  default:
         return null;
     }
@@ -172,7 +172,7 @@ export default class Concerts extends Component {
     if (error) {
       return (
 				<View style={styles.center}>
-					<Text>Konnte keine Konzerte laden!</Text>
+					<Text style={fonts.importantInfo}>Heute gibt es keine Konzerte mehr.</Text>
 				</View>
 			);
     }

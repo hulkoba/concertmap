@@ -3,6 +3,7 @@ import { BackAndroid, View, Text, Image, Linking } from 'react-native';
 import MapView from 'react-native-maps';
 
 import TICKETMASTER_URL from '../../config/constants';
+import { getMatchedSong } from '../../utils/song-utils';
 import { getRouteCoordinates } from '../../utils/map-utils';
 import { getVenueDetails,
         getDuration,
@@ -55,14 +56,12 @@ export default class Detail extends Component {
 
     getDirection(this.props.region, this.props.concert.position)
       .then((response) => {
-        this.setState({polylineCoords: getRouteCoordinates(response)})
+        this.setState({ polylineCoords: getRouteCoordinates(response) })
       });
   }
 
   getDurations() {
-     const duration = {
-      distance: {}
-    };
+    const duration = { distance: {} };
     getDuration(this.props.region, this.props.concert.position)
       .then((response) => {
         duration.car = response.duration.text;
@@ -98,12 +97,17 @@ export default class Detail extends Component {
 
   getSong() {
     getSongsByArtist(this.props.concert.title).then((songs) => {
-      if(songs.length > 0) {
-        this.setState({songTitle: songs[0].title})
+      if(songs.length) {
 
-        getSong(songs[0].streamUrl).then((audio) => {
-          this.setState({url: audio.http_mp3_128_url});
-        });
+        const matchedSong = getMatchedSong(songs, this.props.concert.title);
+
+        if(matchedSong) {
+          this.setState({ songTitle: matchedSong.title })
+
+          getSong(matchedSong.streamUrl).then((audio) => {
+            this.setState({ url: audio.http_mp3_128_url });
+          });
+        }
       }
     });
   }
@@ -141,7 +145,8 @@ export default class Detail extends Component {
         <DetailHeader gig={concert}/>
 
         <View style={detail.imageView}>
-          <Image style={detail.image}
+          <Image
+            style={detail.image}
             source={{uri: concert.image}}>
             <Routenplaner
               duration={this.state.duration}

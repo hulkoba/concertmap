@@ -4,9 +4,9 @@ import { SONGKICK_API_KEY,
 
 
 export function getArtistImage(id) {
-   if(id) {
-      return `http://images.sk-static.com/images/media/profile_images/artists/${id}/huge_avatar`;
-    }
+  if(id) {
+    return `http://images.sk-static.com/images/media/profile_images/artists/${id}/huge_avatar`;
+  }
 }
 
 export function getVenueDetails(venueId) {
@@ -36,11 +36,11 @@ export function getDuration(fromCoords, toCoords, mode) {
   return new Promise((resolve, reject) => {
     fetch(url)
       .then((response) => {
-          return response.json();
+        return response.json();
       }).then((json) => {
-          resolve(json.rows[0].elements[0]);
+        resolve(json.rows[0].elements[0]);
       }).catch((err) => {
-          reject(err);
+        reject(err);
       });
   });
 }
@@ -56,28 +56,27 @@ export function getDirection(fromCoords, toCoords, mode) {
   return new Promise((resolve, reject) => {
     fetch(url)
       .then((response) => {
-          return response.json();
+        return response.json();
       }).then((json) => {
-          resolve(json);
+        resolve(json);
       }).catch((err) => (reject(err)));
   });
 }
 
 export function getSongsByArtist(artist) {
   return new Promise((resolve, reject) => {
-    fetch(`http://api.soundcloud.com/tracks.json?client_id=${SOUNDCLOUD_CLIENT_ID}&q=${artist}`)
+    fetch(`http://api.soundcloud.com/tracks?q=${artist}&client_id=${SOUNDCLOUD_CLIENT_ID}`)
       .then((response) => {
-          return response.json();
+        return response.json();
       }).then((json) => {
-          const soundData = json.map((data) => {
-            if(data.kind === 'track' && data.streamable) {
-              return {
-                title: data.title,
-                streamUrl: data.stream_url,
-                cover: data.artwork_url
-              }
+        const soundData = json.map((data) => {
+          if(data.kind === 'track' && data.streamable) {
+            return {
+              title: data.title,
+              streamUrl: data.stream_url
             }
-          });
+          }
+        });
         resolve(soundData);
       }).catch((err) => (reject(err)));
   });
@@ -88,9 +87,9 @@ export function getSong(streamUrl) {
   return new Promise((resolve, reject) => {
     fetch(`${streamUrl}s?client_id=${SOUNDCLOUD_CLIENT_ID}`)
       .then((response) => {
-          return response.json();
+        return response.json();
       }).then((json) => {
-          resolve(json);
+        resolve(json);
       }).catch((err) => (reject(err)));
   });
 }
