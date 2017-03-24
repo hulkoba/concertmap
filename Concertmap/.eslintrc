@@ -8,11 +8,13 @@
 		"react",
 		"react-native"
 	],
-  "ecmaFeatures": {
-    "jsx": true
-  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  }
 	"extends": [
-
+    "plugin:react/recommended",
 	  "plugin:react-native/all"
   ],
   "rules": {

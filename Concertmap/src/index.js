@@ -95,19 +95,19 @@ export default class Concerts extends Component {
 
   getPosition = () => {
     navigator.geolocation.getCurrentPosition(
-       (position) => {
-          const currentPosition = {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          }
+      (position) => {
+        const currentPosition = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        }
 
-          this.setState({
-            position: currentPosition,
-            concerts: sortByDistance(this.state.concerts)
-          });
-       },
-       (error) => console.log(error),
-       {enableHighAccuracy: false, timeout: 20000, maximumAge: 0}
+        this.setState({
+          position: currentPosition,
+          concerts: sortByDistance(this.state.concerts)
+        });
+      },
+      (error) => console.log(error),
+      {enableHighAccuracy: false, timeout: 20000, maximumAge: 0}
     );
   }
 
@@ -117,7 +117,6 @@ export default class Concerts extends Component {
     .then((response) => response.json())
     .then((responseJson) => {
       concerts = buildConcerts(responseJson.resultsPage.results.event, this.state.position);
-
       this.setState({
         loading: false,
         concerts: sortByDistance(concerts),
