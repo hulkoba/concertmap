@@ -1,8 +1,9 @@
 import React from 'react';
-import { TouchableOpacity, View, Text, Share } from 'react-native';
+import { TouchableOpacity, Text, Share } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import { style } from './shareBtn';
+import { getVenueDetails } from '../../utils/api';
 
 exports.framework = 'React';
 exports.title = 'Share';
@@ -14,7 +15,7 @@ exports.examples = [{
 	}
 }];
 
-function getActs(gig) {
+getActs = (gig) => {
 	if(gig.support) {
 		return `${gig.title} und ${gig.support}`;
 	} else if(gig.subsupport) {
@@ -23,10 +24,16 @@ function getActs(gig) {
 	return gig.title;
 }
 
-function shareGig(gig) {
+getVenueLink = (venueId) => {
+ getVenueDetails(venueId).then((details) => {
+    return details.venueLink;
+  });
+}
+
+shareGig = (gig) => {
  	Share.share({
  		message: 'Kommst du mit?',
- 		url: gig.url,
+ 		url: getVenueLink(gig.venueId),
  		title: `Hey, ich gehe ${gig.datetime} zu ${getActs(gig)} im ${gig.venue}.`
  	}, {
  		dialogTitle: 'Teilen',
@@ -36,14 +43,14 @@ function shareGig(gig) {
  		tintColor: 'blue'
  	}).then()
  	.catch((error) => console.warn(error.message));
- }
+}
 
 const ShareBtn = ({gig}) => (
-  <TouchableOpacity onPress={shareGig.bind(this, gig)}>
-    <View style={style.ShareText} >
-      <MaterialIcons name="share" style={style.shareIcon} />
-      <Text style={style.shareIcon}>Teilen</Text>
-    </View>
+  <TouchableOpacity activeOpacity={0.6}
+  	style={style.ShareText}
+  	onPress={shareGig.bind(this, gig)}>
+    <MaterialIcons name="share" style={style.shareIcon} />
+    <Text style={style.shareIcon}>Teilen</Text>
   </TouchableOpacity>
 )
 
