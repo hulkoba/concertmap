@@ -101,8 +101,8 @@ class Player extends Component {
 }
 
 Player.propTypes = {
-    url: React.PropTypes.string.isRequired,
-    songTitle: React.PropTypes.string.isRequired
+  url: React.PropTypes.string.isRequired,
+  songTitle: React.PropTypes.string.isRequired
 };
 
 export default Player

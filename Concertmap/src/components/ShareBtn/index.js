@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableHighlight, View, Text, Share } from 'react-native';
+import { TouchableOpacity, View, Text, Share } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import { style } from './shareBtn';
@@ -29,7 +29,7 @@ function shareGig(gig) {
  		url: gig.url,
  		title: `Hey, ich gehe ${gig.datetime} zu ${getActs(gig)} im ${gig.venue}.`
  	}, {
- 		dialogTitle: '',
+ 		dialogTitle: 'Teilen',
  		excludedActivityTypes: [
  		'com.apple.UIKit.activity.PostToTwitter'
  		],
@@ -39,12 +39,12 @@ function shareGig(gig) {
  }
 
 const ShareBtn = ({gig}) => (
-  <TouchableHighlight onPress={() => shareGig(gig)}>
+  <TouchableOpacity onPress={shareGig.bind(this, gig)}>
     <View style={style.ShareText} >
       <MaterialIcons name="share" style={style.shareIcon} />
       <Text style={style.shareIcon}>Teilen</Text>
     </View>
-  </TouchableHighlight>
+  </TouchableOpacity>
 )
 
 export default ShareBtn;

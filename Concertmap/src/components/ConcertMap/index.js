@@ -31,7 +31,6 @@ export default class ConcertMap extends Component {
 
 		return (
 			<View style={map.container}>
-
 				<MapView
 					style={map.map}
 					region={{
