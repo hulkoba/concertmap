@@ -4,10 +4,10 @@ import { colors } from '../../config/styles';
 export const list = StyleSheet.create({
   container: {
     flex: 1,
-     marginTop: 6,
+    marginTop: 6,
   },
   list: {
-   ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFillObject,
   },
   separator: {
     height: 1,

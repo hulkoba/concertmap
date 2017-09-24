@@ -1,10 +1,12 @@
-import { SONGKICK_API_KEY,
-        GOOGLE_DISTANCE_KEY,
-        SOUNDCLOUD_CLIENT_ID } from '../config/constants';
+import {
+  SONGKICK_API_KEY,
+  GOOGLE_DISTANCE_KEY,
+  SOUNDCLOUD_CLIENT_ID
+} from '../config/constants';
 
 
 export function getArtistImage(id) {
-  if(id) {
+  if (id) {
     return `http://images.sk-static.com/images/media/profile_images/artists/${id}/huge_avatar`;
   }
 }
@@ -18,20 +20,20 @@ export function getVenueDetails(venueId) {
         street: responseJson.resultsPage.results.venue.street,
         zip: responseJson.resultsPage.results.venue.zip,
       };
-  })
-  .catch((error) => (error));
- }
+    })
+    .catch((error) => (error));
+}
 
 // travelMode = [DRIVING, BICYCLING, TRANSIT, WALKING]
 export function getDuration(fromCoords, toCoords, mode) {
   let url = 'https://maps.googleapis.com/maps/api/distancematrix/json?';
-      url += 'origins=' + fromCoords.latitude + ',' + fromCoords.longitude;
-      url += '&destinations=' + toCoords.lat + ',' + toCoords.lng;
-      url += '&language=de';
-      if(mode) {
-        url += '&mode=' + mode;
-      }
-      url+='&key=' + GOOGLE_DISTANCE_KEY;
+  url += 'origins=' + fromCoords.latitude + ',' + fromCoords.longitude;
+  url += '&destinations=' + toCoords.lat + ',' + toCoords.lng;
+  url += '&language=de';
+  if (mode) {
+    url += '&mode=' + mode;
+  }
+  url += '&key=' + GOOGLE_DISTANCE_KEY;
 
   return new Promise((resolve, reject) => {
     fetch(url)
@@ -47,9 +49,9 @@ export function getDuration(fromCoords, toCoords, mode) {
 
 export function getDirection(fromCoords, toCoords, mode) {
   let url = 'https://maps.googleapis.com/maps/api/directions/json?';
-      url += '&origin=' + fromCoords.latitude + ',' + fromCoords.longitude;
-      url += '&destination=' + toCoords.lat + ',' + toCoords.lng;
-  if(mode) {
+  url += '&origin=' + fromCoords.latitude + ',' + fromCoords.longitude;
+  url += '&destination=' + toCoords.lat + ',' + toCoords.lng;
+  if (mode) {
     url += '&mode=' + mode;
   }
 
@@ -70,7 +72,7 @@ export function getSongsByArtist(artist) {
         return response.json();
       }).then((json) => {
         const soundData = json.map((data) => {
-          if(data.kind === 'track' && data.streamable) {
+          if (data.kind === 'track' && data.streamable) {
             return {
               title: data.title,
               streamUrl: data.stream_url

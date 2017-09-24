@@ -5,7 +5,7 @@ export const style = StyleSheet.create({
   ShareText: {
     marginTop: 12,
     marginRight: 12,
-		paddingBottom: 12,
+    paddingBottom: 12,
     flexDirection: 'row',
     alignItems: 'center',
   },

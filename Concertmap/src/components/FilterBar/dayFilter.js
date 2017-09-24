@@ -4,7 +4,7 @@ import { colors } from '../../config/styles';
 export const style = StyleSheet.create({
   bar: {
     flex: 1,
-    flexDirection:'row',
+    flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'stretch',
   },

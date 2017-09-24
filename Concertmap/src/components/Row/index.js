@@ -4,14 +4,14 @@ import { TouchableHighlight, View, Text, Image } from 'react-native';
 import { fonts } from '../../config/styles';
 import { style } from './rowStyles';
 
-const Row = ({gig, onRowPressed}) => (
+const Row = ({ gig, onRowPressed }) => (
   <TouchableHighlight
     onPress={() => onRowPressed(gig)}
     underlayColor='#008bae'>
     <View style={style.row}>
       <View style={style.imageView}>
         <Image style={style.image}
-          source={{uri: gig.image}} />
+          source={{ uri: gig.image }} />
       </View>
 
       <View style={style.column}>
@@ -20,7 +20,7 @@ const Row = ({gig, onRowPressed}) => (
             <Text style={fonts.title}>
               {gig.title}
             </Text>
-              {gig.support && <Text style={fonts.action}>  and more</Text>}
+            {gig.support && <Text style={fonts.action}>  and more</Text>}
           </View>
           <Text style={fonts.info}>
             ~{gig.distance} km

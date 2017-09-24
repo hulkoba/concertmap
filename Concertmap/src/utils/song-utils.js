@@ -9,7 +9,7 @@ const titleHasSeparator = (song) => {
 
 export function getMatchedSong(songs, artist) {
   return songs.filter(titleHasSeparator).find((song) => {
-    if(isSongFromInterpret(song.title, artist)) {
+    if (isSongFromInterpret(song.title, artist)) {
       return song;
     }
   });

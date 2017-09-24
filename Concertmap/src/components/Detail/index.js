@@ -5,11 +5,13 @@ import MapView from 'react-native-maps';
 import TICKETMASTER_URL from '../../config/constants';
 import { getMatchedSong } from '../../utils/song-utils';
 import { getRouteCoordinates } from '../../utils/map-utils';
-import { getVenueDetails,
-        getDuration,
-        getDirection,
-        getSongsByArtist,
-        getSong } from '../../utils/api';
+import {
+  getVenueDetails,
+  getDuration,
+  getDirection,
+  getSongsByArtist,
+  getSong
+} from '../../utils/api';
 
 import { detail } from './detail';
 import { fonts } from '../../config/styles';
@@ -76,32 +78,32 @@ export default class Detail extends Component {
             return duration;
           })
           .then((duration) => {
-          getDuration(this.props.region, this.props.concert.position, 'bicycling')
-            .then((response) => {
-              duration.bike = response.duration.text;
-              duration.distance.bicycling = response.distance.text
-              return duration;
-            })
-            .then((duration) => {
-              getDuration(this.props.region, this.props.concert.position, 'transit')
+            getDuration(this.props.region, this.props.concert.position, 'bicycling')
               .then((response) => {
-                duration.transit = response.duration.text;
-                duration.distance.transit = response.distance.text;
+                duration.bike = response.duration.text;
+                duration.distance.bicycling = response.distance.text
+                return duration;
+              })
+              .then((duration) => {
+                getDuration(this.props.region, this.props.concert.position, 'transit')
+                  .then((response) => {
+                    duration.transit = response.duration.text;
+                    duration.distance.transit = response.distance.text;
 
-                this.setState({duration});
+                    this.setState({ duration });
+                  });
               });
           });
       });
-    });
   }
 
   getSong() {
     getSongsByArtist(this.props.concert.title).then((songs) => {
-      if(songs.length) {
+      if (songs.length) {
 
         const matchedSong = getMatchedSong(songs, this.props.concert.title);
 
-        if(matchedSong) {
+        if (matchedSong) {
           this.setState({ songTitle: matchedSong.title })
 
           getSong(matchedSong.streamUrl).then((audio) => {
@@ -123,10 +125,10 @@ export default class Detail extends Component {
   }
 
   setTravelMode(mode) {
-    if(mode !== this.state.mode) {
+    if (mode !== this.state.mode) {
       getDirection(this.props.region, this.props.concert.position, mode)
         .then((response) => {
-          this.setState({polylineCoords: getRouteCoordinates(response), mode: mode})
+          this.setState({ polylineCoords: getRouteCoordinates(response), mode: mode })
         });
     }
   }
@@ -135,22 +137,22 @@ export default class Detail extends Component {
     return this.props.concert.distance * 0.008;
   }
 
-	render() {
-		const { concert, region, navigator } = this.props;
+  render() {
+    const { concert, region, navigator } = this.props;
     const delta = this.calcDistance();
 
     return (
       <View style={detail.container}>
 
-        <DetailHeader gig={concert}/>
+        <DetailHeader gig={concert} />
 
         <View style={detail.imageView}>
           <Image
             style={detail.image}
-            source={{uri: concert.image}}>
+            source={{ uri: concert.image }}>
             <Routenplaner
               duration={this.state.duration}
-              setTravelMode={this.setTravelMode}/>
+              setTravelMode={this.setTravelMode} />
           </Image>
         </View>
 
@@ -163,7 +165,7 @@ export default class Detail extends Component {
               {concert.venue}
             </Text>
             <Text style={fonts.importantInfo}>
-               {this.state.street}
+              {this.state.street}
             </Text>
             <Text style={fonts.importantInfo}>
               {this.state.zip} {concert.city}
@@ -172,7 +174,7 @@ export default class Detail extends Component {
 
           {this.state.url && this.state.songTitle ?
             <Player url={this.state.url} songTitle={this.state.songTitle} />
-          : null }
+            : null}
         </View>
 
         <View style={detail.row}>
@@ -199,26 +201,26 @@ export default class Detail extends Component {
           showsBuildings={false}
           pitchEnabled={false}
           toolbarEnabled={false}
-          >
+        >
 
           <MapView.Marker
             identifier={concert.title}
             key={concert.id}
             coordinate={{
-                latitude: concert.position.lat,
-                longitude: concert.position.lng,
+              latitude: concert.position.lat,
+              longitude: concert.position.lng,
             }}
             title={concert.title}
             image={marker} />
-            <MapView.Polyline
-              coordinates={this.state.polylineCoords}
-              strokeWidth={2}
-              strokeColor="#008bae"
-             />
-         </MapView>
+          <MapView.Polyline
+            coordinates={this.state.polylineCoords}
+            strokeWidth={2}
+            strokeColor="#008bae"
+          />
+        </MapView>
       </View>
-		)
-	}
+    )
+  }
 }
 
 Detail.propTypes = {

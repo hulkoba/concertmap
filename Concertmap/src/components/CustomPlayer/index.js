@@ -18,15 +18,15 @@ class Player extends Component {
   constructor(props) {
     super(props);
     this.toggleSong = this.toggleSong.bind(this);
-   // this.onPreparing = this.onPreparing.bind(this);
-  //  this.onReady = this.onReady.bind(this);
-   //  this.onEnd = this.onEnd(this);
+    // this.onPreparing = this.onPreparing.bind(this);
+    //  this.onReady = this.onReady.bind(this);
+    //  this.onEnd = this.onEnd(this);
     this.state = {
       playStatus: INIT,
     };
   }
 
-  componentWillMount () {
+  componentWillMount() {
     // RCTDeviceEventEmitter.addListener('preparing', this.onPreparing);
     // RCTDeviceEventEmitter.addListener('ready', this.onReady);
     RCTDeviceEventEmitter.addListener('end', this.onEnd);
@@ -36,43 +36,43 @@ class Player extends Component {
   }
 
   componentWillUnmount() {
-    if(this.state.playStatus !== INIT) {
-      this.setState({playStatus: INIT});
+    if (this.state.playStatus !== INIT) {
+      this.setState({ playStatus: INIT });
       RCTAudio.stop();
     }
   }
 
   onPreparing() {
-    this.setState({playStatus: INIT});
+    this.setState({ playStatus: INIT });
   }
 
   onEnd() {
     RCTAudio.stop();
-    this.setState({playStatus: INIT});
+    this.setState({ playStatus: INIT });
   }
 
   start() {
     RCTAudio.prepare(this.props.url, true);
-    this.setState({playStatus: PLAYING});
+    this.setState({ playStatus: PLAYING });
     RCTAudio.start();
   }
 
-  pause () {
-    this.setState({playStatus: PAUSED});
+  pause() {
+    this.setState({ playStatus: PAUSED });
     RCTAudio.pause()
   }
 
-  resume () {
+  resume() {
     RCTAudio.resume()
-    this.setState({playStatus: PLAYING});
+    this.setState({ playStatus: PLAYING });
   }
 
-  toggleSong () {
-    if(this.state.playStatus === INIT ) {
+  toggleSong() {
+    if (this.state.playStatus === INIT) {
       this.start();
-    } else if(this.state.playStatus === PLAYING){
+    } else if (this.state.playStatus === PLAYING) {
       this.pause();
-    } else if(this.state.playStatus === PAUSED) {
+    } else if (this.state.playStatus === PAUSED) {
       this.resume();
     }
   }
@@ -85,9 +85,9 @@ class Player extends Component {
         return (<MaterialIcons name="pause-circle-outline" style={style.icon} />);
       case PAUSED:
         return (<MaterialIcons name="play-circle-outline" style={style.icon} />);
-    /*  case PREPARING:
-          return (<ActivityIndicator animating={true} style={style.animator} />);*/
-      }
+      /*  case PREPARING:
+            return (<ActivityIndicator animating={true} style={style.animator} />);*/
+    }
   }
 
   render() {

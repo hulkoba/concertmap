@@ -13,12 +13,12 @@ const DetailHeader = ({ gig }) => (
     {gig.support &&
       <Text style={fonts.importantInfo}>
         with {gig.support}
-      </Text> }
+      </Text>}
 
     {gig.subSupport &&
       <Text style={fonts.importantInfo}>
         and {gig.subSupport}
-      </Text> }
+      </Text>}
   </View>
 
 )

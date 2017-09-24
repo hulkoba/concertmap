@@ -14,11 +14,11 @@ const rowHasChanged = (r1, r2) => {
 };
 
 // DataSource template object
-const ds = new ListView.DataSource({rowHasChanged});
+const ds = new ListView.DataSource({ rowHasChanged });
 
 export default class ConcertList extends Component {
 
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.dataSource = ds;
   }
@@ -29,7 +29,7 @@ export default class ConcertList extends Component {
     </View>
   )
 
-	renderRow = (gig) => (
+  renderRow = (gig) => (
     <Row gig={gig} onRowPressed={this.handleRowPressed.bind(this, gig)} />
   )
 
@@ -41,11 +41,11 @@ export default class ConcertList extends Component {
     });
   }
 
-	render() {
-		const { concerts } = this.props;
-		// Use the dataSource
+  render() {
+    const { concerts } = this.props;
+    // Use the dataSource
     const rows = this.dataSource.cloneWithRows(concerts || []);
-		return (
+    return (
       <View style={list.container}>
         <ListView
           style={list.list}
@@ -55,8 +55,8 @@ export default class ConcertList extends Component {
           renderSeparator={(sectionId, rowId) => <View key={rowId} style={list.separator} />}
         />
       </View>
-		)
-	}
+    )
+  }
 }
 
 ConcertList.propTypes = {

@@ -37,7 +37,7 @@ export const detail = StyleSheet.create({
   imageView: {
     marginTop: 6,
     marginBottom: 12,
-    flexDirection:'row',
+    flexDirection: 'row',
     alignItems: 'stretch',
   },
   map: {
@@ -45,5 +45,5 @@ export const detail = StyleSheet.create({
     height: 250,
     marginLeft: -10,
     flex: 1,
-   },
+  },
 });

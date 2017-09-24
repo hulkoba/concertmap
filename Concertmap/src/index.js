@@ -6,7 +6,8 @@ import {
   Text,
   View,
   ActivityIndicator,
-  Navigator } from 'react-native';
+  Navigator
+} from 'react-native';
 
 import moment from 'moment';
 import deLocale from 'moment/locale/de';
@@ -62,12 +63,12 @@ export default class Concerts extends Component {
       if (hasLocationPermission) {
         this.getAppData();
       } else {
-         this.requestLocationPermission();
+        this.requestLocationPermission();
       }
     });
   };
 
-  hasLocationPermission = async() => {
+  hasLocationPermission = async () => {
     try {
       const result = await PermissionsAndroid.check(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
@@ -89,7 +90,7 @@ export default class Concerts extends Component {
   }
 
   setFilter = (index, filter) => {
-    this.setState({activeFilter: filter, initialRouteIndex: index});
+    this.setState({ activeFilter: filter, initialRouteIndex: index });
     this.getConcertsFromAPI(filter);
   }
 
@@ -107,26 +108,26 @@ export default class Concerts extends Component {
         });
       },
       (error) => console.log(error),
-      {enableHighAccuracy: false, timeout: 20000, maximumAge: 0}
+      { enableHighAccuracy: false, timeout: 20000, maximumAge: 0 }
     );
   }
 
   getConcertsFromAPI = (filter) => {
     const searchDate = moment(filter).format('YYYY-MM-DD');
     fetch(`${SONGKICK_URL}&location=geo:${this.state.position.latitude},${this.state.position.longitude}&min_date=${searchDate}&max_date=${searchDate}`)
-    .then((response) => response.json())
-    .then((responseJson) => {
-      concerts = buildConcerts(responseJson.resultsPage.results.event, this.state.position);
-      this.setState({
-        loading: false,
-        concerts: sortByDistance(concerts),
+      .then((response) => response.json())
+      .then((responseJson) => {
+        concerts = buildConcerts(responseJson.resultsPage.results.event, this.state.position);
+        this.setState({
+          loading: false,
+          concerts: sortByDistance(concerts),
+        });
+        return responseJson;
+      })
+      .catch((error) => {
+        this.setState({ error: true });
+        return error;
       });
-      return responseJson;
-    })
-    .catch((error) => {
-      this.setState({ error: true });
-      return error;
-    });
   }
 
   renderScene = (route, navigator) => {
@@ -142,12 +143,12 @@ export default class Concerts extends Component {
           region={this.state.position}
           navigator={navigator}
         />;
-		  case 2:
+      case 2:
         return <Detail
           navigator={navigator}
           region={this.state.position}
           concert={route.passProps} />;
-		  default:
+      default:
         return null;
     }
   };
@@ -156,11 +157,11 @@ export default class Concerts extends Component {
     const { loading, error, activeFilter, initialRouteIndex } = this.state;
 
     // I am fond of cryptic keys (but seriously, keys should be unique)
-		const routes = [
-			{ title: 'List', index: 0, key: 'list-' + moment() },
-			{ title: 'Map', index: 1, key: 'map-' + moment() },
-			{ title: 'Detail', index: 2, key: 'detail-' + moment() },
-		];
+    const routes = [
+      { title: 'List', index: 0, key: 'list-' + moment() },
+      { title: 'Map', index: 1, key: 'map-' + moment() },
+      { title: 'Detail', index: 2, key: 'detail-' + moment() },
+    ];
 
     if (loading) {
       return (
@@ -171,34 +172,34 @@ export default class Concerts extends Component {
     }
     if (error) {
       return (
-				<View style={styles.center}>
-					<Text style={fonts.importantInfo}>Heute gibt es keine Konzerte mehr.</Text>
-				</View>
-			);
+        <View style={styles.center}>
+          <Text style={fonts.importantInfo}>Heute gibt es keine Konzerte mehr.</Text>
+        </View>
+      );
     }
 
     // https://github.com/facebook/react-native/issues/2048
     // Navigator bug: push twice
     return (
-			<Navigator
-			 	style={styles.tabBar}
-        sceneStyle={{paddingTop: navStyles.General.TotalNavHeight}}
-				initialRoute={routes[initialRouteIndex]}
-				renderScene={this.renderScene}
+      <Navigator
+        style={styles.tabBar}
+        sceneStyle={{ paddingTop: navStyles.General.TotalNavHeight }}
+        initialRoute={routes[initialRouteIndex]}
+        renderScene={this.renderScene}
 
-				navigationBar={
-					 <Navigator.NavigationBar
+        navigationBar={
+          <Navigator.NavigationBar
             navigationStyles={navStyles}
-						routeMapper={{
-							LeftButton: (route, navigator, index, navState) => {
-                switch(route.index) {
+            routeMapper={{
+              LeftButton: (route, navigator, index, navState) => {
+                switch (route.index) {
                   case 0:
-									 return (<Text style={styles.tabTextActive}>LISTE</Text>);
+                    return (<Text style={styles.tabTextActive}>LISTE</Text>);
                   case 1:
                     return (
                       <TouchableHighlight
                         onPress={() => {
-                          if(!navState.routeStack.some((r) => (r.index === 0))) {
+                          if (!navState.routeStack.some((r) => (r.index === 0))) {
                             navigator.push(routes[0])
                           } else {
                             navigator.pop()
@@ -220,14 +221,14 @@ export default class Concerts extends Component {
                   default:
                     break;
                 }
-							},
-							RightButton: (route, navigator, index, navState) => {
-                switch(route.index) {
+              },
+              RightButton: (route, navigator, index, navState) => {
+                switch (route.index) {
                   case 0:
                     return (
                       <TouchableHighlight
                         onPress={() => {
-                          if(!navState.routeStack.some((r) => r.index === 1)) {
+                          if (!navState.routeStack.some((r) => r.index === 1)) {
                             navigator.push(routes[1])
                           } else {
                             navigator.jumpTo(routes[1])
@@ -238,13 +239,13 @@ export default class Concerts extends Component {
                   case 1:
                     return (<Text style={styles.tabTextActive}>KARTE</Text>);
                   case 2:
-                     return (<ShareBtn gig={route.passProps}/>);
+                    return (<ShareBtn gig={route.passProps} />);
                   default:
                     break;
                 }
-							},
-							Title: (route, navigator, index, navState) => {
-								if(route.index === 2) {
+              },
+              Title: (route, navigator, index, navState) => {
+                if (route.index === 2) {
                   return (
                     <Text style={styles.ticketButton}
                       onPress={() => {
@@ -257,14 +258,14 @@ export default class Concerts extends Component {
                   return (
                     <FilterBar
                       activeFilter={activeFilter}
-                      setFilter={this.setFilter.bind(this, route.index)}/>
-                    );
-                  }
-  							},
-  						}
+                      setFilter={this.setFilter.bind(this, route.index)} />
+                  );
+                }
+              },
             }
-					/>
-				}
+            }
+          />
+        }
       />
     )
   }

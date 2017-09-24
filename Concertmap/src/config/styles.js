@@ -6,7 +6,7 @@ export const colors = {
   white: '#e6e6e6',
   lightGrey: '#7d7d7d',
   grey: '#363636',
-	black: '#1a1a1a',
+  black: '#1a1a1a',
 };
 
 export const fonts = StyleSheet.create({

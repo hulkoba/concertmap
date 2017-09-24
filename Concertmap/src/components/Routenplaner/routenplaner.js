@@ -7,7 +7,7 @@ export const routenplaner = StyleSheet.create({
     paddingVertical: 4,
     paddingHorizontal: 22,
     backgroundColor: 'rgba(0,0,0,0.6)',
-    flexDirection:'row',
+    flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'space-between'
   },
