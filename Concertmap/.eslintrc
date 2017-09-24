@@ -5,7 +5,7 @@
     "ecmaFeatures": {
       "jsx": true
     }
-  }
+  },
   "env": {
     "browser": true,
     "es6": true
@@ -19,7 +19,7 @@
 	  "plugin:react-native/all"
   ],
   "rules": {
-  	strict: 0,
+  	"strict": 0,
     "quotes": [2, "single"],
     "eol-last": [0],
     "no-mixed-requires": [0],

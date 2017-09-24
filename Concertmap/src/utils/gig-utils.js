@@ -4,7 +4,7 @@ import { getArtistImage } from './api';
 import { getDistance } from './map-utils';
 
 export function sortByDistance(concerts) {
-  return concerts.sort((a,b) => (a.distance - b.distance));
+  return concerts.sort((a, b) => (a.distance - b.distance));
 }
 
 const startsLaterThanNow = (gig) => {
@@ -31,7 +31,8 @@ export function buildConcerts(gigs, devicePosition) {
       city: gig.location.city.split(',')[0],
       position,
       time: gig.start.time && gig.start.time.slice(0, -3),
-      datetime: gig.start.datetime ? moment(gig.start.datetime).calendar().split(' um')[0] :  moment(gig.start.date).calendar().split(' um')[0],
+      datetime: gig.start.datetime ?
+        moment(gig.start.datetime).calendar().split(' um')[0] : moment(gig.start.date).calendar().split(' um')[0],
       image: getArtistImage(gig.performance[0].artist.id),
       venueId: gig.venue.id,
       distance: distance,
